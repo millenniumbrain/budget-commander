@@ -2,12 +2,10 @@ Sequel.migration do
   up do
     create_table :users do
       primary_key :id
-      String :email, null: false
-      String :first_name
-      String :last_name
-      String :name, length: 20, null: false, unique: true
+      String :email, :null => false
+      String :name, :length => 20, :null => false, :unique => true
       String :password_hash
-      String :avatar, default: ''
+      String :avatar, :default => ''
       DateTime :created_at
       DateTime :updated_at
     end

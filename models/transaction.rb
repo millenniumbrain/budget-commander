@@ -3,4 +3,5 @@ class Transaction < Sequel::Model(:transactions)
   many_to_one :user
   many_to_one :account
   many_to_many :tags
+  
 end

@@ -29,17 +29,28 @@ BudgetCommander.route('accounts', 'users') do |r|
     end
   end
 
-  r.is 'transactions' do
-    r.get do
-      response['Content-Type'] = 'application/json'
-      transactions = Transaction.all.to_json(:include => :account)
-      parsed_transactions = JSON.parse(transactions)
-      parsed_transactions.map do |t|
-        t["account_id"] = account_name(t["account_id"])
-        t["created_at"] = Time.parse(t["created_at"]).utc.strftime("%b %e")
-        t["created_at"] = Time.parse(t["updated_at"]).utc.strftime("%b %e")
+  r.on 'transactions' do
+    r.is 'total' do
+      r.get do
+        response['Content-Type'] = 'application/json'
+        {:networth => DB[:transactions].sum(:amount),
+          :income => DB[:transactions].where{amount > 0}.sum(:amount),
+          :expenses => DB[:transactions].where{amount < 0}.sum(:amount)}.to_json
       end
-      parsed_transactions.to_json
+    end
+
+    r.is do
+      r.get do
+        response['Content-Type'] = 'application/json'
+        transactions = Transaction.all.to_json(:include => :account)
+        parsed_transactions = JSON.parse(transactions)
+        parsed_transactions.map do |t|
+          t["account_id"] = account_name(t["account_id"])
+          t["created_at"] = Time.parse(t["created_at"]).utc.strftime("%b %e")
+          t["created_at"] = Time.parse(t["updated_at"]).utc.strftime("%b %e")
+        end
+        parsed_transactions.to_json
+      end
     end
   end
 end

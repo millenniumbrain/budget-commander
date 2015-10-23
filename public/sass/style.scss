@@ -37,7 +37,7 @@
 }
 
 .download {
-  text-align: right;  
+  text-align: right;
 }
 
 #downloadButton {
@@ -54,18 +54,21 @@
   text-transform: uppercase;
   border-radius: 3px;
   width: 95%;
+  h3 {
+    font-size: 0.9em;
+  }
+
+  h2 {
+    font-weight: normal;
+  }
 }
 
-.budget-total {
-  color: #1A4C6D;
-}
-
-.income-total {
-  color: #126146;
-}
-
-.expense-total {
+.expense {
   color: #ad000d;
+}
+
+.income {
+  color: #126146;
 }
 
 #activity {
@@ -77,7 +80,7 @@
   border: 1px solid #ccc;
   border-radius: 3px;
   td, th {
-    padding: 15px 30px;
+    padding: 15px 20px;
     border-bottom: 1px solid #ccc;
     text-align: center;
   }

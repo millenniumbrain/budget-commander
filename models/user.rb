@@ -9,7 +9,6 @@ class User < Sequel::Model(:users)
   one_to_many :ships
 
   def self.login(username, password)
-    puts username
     return unless username && password
     return unless user = filter(name: username).first
     return unless BCrypt::Password.new(user.password_hash) == password
