@@ -1,0 +1,44 @@
+<div class="overview flex-grid">
+  <div class="flex-cell">
+    <button id="addButton" class="primary"><span class="fa fa-usd"></span>Add</button>
+    <button id="uploadButton" class="primary"><span class="fa fa-upload"></span>Upload</button>
+  </div>
+  <div class="flex-cell">
+    <form class="search">
+      <div class="form-control">
+        <span class="fa fa-search"></span>
+        <input type="text" placeholder="Search">
+      </div>
+    </form>
+  </div>
+  <div class="download flex-cell">
+    <button id="downloadButton" class="button"><span class="fa fa-download"></span>Download</button>
+  </div>
+</div>
+<div class="sum-total flex-grid">
+  <div class="flex-cell budget-total">
+    <h3>Budget Balance</h3>
+    <h2>$4,000</h2>
+  </div>
+  <div class="flex-cell income-total">
+    <h3>Income this Month</h3>
+    <h2>$2,400</h2>
+  </div>
+  <div class="flex-cell expense-total">
+    <h3>Expenses this Month</h3>
+    <h2>$500</h2>
+  </div>
+</div>
+<div class="transaction">
+  <table id="activity">
+    <thead>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>Description</th>
+      <th>Account Name</th>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+<script src="/js/users/dashboard.js"></script>

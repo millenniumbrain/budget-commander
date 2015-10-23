@@ -1,0 +1,84 @@
+@import 'base';
+
+.content {
+  background: #ddd;
+  width: 85%;
+  margin-left: 15%;
+  height: 100%;
+}
+
+.overview {
+  background: #FFFFFF;
+  padding: 30px;
+  color: #111;
+  .flex-cell {
+    align-items: center;
+    margin: 0 10px;
+  }
+}
+
+.search {
+  position: relative;
+  font-size: 1.4em;
+  width: 90%;
+  input[type="text"] {
+    background: #fff;
+    width: 100%;
+    padding: 9px 15px 8px 28px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  span {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    //font
+  }
+}
+
+.download {
+  text-align: right;  
+}
+
+#downloadButton {
+ // text-align: right;
+}
+
+.sum-total {
+  border: 1px solid #ccc;
+  font-size: 1.4em;
+  text-align: center;
+  padding:  35px 20px;
+  margin: 20px auto;
+  background: #fff;
+  text-transform: uppercase;
+  border-radius: 3px;
+  width: 95%;
+}
+
+.budget-total {
+  color: #1A4C6D;
+}
+
+.income-total {
+  color: #126146;
+}
+
+.expense-total {
+  color: #ad000d;
+}
+
+#activity {
+  width: 97.5%;
+  background: #fff;
+  font-size: 1.4em;
+  text-transform: uppercase;
+  margin: 10px auto;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  td, th {
+    padding: 15px 30px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+  }
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/minimal.css">
+    <script src="/js/pace.min.js"></script>
+  </head>
+  <body>
+    <nav class="nav">
+      <ul id="menu">
+        <li>
+          <a href="#"><span class="fa fa-dashboard"></span>Dashboard</a>
+        </li>
+        <li>
+          <a href="#"><span class="fa fa-book"></span>Accounts</a>
+        </li>
+        <li>
+          <a href="#"><span class="fa fa-ship"></span>Budgets</a>
+        </li>
+        <li>
+          <a href="#"><span class="fa fa-line-chart"></span>Reports</a>
+        </li>
+        <li>
+          <a href="#"><span class="fa fa-tags"></span>Tags</a>
+        </li>
+        <li>
+          <a href="#"><span class="fa fa-cog"></span>Settings</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="content">
+      <%= yield %>
+    </div>
+    <script src="/js/lodash.min.js"></script>
+    <script src="/js/accounting.min.js"></script>
+  </body>
+</html>

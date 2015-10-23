@@ -1,0 +1,126 @@
+* {
+  padding: 0;
+  margin: 0; }
+
+html {
+  font: 62.5%/1.5 'Montserrat', sans-serif;
+  height: 100%; }
+
+body {
+  font-size: 10px;
+  width: 100%;
+  height: 100%; }
+
+.nav {
+  background: #162029;
+  height: 100%;
+  width: 15%;
+  position: fixed;
+  border-right: 1px solid #dcdee7; }
+
+#menu {
+  text-transform: uppercase; }
+  #menu li {
+    font-size: 1.6em; }
+    #menu li a {
+      padding: 18px 10px;
+      text-decoration: none;
+      color: #fff;
+      display: block;
+      border-bottom: 1px solid #22313f; }
+      #menu li a:hover {
+        background: #22313f;
+        color: #3498DB; }
+      #menu li a span {
+        padding: 0 10px; }
+
+.flex-grid {
+  display: flex; }
+
+.flex-cell {
+  flex: 1; }
+
+.button, .primary {
+  border-radius: 3px;
+  text-transform: uppercase;
+  padding: 7px 24px;
+  font-size: 1.3em;
+  margin: 0 10px;
+  border: 1px solid transparent; }
+  .button span, .primary span {
+    padding: 0 5px 0 0; }
+
+.primary {
+  background: #004774;
+  color: #fff; }
+  .primary:hover {
+    background: #fff;
+    color: #004774;
+    border: 1px solid #004774; }
+
+.content {
+  background: #ddd;
+  width: 85%;
+  margin-left: 15%;
+  height: 100%; }
+
+.overview {
+  background: #FFFFFF;
+  padding: 30px;
+  color: #111; }
+  .overview .flex-cell {
+    align-items: center;
+    margin: 0 10px; }
+
+.search {
+  position: relative;
+  font-size: 1.4em;
+  width: 90%; }
+  .search input[type="text"] {
+    background: #fff;
+    width: 100%;
+    padding: 9px 15px 8px 28px;
+    border: 1px solid #ccc;
+    border-radius: 3px; }
+  .search span {
+    position: absolute;
+    top: 12px;
+    left: 10px; }
+
+.download {
+  text-align: right; }
+
+.sum-total {
+  border: 1px solid #ccc;
+  font-size: 1.4em;
+  text-align: center;
+  padding: 35px 20px;
+  margin: 20px auto;
+  background: #fff;
+  text-transform: uppercase;
+  border-radius: 3px;
+  width: 95%; }
+
+.budget-total {
+  color: #1A4C6D; }
+
+.income-total {
+  color: #126146; }
+
+.expense-total {
+  color: #ad000d; }
+
+#activity {
+  width: 97.5%;
+  background: #fff;
+  font-size: 1.4em;
+  text-transform: uppercase;
+  margin: 10px auto;
+  border: 1px solid #ccc;
+  border-radius: 3px; }
+  #activity td, #activity th {
+    padding: 15px 30px;
+    border-bottom: 1px solid #ccc;
+    text-align: center; }
+
+/*# sourceMappingURL=style.css.map */
