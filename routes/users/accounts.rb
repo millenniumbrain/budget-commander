@@ -47,7 +47,7 @@ BudgetCommander.route('accounts', 'users') do |r|
         parsed_transactions.map do |t|
           t["account_id"] = account_name(t["account_id"])
           t["created_at"] = Time.parse(t["created_at"]).utc.strftime("%b %e")
-          t["created_at"] = Time.parse(t["updated_at"]).utc.strftime("%b %e")
+          t["updated_at"] = Time.parse(t["updated_at"]).utc.strftime("%b %e")
         end
         parsed_transactions.to_json
       end
