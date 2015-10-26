@@ -119,12 +119,15 @@
   width: 97.5%;
   background: #fff;
   font-size: 1.4em;
-  text-transform: uppercase;
   margin: 10px auto;
   border: 1px solid #ccc;
   border-radius: 3px;
   td, th {
     padding: 15px 20px;
     border-bottom: 1px solid #ccc;
+  }
+
+  th {
+    text-transform: uppercase;
   }
 }

@@ -21,7 +21,6 @@ var addTransactions = function(data) {
     if (transaction.amount < 0) {
       amount.innerHTML = floatToDecimal(transaction.amount);
       amount.setAttribute("class", "expense");
-      amount.innerHTML = floatToDecimal(transaction.amount);
     } else if(transaction.amount > 0) {
       amount.setAttribute("class", "income");
       amount.innerHTML = "+" + floatToDecimal(transaction.amount);

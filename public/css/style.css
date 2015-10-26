@@ -130,12 +130,13 @@ body {
   width: 97.5%;
   background: #fff;
   font-size: 1.4em;
-  text-transform: uppercase;
   margin: 10px auto;
   border: 1px solid #ccc;
   border-radius: 3px; }
   #activity td, #activity th {
     padding: 15px 20px;
     border-bottom: 1px solid #ccc; }
+  #activity th {
+    text-transform: uppercase; }
 
 /*# sourceMappingURL=style.css.map */

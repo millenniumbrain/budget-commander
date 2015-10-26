@@ -40,6 +40,13 @@ BudgetCommander.route('accounts', 'users') do |r|
       end
     end
 
+    r.is 'tags' do
+      r.get do
+        response['Content-Type'] = 'application/json'
+        tags = DB[:tags].join(:transactions).all.to_json
+      end
+    end
+
     r.is do
       r.get do
         response['Content-Type'] = 'application/json'
