@@ -105,11 +105,26 @@ body {
   .sum-total h2 {
     font-weight: normal; }
 
+.amount, .expense, .income, .amount-label {
+  text-align: center; }
+
 .expense {
   color: #ad000d; }
 
 .income {
   color: #126146; }
+
+.date, .date-label {
+  text-align: center; }
+
+.description, .description-label {
+  text-align: left; }
+
+.tag, .tag-label {
+  text-align: left; }
+
+.account, .account-name {
+  text-align: left; }
 
 #activity {
   width: 97.5%;
@@ -121,7 +136,6 @@ body {
   border-radius: 3px; }
   #activity td, #activity th {
     padding: 15px 20px;
-    border-bottom: 1px solid #ccc;
-    text-align: center; }
+    border-bottom: 1px solid #ccc; }
 
 /*# sourceMappingURL=style.css.map */

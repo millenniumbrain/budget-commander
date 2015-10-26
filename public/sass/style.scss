@@ -63,12 +63,56 @@
   }
 }
 
+.amount {
+  text-align: center;
+}
+
 .expense {
+  @extend .amount;
   color: #ad000d;
 }
 
 .income {
+  @extend .amount;
   color: #126146;
+}
+
+.date {
+  text-align: center;
+}
+
+.date-label {
+  @extend .date;
+}
+
+
+
+.amount-label {
+  @extend .amount;
+}
+
+.description {
+  text-align: left;
+}
+
+.description-label {
+  @extend .description;
+}
+
+.tag {
+  text-align: left;
+}
+
+.tag-label {
+  @extend .tag;
+}
+
+.account {
+  text-align: left;
+}
+
+.account-name {
+  @extend .account;
 }
 
 #activity {
@@ -82,6 +126,5 @@
   td, th {
     padding: 15px 20px;
     border-bottom: 1px solid #ccc;
-    text-align: center;
   }
 }

@@ -25,3 +25,7 @@ Wallet.add_transaction(amount: -7.67, description: 'Humble Bundle').add_tag(ente
 Wallet.add_transaction(amount: -12, description: 'Subway').add_tag(food)
 Wallet.add_transaction(amount: -10, description: 'Digital Ocean').add_tag(business)
 Wallet.add_transaction(amount: 100, description: '100 dollars from parents').add_tag(income)
+
+user.add_budget(:name => "Food", :spending_limit => 100)
+user.add_budget(:name => "Entertainment", :spending_limit => 50)
+user.add_budget(:name => "Misc", :spending_limit => 50)

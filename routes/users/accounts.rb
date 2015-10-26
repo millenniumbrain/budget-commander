@@ -34,6 +34,7 @@ BudgetCommander.route('accounts', 'users') do |r|
       r.get do
         response['Content-Type'] = 'application/json'
         {:networth => DB[:transactions].sum(:amount),
+          :budget_balance => DB[:budgets].sum(:spending_limit) + DB[:transactions].where{amount < 0}.sum(:amount),
           :income => DB[:transactions].where{amount > 0}.sum(:amount),
           :expenses => DB[:transactions].where{amount < 0}.sum(:amount)}.to_json
       end
