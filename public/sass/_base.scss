@@ -36,11 +36,11 @@ body {
        background: #22313f;
        color: #3498DB;
      }
-     
+
      span {
        padding: 0 10px;
      }
-   } 
+   }
   }
 }
 
@@ -72,5 +72,11 @@ body {
     background: #fff;
     color: #004774;
     border: 1px solid #004774;
+  }
+}
+
+form {
+  fieldset {
+    border: none;
   }
 }

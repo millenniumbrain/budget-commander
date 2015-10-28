@@ -1,11 +1,34 @@
+<div id="transactionOverlay">
+  <div class="overlay-box">
+    <span id="closeTranOverlay" class="fa fa-close overlay-close"></span>
+    <form id="formTransactions" class="form form-aligned" method="post" action="/users/accounts/transactions/new">
+      <fieldset>
+        <legend>Add Transactions</legend>
+        <div class="form-control-group">
+
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+<div id="accountOverlay">
+  <form class="form form-aligned" method="post" action="/users/accounts/new">
+    <fieldset>
+      <legend>Add Account</legend>
+      <div class="form-control-group">
+        <label>Financial Institution</label>
+      </div>
+    </fieldset>
+  </form>
+</div>
 <div class="overview flex-grid">
-  <div class="flex-cell">
+  <div class="add-upload flex-cell">
     <button id="addButton" class="primary"><span class="fa fa-usd"></span>Add</button>
     <ul id="addOptions">
-      <li>Add Transaction</li>
-      <li>Add Account</li>
-      <li>Add Budget</li>
-      <li>Add Tags</li>
+      <li id="addTransactionItem"><span class="fa fa-plus"></span>Add Transaction</li>
+      <li id="addAccountItem"><span class="fa fa-plus"></span>Add Account</li>
+      <li><span class="fa fa-plus"></span>Add Budget</li>
+      <li><span class="fa fa-plus"></span>Add Tags</li>
     </ul>
     <button id="uploadButton" class="primary"><span class="fa fa-upload"></span>Upload</button>
   </div>
@@ -30,7 +53,7 @@
       <tr>
         <th class="date-label">Date</th>
         <th class="amount-label">Amount</th>
-        <th class="amount-label">Description</th>
+        <th class="description-label">Description</th>
         <th class="tag-label">Tags</th>
         <th class="account-name">Account Name</th>
       </tr>
