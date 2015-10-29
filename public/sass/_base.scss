@@ -77,6 +77,27 @@ body {
 
 form {
   fieldset {
+    padding: 0;
     border: none;
+  }
+}
+
+.form {
+
+}
+
+.form-aligned {
+  text-align: left;
+  h4 {
+    margin: 20px 0 0;
+    padding: 25px 0 10px;
+    text-align: left;
+  }
+}
+
+.form-control-group {
+  padding: 15px 20px;
+  label {
+    margin-right: 5px;
   }
 }

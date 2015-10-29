@@ -1,12 +1,45 @@
 <div id="transactionOverlay">
   <div class="overlay-box">
     <span id="closeTranOverlay" class="fa fa-close overlay-close"></span>
-    <form id="formTransactions" class="form form-aligned" method="post" action="/users/accounts/transactions/new">
+    <form id="formTransactions" class="overlay-form form form-aligned" method="post" action="/users/accounts/transactions/new">
       <fieldset>
-        <legend>Add Transactions</legend>
+        <legend><span id="multiTransaction" class="overlay-legend">Multiple Transaction</span><span class="overlay-legend">|</span><span id="singleTransaction" class="overlay-legend">Add Transaction</span></legend>
         <div class="form-control-group">
-
+          <h4>Type</h4>
+          <label class="radio-overlay">
+            Expense
+            <input type="radio">
+          </label>
+          <label class="radio-overlay">
+            Icome
+            <input type="radio">
+          </label>
+          <label class="radio-overlay">
+            Loan
+            <input type="radio">
+          </label>
+          <label class="radio-overlay">
+            Transfer
+            <input type="radio">
+          </label>
         </div>
+        <div class="form-control-group">
+          <label>Name</label>
+          <input type="text">
+          <label>Amount</label>
+          <input type="text">
+          <select>
+            <option>Wallet</option>
+          </select>
+          <span class="select-arrow fa fa-caret-down"></span>
+        </div>
+        <div class="form-control-group">
+          <label>Date</label>
+          <input class="form-overlay-date" type="text">
+          <label>Tags</label>
+          <input type="text">
+        </div>
+        <button class="primary" type="submit">Submit</button>
       </fieldset>
     </form>
   </div>
@@ -62,4 +95,4 @@
     </tbody>
   </table>
 </div>
-<script src="/js/users/dashboard.js"></script>
+<script src="/js/dist/app.js"></script>
