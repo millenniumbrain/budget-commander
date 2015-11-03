@@ -1,0 +1,24 @@
+{
+  "name": "budget-commander",
+  "version": "1.0.0",
+  "description": "A budgeting application",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/millenniumbrain/budget-commander.git"
+  },
+  "author": "William Wilson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/millenniumbrain/budget-commander/issues"
+  },
+  "homepage": "https://github.com/millenniumbrain/budget-commander#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-sourcemaps": "^1.6.0"
+  }
+}

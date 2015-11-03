@@ -111,6 +111,8 @@ form fieldset {
     left: 0;
     z-index: 1001; }
   .overlay-form input[type="text"] {
+    width: 200px;
+    border-radius: 3px;
     border: 1px solid #ddd;
     padding: 5px;
     margin-right: 15px; }
@@ -159,6 +161,13 @@ form fieldset {
 #formTransactions {
   width: 100%;
   height: 100%; }
+
+#intAccountSearch {
+  padding: 8px 10px;
+  width: 300px; }
+
+#accountSearchBtn {
+  margin: 20px 0; }
 
 .overview {
   background: #FFFFFF;

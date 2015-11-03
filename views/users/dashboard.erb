@@ -24,7 +24,7 @@
           </label>
         </div>
         <div class="form-control-group">
-          <label>Name</label>
+          <label>Description</label>
           <input type="text">
           <label>Amount</label>
           <input type="text">
@@ -45,14 +45,17 @@
   </div>
 </div>
 <div id="accountOverlay">
-  <form class="form form-aligned" method="post" action="/users/accounts/new">
-    <fieldset>
-      <legend>Add Account</legend>
-      <div class="form-control-group">
-        <label>Financial Institution</label>
-      </div>
-    </fieldset>
-  </form>
+  <div class="overlay-box">
+    <span id="closeAccountOverlay" ></span>
+    <form class="form form-aligned" method="post" action="/users/accounts/new">
+      <fieldset>
+        <legend>Add Account</legend>
+        <div class="form-control-group">
+          <label>Financial Institution</label>
+        </div>
+      </fieldset>
+    </form>
+  </div>
 </div>
 <div class="overview flex-grid">
   <div class="add-upload flex-cell">
