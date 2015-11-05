@@ -80,7 +80,7 @@ form fieldset {
   margin-left: 15%;
   height: 100%; }
 
-.overlay, #transactionOverlay, #accountOverlay {
+.overlay, #transactionOverlay, #accountOverlay, #budgetOverlay {
   background: rgba(0, 0, 0, 0.6);
   visibility: hidden;
   position: absolute;
@@ -91,7 +91,7 @@ form fieldset {
   text-align: center;
   z-index: 1000;
   font-size: 1.4em; }
-  .overlay .overlay-box, #transactionOverlay .overlay-box, #accountOverlay .overlay-box {
+  .overlay .overlay-box, #transactionOverlay .overlay-box, #accountOverlay .overlay-box, #budgetOverlay .overlay-box {
     position: relative;
     width: 820px;
     margin: 50px auto;
@@ -114,7 +114,7 @@ form fieldset {
     width: 200px;
     border-radius: 3px;
     border: 1px solid #ddd;
-    padding: 5px;
+    padding: 8px;
     margin-right: 15px; }
   .overlay-form select {
     width: 120px;
@@ -162,12 +162,24 @@ form fieldset {
   width: 100%;
   height: 100%; }
 
-#intAccountSearch {
-  padding: 8px 10px;
-  width: 300px; }
+#searchAccountGroup {
+  position: relative; }
+  #searchAccountGroup legend {
+    height: 20px; }
+  #searchAccountGroup span {
+    position: absolute;
+    bottom: 46px;
+    left: 33px;
+    font-size: 1.1em; }
+  #searchAccountGroup input[type="text"] {
+    padding: 8px 10px 8px 35px;
+    width: 300px;
+    margin-right: 0; }
+  #searchAccountGroup button {
+    margin-left: 5px; }
 
-#accountSearchBtn {
-  margin: 20px 0; }
+#addBudgetForm td, #addBudgetForm th {
+  padding: 10px; }
 
 .overview {
   background: #FFFFFF;

@@ -25,6 +25,9 @@ addTranItem.init();
 var addAccountItem = new Overlay("accountOverlay", "addAccountItem", "closeAccountOverlay");
 addAccountItem.init();
 
+var addBudgetItem = new Overlay("budgetOverlay","addBudgetItem", "closeBudgetOverlay");
+addBudgetItem.init();
+
 /*global _*/
 'use strict';
 
@@ -131,12 +134,11 @@ Helpers.prototype = {
    return decimalNumber;
   },
   checkAmountNumber: function (el, amount) {
-    if (amount < 0) {
-    } else if (amount > 0) {     
-      amount.setAttribute("class", "amount expense");
+    if (amount < 0) { 
+      el.setAttribute("class", "amount expense");
       el.innerHTML = this.floatToDecimal(amount);
     } else {
-      amount.setAttribute("class", "amount income");
+      el.setAttribute("class", "amount income");
       el.innerHTML = "+" + this.floatToDecimal(amount);
     }
   }

@@ -24,3 +24,6 @@ addTranItem.init();
 
 var addAccountItem = new Overlay("accountOverlay", "addAccountItem", "closeAccountOverlay");
 addAccountItem.init();
+
+var addBudgetItem = new Overlay("budgetOverlay","addBudgetItem", "closeBudgetOverlay");
+addBudgetItem.init();

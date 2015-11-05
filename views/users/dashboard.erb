@@ -46,14 +46,48 @@
 </div>
 <div id="accountOverlay">
   <div class="overlay-box">
-    <span id="closeAccountOverlay" ></span>
-    <form class="form form-aligned" method="post" action="/users/accounts/new">
+    <span id="closeAccountOverlay" class="fa fa-close overlay-close"></span>
+    <form id="acctOverlayForm" class="overlay-form form form-aligned" method="post" action="/users/accounts/new">
       <fieldset>
-        <legend>Add Account</legend>
-        <div class="form-control-group">
-          <label>Financial Institution</label>
+        <legend><span class="overlay-legend">Add Account</span></legend>
+        <div id="searchAccountGroup" class="form-control-group">
+          <h4>Financial Institution</h4>
+          <span class="fa fa-search"></span>
+          <input type="text" placeholder="Search">
+          <button type="Submit" class="primary">Add Account</button>
         </div>
       </fieldset>
+    </form>
+  </div>
+</div>
+<div id="budgetOverlay">
+  <div class="overlay-box">
+    <span id="closeBudgetOverlay" class="fa fa-close overlay-close"></span>
+    <form id="addBudgetForm" class="overlay-form form form-aligned">  
+      <legend><span class="overlay-legend">Add Budgets</span></legend>
+      <div class="form-control-group">
+        <h4>Budgets</h4>
+        <form class="overlay-form">
+          <div class="form-control-group">
+            <label>Overall Spending Limit</label>
+            <input type="text">
+          </div>
+          <table>
+            <thead>
+              <tr>
+              <th>Name</th>
+              <th>Spending Limit</th>
+              <th>Reccuring</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+              </tr>
+            </tbody>
+          </table>
+          <button class="primary">Save</button>
+        </form>
+      </div>
     </form>
   </div>
 </div>
@@ -61,10 +95,10 @@
   <div class="add-upload flex-cell">
     <button id="addButton" class="primary"><span class="fa fa-usd"></span>Add</button>
     <ul id="addOptions">
-      <li id="addTransactionItem"><span class="fa fa-plus"></span>Add Transaction</li>
-      <li id="addAccountItem"><span class="fa fa-plus"></span>Add Account</li>
-      <li><span class="fa fa-plus"></span>Add Budget</li>
-      <li><span class="fa fa-plus"></span>Add Tags</li>
+      <li id="addTransactionItem"><span class="fa fa-plus"></span>Transaction</li>
+      <li id="addAccountItem"><span class="fa fa-plus"></span>Account</li>
+      <li id="addBudgetItem"><span class="fa fa-plus"></span>Budget</li>
+      <li><span class="fa fa-plus"></span>Tags</li>
     </ul>
     <button id="uploadButton" class="primary"><span class="fa fa-upload"></span>Upload</button>
   </div>
