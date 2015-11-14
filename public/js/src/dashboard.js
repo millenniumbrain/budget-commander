@@ -31,7 +31,7 @@
       flexCell.setAttribute("class", "flex-cell");
       // get the value and output what we want the user to see instead of the key
       if(value < 0) {
-        label.innerHTML = key;
+        label.innerHTML = "Monthly Expenses";
         total.setAttribute("class", "expense");
         total.innerHTML = value;
         flexCell.appendChild(label);
@@ -73,23 +73,6 @@
       }
     });
   };
-
-  var request = new XMLHttpRequest();
-
-  request.open("GET", "/users/accounts/transactions/total", true);
-
-  request.onload = function() {
-    if (request.status >= 200 && request.status < 400) {
-      var data = JSON.parse(request.responseText);
-      addTotals(data);
-    }
-    else {
-
-    }
-  };
-
-  request.onerror = function() {
-
-  };
-  request.send();
+  
+  get("/users/total", addTotals);
 })();

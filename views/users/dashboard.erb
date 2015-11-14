@@ -77,12 +77,27 @@
               <tr>
               <th>Name</th>
               <th>Spending Limit</th>
+              <th>Frequency</th>
               <th>Reccuring</th>
             </tr>
             </thead>
             <tbody>
-              <tr>
-              </tr>
+              <% for i in 0...7 do %>
+                <tr>
+                  <td><input type="text"></td>
+                  <td><input type="text"></td>
+                  <td>
+                    <select autocomplete="off">
+                      <option>per week</option>
+                      <option selected=”selected”>per month</option>
+                      <option>per year</option>
+                      <span class="select-arrow fa fa-caret-down"></span>
+                    </select>
+                  </td>
+                  <td><input type="checkbox"></td>
+                </tr>
+              <% end %>
+              <tr><td><button class="button-budget">Add Another Budget</button></td></tr>
             </tbody>
           </table>
           <button class="primary">Save</button>
@@ -113,6 +128,14 @@
   <div class="download flex-cell">
     <button id="downloadButton" class="button"><span class="fa fa-download"></span>Download</button>
     <button id="downloadButton" class="button"><span class="fa fa-rocket"></span>Export</button>
+  </div>
+</div>
+<div class="flex-grid">
+  <div class="widget-container flex-cell">
+    <div class="chart-widget" id="overallBudgetChart"></div>
+  </div>
+  <div class="widget-container flex-cell">
+    <div class="chart-widget" id="networthChart"></div>
   </div>
 </div>
 <div class="sum-total flex-grid">

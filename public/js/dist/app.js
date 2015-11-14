@@ -28,6 +28,35 @@ addAccountItem.init();
 var addBudgetItem = new Overlay("budgetOverlay","addBudgetItem", "closeBudgetOverlay");
 addBudgetItem.init();
 
+function budgetFilter(data) {
+  var budgetLabels = [];
+  var budgetValues = [];
+  for (var i = 0; i < data.length; i++) {
+    budgetLabels.push(data[i].name);
+    budgetValues.push(data[i].spending_limit);
+  }
+
+  var budgets = {
+    labels: budgetLabels,
+    series: budgetValues
+  };
+
+  var options = {
+    labelInterpolationFnc: function(value) {
+      return value
+    },
+    chartPadding: 30,
+    labelDirection: 'explode',
+    labelOffset: 50,
+    donut: true
+  };
+  
+
+  new Chartist.Pie('#overallBudgetChart', budgets, options);
+}
+
+get("/users/budgets", budgetFilter);
+
 /*global _*/
 'use strict';
 
@@ -61,7 +90,7 @@ addBudgetItem.init();
       flexCell.setAttribute("class", "flex-cell");
       // get the value and output what we want the user to see instead of the key
       if(value < 0) {
-        label.innerHTML = key;
+        label.innerHTML = "Monthly Expenses";
         total.setAttribute("class", "expense");
         total.innerHTML = value;
         flexCell.appendChild(label);
@@ -103,25 +132,8 @@ addBudgetItem.init();
       }
     });
   };
-
-  var request = new XMLHttpRequest();
-
-  request.open("GET", "/users/accounts/transactions/total", true);
-
-  request.onload = function() {
-    if (request.status >= 200 && request.status < 400) {
-      var data = JSON.parse(request.responseText);
-      addTotals(data);
-    }
-    else {
-
-    }
-  };
-
-  request.onerror = function() {
-
-  };
-  request.send();
+  
+  get("/users/total", addTotals);
 })();
 
 function Helpers() {
@@ -146,37 +158,51 @@ Helpers.prototype = {
 
 appHelpers = new Helpers();
 
-function HTTPClient() { 
-}
+function get(url, callback) {
+  var request = new XMLHttpRequest();
 
-HTTPClient.prototype = {
-  constructor: HTTPClient,
-  get: function(url, callback) {
-    var request = new XMLHttpRequest();
-    request.open("GET", url, true);
-
-    request.onload = function (e) {
-      if(request.readyState === 4) {
-        if(request.status >= 200 && request.status < 400) {
-          var data = JSON.parse(request.responseText);
-          if(typeof callback === "function") {
-            callback(data);
-          }
+  request.open("GET", url, true);
+  request.onload = function(e) {
+    if (request.readyState === 4) {
+      if (request.status >= 200 && request.status < 400) {
+        var data = JSON.parse(request.responseText);
+        if (typeof callback === "function") {
+          callback(data);
         }
-      } else {
-        console.log(request.statusText);
+        else {
+
+        }
       }
-    };
+    }
+    else {
+      console.log(request.statusText);
+    }
+  };
 
-    request.onerror = function () {
-    };
-
-    request.send(null);
-  }
+  request.onerror = function() {};
+  request.send(null);
 }
-
+/*
+function networthChart(data) {
+  
+  function createArray(data) {
+      var array = [];
+      for (var i = 0; i < data.length; i++) {
+        array.push(appHelpers.floatToDecimal(data[i]amount));
+      }
+      
+      return array;
+  }
+  var networthLabel = ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var networthIncome = [];
+  var networthExpenses = [];
+  
+}
+*/
+/* global appHelpers */
+/* global HTTPClient */
 function ActivityTable() {
- }
+}
 
 ActivityTable.prototype = {
   constructor: ActivityTable,
@@ -211,12 +237,11 @@ ActivityTable.prototype = {
     });  
   },
   getTableData: function (url) {
-      var httpRequest = new HTTPClient();
-      httpRequest.get(url, this.filterToTable);
+      get(url, this.filterToTable);
   }
 }
 
-tranActivity = new ActivityTable();
+var tranActivity = new ActivityTable();
 tranActivity.getTableData("/users/accounts/transactions");
 
 //# sourceMappingURL=app.js.map

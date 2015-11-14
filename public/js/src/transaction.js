@@ -1,5 +1,7 @@
+/* global appHelpers */
+/* global HTTPClient */
 function ActivityTable() {
- }
+}
 
 ActivityTable.prototype = {
   constructor: ActivityTable,
@@ -34,10 +36,9 @@ ActivityTable.prototype = {
     });  
   },
   getTableData: function (url) {
-      var httpRequest = new HTTPClient();
-      httpRequest.get(url, this.filterToTable);
+      get(url, this.filterToTable);
   }
 }
 
-tranActivity = new ActivityTable();
+var tranActivity = new ActivityTable();
 tranActivity.getTableData("/users/accounts/transactions");

@@ -49,6 +49,7 @@
     margin-right: 15px;
   }
   select {
+    font-size: 0.9em;
     width: 120px;
     padding: 5px 20px 5px 10px;
     background: #004774;
@@ -142,6 +143,15 @@
 #addBudgetForm {
   td, th {
     padding: 10px;
+  }
+  
+  .button {
+    margin-left: 0;
+  }
+  
+  .button-budget {
+    @extend .button;
+    font-size: 0.9em;
   }
 }
 

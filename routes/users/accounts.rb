@@ -28,25 +28,15 @@ BudgetCommander.route('accounts', 'users') do |r|
       end
     end
   end
-
+  
   r.on 'transactions' do
-    r.is 'total' do
+    r.is 'new' do
       r.get do
-        response['Content-Type'] = 'application/json'
-        {:networth => DB[:transactions].sum(:amount),
-          :budget_balance => DB[:budgets].sum(:spending_limit) + DB[:transactions].where{amount < 0}.sum(:amount),
-          :income => DB[:transactions].where{amount > 0}.sum(:amount),
-          :expenses => DB[:transactions].where{amount < 0}.sum(:amount)}.to_json
+        acct = Account[1]
+        acct.add_transaction(amount: 75, description: 'Notebook', :created_at => TimeShift.sub_months(1))
       end
     end
-
-    r.is 'tags' do
-      r.get do
-        response['Content-Type'] = 'application/json'
-        tags = DB[:tags].join(:transactions).all.to_json
-      end
-    end
-
+    
     r.is do
       r.get do
         response['Content-Type'] = 'application/json'
