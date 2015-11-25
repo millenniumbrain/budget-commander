@@ -14,15 +14,11 @@ gem 'pg'
 gem 'bcrypt'
 
 # => templates
-gem 'builder'
 gem 'tilt'
 gem 'erubis'
 
 # => other
-gem 'oj'
 gem 'rake'
-gem 'chronic'
-gem 'mini_magick'
 gem "rack_csrf"
 gem 'mail'
 gem 'json'

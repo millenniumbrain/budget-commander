@@ -4,7 +4,6 @@
 =end
 require 'puma'
 require 'roda'
-require 'builder'
 require 'tilt'
 require 'tilt/erubis'
 require 'json'
@@ -13,6 +12,7 @@ require 'bcrypt'
 require_relative 'lib/time_shift'
 require_relative 'lib/total_income'
 require_relative 'lib/total_expenses'
+require_relative 'lib/helpers'
 require 'better_errors'
 require 'pp'
 require 'logger'
@@ -32,6 +32,7 @@ class BudgetCommander < Roda
   plugin :not_found do
     render('404')
   end
+  Roda.plugin JSONParserHelper
 
   self.environment = :development
 

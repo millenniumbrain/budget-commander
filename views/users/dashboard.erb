@@ -1,43 +1,43 @@
 <div id="transactionOverlay">
   <div class="overlay-box">
     <span id="closeTranOverlay" class="fa fa-close overlay-close"></span>
-    <form id="formTransactions" class="overlay-form form form-aligned" method="post" action="/users/accounts/transactions/new">
+    <form id="formTransactions" class="overlay-form form form-aligned" method="post" action="/users/transactions">
       <fieldset>
         <legend><span id="multiTransaction" class="overlay-legend">Multiple Transaction</span><span class="overlay-legend">|</span><span id="singleTransaction" class="overlay-legend">Add Transaction</span></legend>
         <div class="form-control-group">
           <h4>Type</h4>
           <label class="radio-overlay">
             Expense
-            <input type="radio">
+            <input type="radio" name="TransactionType" value="expense" checked>
           </label>
           <label class="radio-overlay">
             Icome
-            <input type="radio">
+            <input type="radio" name="TransactionType" value="income">
           </label>
           <label class="radio-overlay">
             Loan
-            <input type="radio">
+            <input type="radio" name="TransactionType" value="loan">
           </label>
           <label class="radio-overlay">
             Transfer
-            <input type="radio">
+            <input type="radio" name="TransactionType" value="transfer">
           </label>
         </div>
         <div class="form-control-group">
           <label>Description</label>
-          <input type="text">
+          <input type="text" name="TransactionDescription">
           <label>Amount</label>
-          <input type="text">
-          <select>
-            <option>Wallet</option>
+          <input type="text" name="TransactionAmount">
+          <select name="TransactionAccount">
+            <option value="Wallet">Wallet</option>
           </select>
           <span class="select-arrow fa fa-caret-down"></span>
         </div>
         <div class="form-control-group">
           <label>Date</label>
-          <input class="form-overlay-date" type="text">
+          <input class="form-overlay-date" type="text" name="TransactionDate">
           <label>Tags</label>
-          <input type="text">
+          <input type="text" name="TransactionTags">
         </div>
         <button class="primary" type="submit">Submit</button>
       </fieldset>
@@ -63,7 +63,7 @@
 <div id="budgetOverlay">
   <div class="overlay-box">
     <span id="closeBudgetOverlay" class="fa fa-close overlay-close"></span>
-    <form id="addBudgetForm" class="overlay-form form form-aligned">  
+    <form id="addBudgetForm" class="overlay-form form form-aligned">
       <legend><span class="overlay-legend">Add Budgets</span></legend>
       <div class="form-control-group">
         <h4>Budgets</h4>
@@ -155,4 +155,3 @@
     </tbody>
   </table>
 </div>
-<script src="/js/dist/app.js"></script>

@@ -30,7 +30,7 @@
 
       flexCell.setAttribute("class", "flex-cell");
       // get the value and output what we want the user to see instead of the key
-      if(value < 0) {
+      if(key == "expenses") {
         label.innerHTML = "Monthly Expenses";
         total.setAttribute("class", "expense");
         total.innerHTML = value;
@@ -38,12 +38,21 @@
         flexCell.appendChild(total);
         sumTotals.appendChild(flexCell);
       } else if (key === "networth") {
-        label.innerHTML = "Net Worth";
-        total.setAttribute("class", "income");
-        total.innerHTML = "+" + value;
-        flexCell.appendChild(label);
-        flexCell.appendChild(total);
-        sumTotals.appendChild(flexCell);
+        if(value > 0) {
+          label.innerHTML = "Net Worth";
+          total.setAttribute("class", "income");
+          total.innerHTML = "+" + value;
+          flexCell.appendChild(label);
+          flexCell.appendChild(total);
+          sumTotals.appendChild(flexCell);
+        } else {
+          label.innerHTML = "Net Worth";
+          total.setAttribute("class", "expense");
+          total.innerHTML =  value;
+          flexCell.appendChild(label);
+          flexCell.appendChild(total);
+          sumTotals.appendChild(flexCell);
+        }
       } else if (key === "budget_balance") {
         label.innerHTML = "Budget Balance";
         if(value >= 0) {
@@ -73,6 +82,6 @@
       }
     });
   };
-  
+
   get("/users/total", addTotals);
 })();
