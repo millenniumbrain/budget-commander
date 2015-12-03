@@ -9,7 +9,7 @@ gulp.task("default", function() {
   return gulp.src("public/js/src/**/*.coffee")
   .pipe(coffee({bare: true}).on('error', gutil.log))
   .pipe(sourcemaps.init())
-  .pipe(uglify())
+  //.pipe(uglify())
   .pipe(concat("app.js"))
   .pipe(sourcemaps.write("."))
   .pipe(gulp.dest("public/js/dist"));

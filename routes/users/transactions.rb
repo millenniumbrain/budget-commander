@@ -2,13 +2,15 @@ BudgetCommander.route('transactions', 'users') do |r|
   r.is do
     r.get do
       response['Content-Type'] = 'application/json'
-      transactions = Transaction.all.to_json(:include => :account)
-      parsed_transactions = JSON.parse(transactions)
-      parsed_transactions.map do |t|
-        t["account_id"] = account_name(t["account_id"])
-        t["date"] = Time.parse(t["date"]).utc.strftime("%b %e")
-      end
-      parsed_transactions.to_json
+      transaction_promise = Concurrent::Promise.new do
+        DB[:transactions].select(:description, :account_id, :amount, :date)
+          .limit(10).all
+      end.then do |result|
+        transaction = result.each do |t|
+          t["account_id"] = account_name(t["account_id"])
+        end
+      end.execute
+      pp transaction_promise.value
     end
 
     r.post do
@@ -16,16 +18,17 @@ BudgetCommander.route('transactions', 'users') do |r|
         hash[item["name"]] = item["value"]
         hash
       end
-      if transaction["TransactionType"] == "expense"
-        transaction["TransactionAmount"] = -transaction["TransactionAmount"].to_f
+      pp transaction
+      if transaction["type"] == "expense"
+        transaction["amount"] = -transaction["amount"].to_f
       else
 
       end
-      account = Account.first(:name => transaction["TransactionAccount"])
+      account = Account.first(:name => transaction["account"])
       new_transaction = Transaction.new do |t|
-        t.amount = transaction["TransactionAmount"].to_f
-        t.description = transaction["TransactionDescription"]
-        t.date = DateTime.strptime(transaction["TransactionDate"], '%b %d %Y')
+        t.amount = transaction["amount"].to_f
+        t.description = transaction["description"]
+        t.date = DateTime.strptime(transaction["date"], '%b %d %Y')
       end
       pp new_transaction.amount
       account.add_transaction(new_transaction)

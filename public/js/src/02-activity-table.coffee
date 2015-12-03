@@ -32,5 +32,5 @@ class ActivityTable
     getTableData: (url) =>
       $.get(url, this.filterToTable)
 
-transactionActivity = new ActivityTable()
-transactionActivity.getTableData("/users/transactions")
+tranActivity = new ActivityTable()
+tranActivity.getTableData("/users/transactions")

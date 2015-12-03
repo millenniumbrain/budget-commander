@@ -2,24 +2,6 @@
 'use strict';
 
 (function() {
-  // get add button and option list
-  var addButton = document.getElementById("addButton");
-  var addOptionsList = document.getElementById("addOptions");
-  // set button to clicked
-  var addButtonClicked = false;
-  addButton.addEventListener("click", function() {
-    // remove the addOptionsList when clicked again
-    if (addButtonClicked === false) {
-      addOptionsList.style.display = "block";
-      addButtonClicked = true;
-    } else if (addButtonClicked === true) {
-      addOptionsList.style.display = "none";
-      addButtonClicked = false;
-    }
-  }, false);
-})();
-
-(function() {
   var addTotals = function(data) {
     var sumTotals = document.querySelector(".sum-total");
     // we want the key and the value to create a label and display data

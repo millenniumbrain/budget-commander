@@ -8,36 +8,36 @@
           <h4>Type</h4>
           <label class="radio-overlay">
             Expense
-            <input type="radio" name="TransactionType" value="expense" checked>
+            <input type="radio" name="type" value="expense" checked>
           </label>
           <label class="radio-overlay">
-            Icome
-            <input type="radio" name="TransactionType" value="income">
+            Income
+            <input type="radio" name="type" value="income">
           </label>
           <label class="radio-overlay">
             Loan
-            <input type="radio" name="TransactionType" value="loan">
+            <input type="radio" name="type" value="loan">
           </label>
           <label class="radio-overlay">
             Transfer
-            <input type="radio" name="TransactionType" value="transfer">
+            <input type="radio" name="type" value="transfer">
           </label>
         </div>
         <div class="form-control-group">
           <label>Description</label>
-          <input type="text" name="TransactionDescription">
+          <input type="text" name="description">
           <label>Amount</label>
-          <input type="text" name="TransactionAmount">
-          <select name="TransactionAccount">
+          <input type="text" name="amount">
+          <select name="account">
             <option value="Wallet">Wallet</option>
           </select>
           <span class="select-arrow fa fa-caret-down"></span>
         </div>
         <div class="form-control-group">
           <label>Date</label>
-          <input class="form-overlay-date" type="text" name="TransactionDate">
+          <input class="form-overlay-date" type="text" name="date">
           <label>Tags</label>
-          <input type="text" name="TransactionTags">
+          <input type="text" name="tags">
         </div>
         <button class="primary" type="submit">Submit</button>
       </fieldset>

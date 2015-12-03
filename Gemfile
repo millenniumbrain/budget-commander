@@ -5,7 +5,7 @@ gem 'puma'
 
 # => core
 gem 'roda'
-
+gem 'concurrent-ruby'
 # => database
 gem 'sequel'
 gem 'pg'
