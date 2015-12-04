@@ -6,6 +6,7 @@ gem 'puma'
 # => core
 gem 'roda'
 gem 'concurrent-ruby'
+gem 'concurrent-ruby-ext'
 # => database
 gem 'sequel'
 gem 'pg'

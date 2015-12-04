@@ -4,6 +4,7 @@ Sequel.migration do
       primary_key :id
       Numeric :amount
       String :description
+      String :type
       DateTime :date
       DateTime :created_at
       DateTime :updated_at

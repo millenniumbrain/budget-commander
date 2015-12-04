@@ -26,25 +26,28 @@ BudgetCommander.route('users') do |r|
     r.is do
       r.get do
         response['Content-Type'] = 'application/json'
+        expenses = Total::Expenses.new
+        income = Total::Income.new
         {:networth => Transaction.sum(:amount).round(2),
-         :budget_balance => DB[:budgets].sum(:spending_limit) + Total::Expenses.monthly,
-         :income => Total::Income.monthly,
-         :expenses => Total::Expenses.monthly}.to_json
+         :budget_balance => DB[:budgets].sum(:spending_limit),
+         :income => income.async.annual.value,
+         :expenses => expenses.async.annual.value}.to_json
       end
     end
 
     r.is 'income' do
       r.get do
         response['Content-Type'] = 'application/json'
-        Total::Income.by_month.to_json
+        income = Total::Income.new
+        income.async.by_month.value
       end
     end
 
     r.is 'expenses' do
       r.get do
         response['Content-Type'] = 'application/json'
-        #Transaction.expenses.to_json
-        Total::Expenses.by_month.to_json
+        expnses = Total::Expenses.new
+        expenses.async.by_month.value
       end
     end
   end

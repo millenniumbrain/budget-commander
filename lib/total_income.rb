@@ -1,47 +1,54 @@
 module Total
   class Income
+    include Concurrent::Async
 
-    class << self
-      def monthly(year: Time.now.strftime('%Y'))
-        # defaults to the current year's income / 12.00
-        income = get_income
-        (income[year] / 12.00).round(2)
-      end
+    def initialize
+    end
 
-      def annual(year: Time.now.strftime('%Y'))
-        income = get_income
-        income[year]
-      end
+    def monthly(year: Time.now.strftime('%Y'))
+      # defaults to the current year's income / 12.00
+      income = total_income
+      (income[year] / 12.00).round(2)
+    end
 
-      def by_month
-      end
+    def annual(year: Time.now.strftime('%Y'))
+      income = total_income
+      income[year]
+    end
 
-      def all
-        income = get_income
-      end
-
-
-      def by_month
-        income = DB[:transactions].filter{amount >= 0}
+    def by_month
+      if DB[:transactions].where('type = ?', 'income').count > 0
+        income = Concurrent::Promise.new do
+          DB[:transactions].where('type = ?', 'income')
           .select_group(Sequel.function(:strftime, '%Y-%m', :date).as(:date))
-          .select_append{sum(:amount).as(:income)}.inject({}) do |hash, item|
+          .select_append{sum(:amount).as(:income)}
+        end.then do |result|
+          result.inject({}) do |hash, item|
             month = DateTime.strptime(item[:date], '%Y-%m').strftime('%b')
             hash[month] = item[:income].round(2)
             hash
           end
-          income
+        end.execute
+        income.value
+      else
+        []
       end
+    end
 
-      private
+    private
 
-      def get_income
-        income = DB[:transactions].filter{amount > 0}
-          .select_group(Sequel.function(:strftime, '%Y', :date).as(:year))
-          .select_append{sum(:amount).as(:income)}.inject({}) do |hash, item|
-            hash[item[:year]] = item[:income] # create a hash from the dataset
-            hash
-          end
-      end
+    def total_income
+      income = Concurrent::Promise.new do
+        DB[:transactions].where('type = ?', 'income')
+        .select_group(Sequel.function(:strftime, '%Y', :date).as(:year))
+        .select_append{sum(:amount).as(:income)}
+      end.then do |result|
+        result.inject({}) do |hash, item|
+          hash[item[:year]] = item[:income] # create a hash from the dataset
+          hash
+        end
+      end.execute
+      income.value
     end
   end
 end
