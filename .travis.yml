@@ -8,3 +8,4 @@ script:
   - bundle exec rake db:new
   - bundle exec rake db:sqlite:migrate
   - bundle exec ruby setup.rb
+  - bundle exec rake test
