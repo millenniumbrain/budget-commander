@@ -3,7 +3,7 @@ module Total
     include Concurrent::Async
 
     def initialize
-      @transaction = DB[:transactions]
+      @transactions = DB[:transactions]
     end
 
     public
@@ -34,7 +34,6 @@ module Total
     end
 
     def by_month
-s
       if @transactions.where('type = ?', 'expense').count > 0
         # create a new promise to set expenses
         expenses =  Concurrent::Promise.new do

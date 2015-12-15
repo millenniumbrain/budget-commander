@@ -1,0 +1,8 @@
+--title "Budget Commander: Commanding a budget should be easy"
+--tag resource: "A REST resource"
+./lib/**/*.rb
+./routes/*.rb
+./routes/**/*.rb
+./helpers/**/*.rb
+./models/*.rb
+./app.rb

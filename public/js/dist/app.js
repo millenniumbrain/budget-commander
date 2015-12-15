@@ -3,13 +3,23 @@ var Helpers;
 Helpers = (function() {
   function Helpers() {}
 
+  Helpers.setAmountClass = function(el, amount) {
+    if (amount >= 0) {
+      el.setAttribute("class", "income");
+      return el.innerHTML = "+" + amount;
+    } else {
+      el.setAttribute("class", "expense");
+      return el.innerHTML = amount;
+    }
+  };
+
   Helpers.floatToDecimal = function(number) {
     var decimalNumber;
     return decimalNumber = parseFloat(number);
   };
 
-  Helpers.checkAmountNumber = function(el, amount) {
-    if (amount < 0) {
+  Helpers.parseAmount = function(el, type, amount) {
+    if (type === "expense") {
       el.setAttribute("class", "amount expense");
       return el.innerHTML = Helpers.floatToDecimal(amount);
     } else {
@@ -43,7 +53,7 @@ ActivityTable = (function() {
       description = document.createElement("td");
       tags = document.createElement("td");
       accountName = document.createElement("td");
-      Helpers.checkAmountNumber(amount, transaction.amount);
+      Helpers.parseAmount(amount, transaction.type, transaction.amount);
       date.setAttribute("class", "date");
       date.innerHTML = transaction.date;
       description.setAttribute("class", "description");
@@ -214,16 +224,48 @@ tranForm.submit();
 var addTotals;
 
 addTotals = function(data) {
-  var i, k, len, results, sumTotals, v;
+  var sumTotals;
   sumTotals = document.querySelector(".sum-total");
-  results = [];
-  for (k = i = 0, len = data.length; i < len; k = ++i) {
-    v = data[k];
-    results.push(console.log(k, v));
-  }
-  return results;
+  return _.forEach(data, function(value, key) {
+    var flexCell, label, total;
+    total = document.createElement("h2");
+    label = document.createElement("h3");
+    flexCell = document.createElement("div");
+    flexCell.setAttribute("class", "flex-cell");
+    if (key === "expense") {
+      label.innerHTML = "Monthly Expense";
+      Helpers.setAmountClass(total, value);
+      flexCell.appendChild(label);
+      flexCell.appendChild(total);
+      return sumTotals.appendChild(flexCell);
+    } else if (key === "income") {
+      label.innerHTML = "Monthly Income";
+      Helpers.setAmountClass(total, value);
+      flexCell.appendChild(label);
+      flexCell.appendChild(total);
+      return sumTotals.appendChild(flexCell);
+    } else if (key === "networth") {
+      label.innerHTML = "Net Worth";
+      Helpers.setAmountClass(total, value);
+      flexCell.appendChild(label);
+      flexCell.appendChild(total);
+      return sumTotals.appendChild(flexCell);
+    } else if (key === "budget_balance") {
+      label.innerHTML = "Budget Balance";
+      Helpers.setAmountClass(total, value);
+      flexCell.appendChild(label);
+      flexCell.appendChild(total);
+      return sumTotals.appendChild(flexCell);
+    } else {
+      label.innerHTML = key;
+      Helpers.setAmountClass(total, value);
+      flexCell.appendChild(label);
+      flexCell.appendChild(total);
+      return sumTotals.appendChild(flexCell);
+    }
+  });
 };
 
-$.get("/users/total", addTotals);
+$.get("/totals", addTotals);
 
 //# sourceMappingURL=app.js.map

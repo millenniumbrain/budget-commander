@@ -3,6 +3,7 @@ module Total
     include Concurrent::Async
 
     def initialize
+      @transactions = DB[:transactions]
     end
 
     def monthly(year: Time.now.strftime('%Y'))
@@ -17,9 +18,9 @@ module Total
     end
 
     def by_month
-      if DB[:transactions].where('type = ?', 'income').count > 0
+      if @transactions.where('type = ?', 'income').count > 0
         income = Concurrent::Promise.new do
-          DB[:transactions].where('type = ?', 'income')
+          @transactions.where('type = ?', 'income')
           .select_group(Sequel.function(:strftime, '%Y-%m', :date).as(:date))
           .select_append{sum(:amount).as(:income)}
         end.then do |result|
@@ -29,7 +30,12 @@ module Total
             hash
           end
         end.execute
-        income.value
+        if income.state != :pending
+          income.value
+        else
+          sleep(1)
+          income.value
+        end
       else
         []
       end
@@ -39,7 +45,7 @@ module Total
 
     def total_income
       income = Concurrent::Promise.new do
-        DB[:transactions].where('type = ?', 'income')
+        @transactions.where('type = ?', 'income')
         .select_group(Sequel.function(:strftime, '%Y', :date).as(:year))
         .select_append{sum(:amount).as(:income)}
       end.then do |result|

@@ -1,5 +1,6 @@
 require 'sequel'
 require 'logger'
+require 'yard'
 
 namespace :db do
   desc 'creates new test table'
@@ -26,4 +27,10 @@ namespace :db do
       Sequel::Migrator.apply(DB, 'migrations')
     end
   end
+end
+
+
+YARD::Rake::YardocTask.new do |t|
+  t.files = ['./app.rb', 'routes/*.rb', './models/*.rb', './helpers/*.rb']
+  t.options = ['--output-dir', 'doc']
 end

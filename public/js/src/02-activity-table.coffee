@@ -11,7 +11,7 @@ class ActivityTable
         tags = document.createElement("td")
         accountName = document.createElement("td")
         # add classes to change table alignments
-        Helpers.checkAmountNumber(amount, transaction.amount)
+        Helpers.parseAmount(amount, transaction.type, transaction.amount)
         date.setAttribute("class", "date")
         date.innerHTML = transaction.date
         description.setAttribute("class", "description")
