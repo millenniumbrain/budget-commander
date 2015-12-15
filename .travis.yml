@@ -1,0 +1,10 @@
+language: ruby
+
+before_install:
+  - rvm install 2.2.3
+
+script:
+  - mkdir db
+  - bundle exec rake db:new
+  - bundle exec rake db:sqlite:migrate
+  - bundle exec ruby setup.rb
