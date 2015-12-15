@@ -53,8 +53,10 @@ class BudgetCommander < Roda
   end
 
   Dir['./routes/*.rb'].each{ |f| require f }
-  Dir['./routes/users/*.rb'].each{ |f| require f }
-
+  Dir['./routes/api/*.rb'].each{ |f| require f }
+  Dir['./routes/api/v1/*.rb'].each{ |f| require f }
+  Dir['./routes/api/v1/users/*.rb'].each{ |f| require f }
+  
   route do |r|
     r.multi_route
 

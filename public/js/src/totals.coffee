@@ -41,4 +41,4 @@ addTotals = (data) ->
         sumTotals.appendChild(flexCell)
   );
 
-$.get("/totals", addTotals)
+$.get("/api/v1/totals", addTotals)

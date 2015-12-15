@@ -1,6 +1,7 @@
 require 'sequel'
 require 'logger'
 require 'yard'
+require 'rake/testtask'
 
 namespace :db do
   desc 'creates new test table'
@@ -33,4 +34,8 @@ end
 YARD::Rake::YardocTask.new do |t|
   t.files = ['./app.rb', 'routes/*.rb', './models/*.rb', './helpers/*.rb']
   t.options = ['--output-dir', 'doc']
+end
+
+Rake::TestTask.new do |t|
+  t.pattern = "spec/*_spec.rb"
 end

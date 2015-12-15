@@ -20,4 +20,4 @@ budgetFilter = (data) ->
 
   new Chartist.Pie('#overallBudgetChart', budgets, options);
 
-$.get("/users/budgets", budgetFilter)
+$.get("/api/v1/totals/budgets", budgetFilter)

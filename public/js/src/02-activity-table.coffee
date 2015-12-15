@@ -33,4 +33,4 @@ class ActivityTable
       $.get(url, this.filterToTable)
 
 tranActivity = new ActivityTable()
-tranActivity.getTableData("/users/transactions")
+tranActivity.getTableData("/api/v1/transactions")

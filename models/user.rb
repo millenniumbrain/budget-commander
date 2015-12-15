@@ -5,8 +5,7 @@ class User < Sequel::Model(:users)
   one_to_many :budgets
   one_to_many :reports
   one_to_many :tags
-  one_to_many :crew_members
-  one_to_many :ships
+  one_to_many :transactions
 
   def self.login(username, password)
     return unless username && password

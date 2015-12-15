@@ -81,7 +81,7 @@ ActivityTable = (function() {
 
 tranActivity = new ActivityTable();
 
-tranActivity.getTableData("/users/transactions");
+tranActivity.getTableData("/api/v1/transactions");
 
 var Overlay, addAccountItem, addBudgetItem, addTranItem,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -187,7 +187,7 @@ budgetFilter = function(data) {
   return new Chartist.Pie('#overallBudgetChart', budgets, options);
 };
 
-$.get("/users/budgets", budgetFilter);
+$.get("/api/v1/totals/budgets", budgetFilter);
 
 var Form, tranForm,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -266,6 +266,6 @@ addTotals = function(data) {
   });
 };
 
-$.get("/totals", addTotals);
+$.get("/api/v1/totals", addTotals);
 
 //# sourceMappingURL=app.js.map

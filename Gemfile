@@ -1,15 +1,12 @@
 source 'https://rubygems.org'
 
-# => server
-gem 'puma'
-
 # => core
 gem 'roda'
 gem 'concurrent-ruby'
 gem 'concurrent-ruby-ext'
 # => database
 gem 'sequel'
-gem 'pg'
+
 
 # => security
 gem 'bcrypt'
@@ -19,10 +16,13 @@ gem 'tilt'
 gem 'erubis'
 
 # => other
-gem 'rake'
 gem "rack_csrf"
 gem 'mail'
 gem 'json'
+group :production do
+  gem 'pg'
+  gem 'puma'
+end
 
 group :development do
   gem 'sqlite3'
@@ -31,7 +31,9 @@ group :development do
   gem 'shotgun'
 end
 
-group :testing do
+group :test, :development do
+  gem 'sqlite3'
+  gem 'rake'
   gem 'rack-test', require: 'rack/test'
   gem 'better_errors'
   gem 'minitest'
