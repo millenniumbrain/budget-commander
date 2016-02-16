@@ -1,0 +1,53 @@
+.dashboard-container
+  .dashboard
+    #totals.flex-grid.flex-fit.flex-1-4
+      .flex-cell
+        h2 Net Worth
+        #networthTotal.total-amount.green-amount + 69,378.33
+      .flex-cell
+        h2 Budget Balance
+        #budgetBalance.total-amount.green-amount + 2,968.68
+      .flex-cell
+        h2 Monthly Income
+        #incomeTotal.total-amount.green-amount + 5,742.29
+      .flex-cell
+        h2 Monthly Expenses
+        #expenseTotal.total-amount.red-amount - 2,773.61
+    .seperator
+    .transactions.widget
+      .widget-controls.flex-grid.flex-fit.flex-1-3.flex-cell-gutter
+        .flex-cell style="flex: 2;"
+          h3.widget-title Transactions
+        .flex-cell.flex-align-right.flex-cell-gutter
+          button.primary Add Transaction
+        .flex-cell.flex-align-left.flex-cell-gutter
+          form.form.transaction-widget-form id="transactionSearch"
+            fieldset
+              input type="text" placeholder="Search"
+      table#transaction-activity
+        thead
+          tr
+            th.date-cell Date
+            th.amount-cell Amount
+            th.description-cell Description
+            th.tags-cell Tags
+            th.account-cell Account Name
+        tbody
+          tr
+            td.date-cell Feb 12
+            td.amount-cell.red-amount - 12.65
+            td.description-cell Subway
+            td.tags-cell Food
+            td.account-cell Wallet
+          tr
+            td.date-cell Feb 12
+            td.amount-cell.green-amount + 5.30
+            td.description-cell Walmart
+            td.tags-cell Groceries
+            td.account-cell Wallet    
+          tr
+            td.date-cell Feb 12
+            td.amount-cell.red-amount - 23.65
+            td.description-cell Magic the Gathering
+            td.tags-cell Entertainment
+            td.account-cell Wallet

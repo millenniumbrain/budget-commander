@@ -1,0 +1,198 @@
+@import 'base/base';
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/grids';
+@import 'components/table';
+
+
+.dashboard-home {
+  background:  #FCFCFC;
+}
+
+.user-bar {
+    background: $dark-gray;
+    height: 72px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    list-style: none;
+    @include z-index-4;
+}
+
+#user-menu {
+  list-style: none;
+  text-align: center;
+  @include z-index-5;
+  height: 100%;
+  right: 0;
+  font-size:
+  li {
+    color: $white;
+  }
+}
+
+.user-dropdown {
+  float: right;
+  height: 100%;
+  a {
+    padding: 0 25px;
+    font-size: $base-font-size;
+    height: 100%;
+    display: block;
+    text-decoration: none;
+    color: $white;
+    &:hover {
+      background: #424242;
+    }
+  }
+}
+
+.user-bar-component {
+  position: relative;
+  top: 24px;
+  img {
+    position: relative;
+    border-radius: 48px;
+    display: block;
+    width: 48px;
+    height: 48px;
+    top: -12px;
+  }
+}
+
+.user-bar-component > .fa {
+  font-size: 1.5em;
+  margin-top: 2px;
+}
+
+.nav {
+  background: $gray;
+  width: 128px;
+  height: 100%;
+  border-right: 1px solid #ccc;
+  position: fixed;
+  top: 72px;
+  @include z-index-3;
+}
+
+#nav-menu {
+  li {
+    width: 100%;
+    height: 96px;
+    border-bottom: 1px solid #ccc;
+  }
+}
+
+.dash-link {
+  color: $dark-gray;
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  &:hover, &:focus {
+    background: $light-gray;
+  }
+}
+
+.icon {
+  font-size: $large;
+  padding: 28px 0 0;
+  display: block;
+  text-align: center;
+}
+
+.icon-text {
+  font-size: $base-font-size;
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.dashboard-container {
+  margin-left: 128px;
+  margin-top: 72px;
+  height: 100%;
+  width: calc(100% - 128px);
+}
+
+.dashboard {
+  padding: 20px;
+}
+
+#totals {
+  width: 90%;
+  text-align: center;
+  margin: 20px auto 40px;
+  h2 {
+    color: $dark-gray;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 1.9em;
+  }
+}
+
+.total-amount {
+  font-size: 1.8em;
+}
+
+.seperator {
+  width: 90%;
+  border: 1px solid $gray;
+  margin: 40px auto;
+}
+
+.transactions {
+  width: 100%;
+}
+
+.widget-controls {
+  font-size: $base-font-size;
+  width: 90%;
+  text-transform: uppercase;
+  margin: 20px auto;
+  h3 {
+    font-weight: normal;
+  }
+}
+
+.transaction-widget-form {
+  width: 100%;
+}
+
+#transaction-activity {
+  width: 90%;
+  margin: 0 auto;
+
+}
+
+.date-cell {
+  text-align: center;
+}
+
+.amount-cell {
+  text-align: right;
+}
+
+.red-amount {
+  color: $red;
+}
+
+.green-amount {
+  color: $green;
+}
+
+.transfer {
+
+}
+
+.description-cell {
+  text-align: left;
+}
+
+.tags-cell {
+  text-align: left;
+}
+.account-cell {
+  text-align: left;
+}

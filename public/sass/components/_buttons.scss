@@ -1,0 +1,12 @@
+.button {
+  color: $white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+.primary {
+  @extend .button;
+  background: $dark-gray;
+}

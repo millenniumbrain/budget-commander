@@ -1,0 +1,28 @@
+table {
+  thead {
+    color: $dark-gray;
+    tr {
+      border-bottom: 1px solid $dark-gray;
+    }
+  }
+
+  th {
+    padding: 10px 15px 10px;
+    font-size: 1.6em;
+    text-transform: uppercase;
+    font-weight: normal;
+  }
+
+  tbody {
+    color: $dark-gray;
+    tr {
+        border-bottom: 1px solid #c2c2c2;
+    }
+  }
+
+
+  td {
+    font-size: 1.5em;
+    padding: 15px 15px;
+  }
+}

@@ -1,0 +1,252 @@
+* {
+  margin: 0;
+  padding: 0; }
+  *:before, *:after {
+    box-sizing: inherit; }
+
+html {
+  font: 62.5%/1.5 'Montserrat', sans-serif;
+  height: 100%;
+  box-sizing: border-box; }
+
+body {
+  font-size: 10px;
+  width: 100%;
+  height: 100%;
+  z-index: 100; }
+
+img {
+  box-sizing: content-box; }
+
+#container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 200; }
+
+.content {
+  width: 100%;
+  height: 100%;
+  z-index: 200; }
+
+.button, .primary {
+  color: #FFFFFF;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 2px;
+  text-transform: uppercase; }
+
+.primary {
+  background: #313131; }
+
+form fieldset {
+  border: none;
+  margin: 0;
+  padding: 0; }
+form input[type=text] {
+  font-size: 1.1em;
+  width: 90%;
+  padding: 8px 15px; }
+
+.flex-grid {
+  display: flex; }
+
+.flex-cell {
+  flex: 1; }
+
+.flex-fit > .flex-cell {
+  flex: 1; }
+
+.flex-full > .flex-cell {
+  flex: 0 0 100%; }
+
+.flex-1-2 > .flex-cell {
+  flex: 0 0 50%; }
+
+.flex-1-3 > .flex-cell {
+  flex: 0 0 33.3333%; }
+
+.flex-1-4 > .flex-cell {
+  flex: 0 0 25%; }
+
+.flex-align-left {
+  text-align: left; }
+
+.flex-cell-gutter {
+  margin: 0 10px 0 10px; }
+
+.flex-align-center {
+  text-align: center; }
+
+.flex-align-right {
+  text-align: right; }
+
+table thead {
+  color: #313131; }
+  table thead tr {
+    border-bottom: 1px solid #313131; }
+table th {
+  padding: 10px 15px 10px;
+  font-size: 1.6em;
+  text-transform: uppercase;
+  font-weight: normal; }
+table tbody {
+  color: #313131; }
+  table tbody tr {
+    border-bottom: 1px solid #c2c2c2; }
+table td {
+  font-size: 1.5em;
+  padding: 15px 15px; }
+
+.dashboard-home {
+  background: #FCFCFC; }
+
+.user-bar {
+  background: #313131;
+  height: 72px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  list-style: none;
+  z-index: 400; }
+
+#user-menu {
+  list-style: none;
+  text-align: center;
+  z-index: 500;
+  height: 100%;
+  right: 0;
+  font-size: li;
+    font-size-color: #FFFFFF; }
+
+.user-dropdown {
+  float: right;
+  height: 100%; }
+  .user-dropdown a {
+    padding: 0 25px;
+    font-size: 1.4em;
+    height: 100%;
+    display: block;
+    text-decoration: none;
+    color: #FFFFFF; }
+    .user-dropdown a:hover {
+      background: #424242; }
+
+.user-bar-component {
+  position: relative;
+  top: 24px; }
+  .user-bar-component img {
+    position: relative;
+    border-radius: 48px;
+    display: block;
+    width: 48px;
+    height: 48px;
+    top: -12px; }
+
+.user-bar-component > .fa {
+  font-size: 1.5em;
+  margin-top: 2px; }
+
+.nav {
+  background: #ECECEC;
+  width: 128px;
+  height: 100%;
+  border-right: 1px solid #ccc;
+  position: fixed;
+  top: 72px;
+  z-index: 300; }
+
+#nav-menu li {
+  width: 100%;
+  height: 96px;
+  border-bottom: 1px solid #ccc; }
+
+.dash-link {
+  color: #313131;
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none; }
+  .dash-link:hover, .dash-link:focus {
+    background: #FCFCFC; }
+
+.icon {
+  font-size: 2.5em;
+  padding: 28px 0 0;
+  display: block;
+  text-align: center; }
+
+.icon-text {
+  font-size: 1.4em;
+  display: block;
+  text-align: center;
+  text-transform: uppercase; }
+
+.dashboard-container {
+  margin-left: 128px;
+  margin-top: 72px;
+  height: 100%;
+  width: calc(100% - 128px); }
+
+.dashboard {
+  padding: 20px; }
+
+#totals {
+  width: 90%;
+  text-align: center;
+  margin: 20px auto 40px; }
+  #totals h2 {
+    color: #313131;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 1.9em; }
+
+.total-amount {
+  font-size: 1.8em; }
+
+.seperator {
+  width: 90%;
+  border: 1px solid #ECECEC;
+  margin: 40px auto; }
+
+.transactions {
+  width: 100%; }
+
+.widget-controls {
+  font-size: 1.4em;
+  width: 90%;
+  text-transform: uppercase;
+  margin: 20px auto; }
+  .widget-controls h3 {
+    font-weight: normal; }
+
+.transaction-widget-form {
+  width: 100%; }
+
+#transaction-activity {
+  width: 90%;
+  margin: 0 auto; }
+
+.date-cell {
+  text-align: center; }
+
+.amount-cell {
+  text-align: right; }
+
+.red-amount {
+  color: #E74C3C; }
+
+.green-amount {
+  color: #6da8af; }
+
+.description-cell {
+  text-align: left; }
+
+.tags-cell {
+  text-align: left; }
+
+.account-cell {
+  text-align: left; }
+
+/*# sourceMappingURL=dashboard.css.map */
