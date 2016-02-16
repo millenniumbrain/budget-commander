@@ -4,26 +4,30 @@
 =end
 require 'puma'
 require 'roda'
-require 'tilt'
-require 'tilt/erubis'
 require 'json'
-require 'tilt'
-require 'bcrypt'
+require 'slim'
 require 'concurrent'
 require 'thread'
 require_relative 'lib/time_shift'
 require_relative 'lib/total_income'
 require_relative 'lib/total_expenses'
-require_relative 'lib/helpers'
 require 'better_errors'
-require 'pp'
-require 'logger'
 require './models'
+require './env'
+
+Dir['./helpers/*.rb'].each{ |f| require f }
 
 class BudgetCommander < Roda
 
+  plugin :default_headers,
+  'Content-Type' => 'text/html',
+  #'Content-Security-Policy' => "default-src 'self'",
+  'Strict-Transport-Security' => 'max-age=160704400',
+  'X-Frame-Options' => 'deny',
+  'X-Content-Type-Options' => 'nosniff'
+  plugin :static, ['/css', '/fonts', '/img', '/js', ]
   plugin :json
-  plugin :render
+  plugin :render, :engine => 'slim', :views => 'views'
   plugin :cookies
   plugin :flash
   plugin :h
@@ -34,16 +38,19 @@ class BudgetCommander < Roda
   plugin :not_found do
     render('404')
   end
+
+  # custom plugins
   Roda.plugin JSONParserHelper
 
   self.environment = :development
 
   configure do
-    use Rack::Session::Cookie, secret: '3edqw32ed2w' #ENV['SECRET']
-    use Rack::Session::Pool, expire_after: 252000
+    use Rack::Session::Cookie, :secret => ENV['SECRET']
+    use Rack::Session::Pool, :expire_after => 252000
   end
 
   configure :development do
+    Slim::Engine.set_options :pretty => true, :sort_attrs => true
     use Rack::MethodOverride
     use BetterErrors::Middleware
     BetterErrors.application_root = __dir__
@@ -53,10 +60,7 @@ class BudgetCommander < Roda
   end
 
   Dir['./routes/*.rb'].each{ |f| require f }
-  Dir['./routes/api/*.rb'].each{ |f| require f }
-  Dir['./routes/api/v1/*.rb'].each{ |f| require f }
-  Dir['./routes/api/v1/users/*.rb'].each{ |f| require f }
-  
+
   route do |r|
     r.multi_route
 
@@ -64,6 +68,4 @@ class BudgetCommander < Roda
 
     end
   end
-
-  Dir['./helpers/*.rb'].each{ |f| require f }
 end

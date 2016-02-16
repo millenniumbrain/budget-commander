@@ -1,8 +1,10 @@
 require 'logger'
 require 'sequel'
 require 'bcrypt'
+require 'jdbc/sqlite3'
+require 'java'
 
-DB = Sequel.sqlite('db/test.sqlite')
+DB = Sequel.connect('jdbc:sqlite:db/test.sqlite')
 DB.loggers << Logger.new($stdout)
 
 Sequel.default_timezone = :utc

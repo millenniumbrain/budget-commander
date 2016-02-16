@@ -16,6 +16,37 @@ entertainment = DB[:tags].insert(:name => 'Entertainment')
 income = DB[:tags].insert(:name => 'Income')
 
 user.add_account(name: 'Wallet')
-user.add_budget(:name => "Food", :spending_limit => 100)
-user.add_budget(:name => "Entertainment", :spending_limit => 50)
-user.add_budget(:name => "Misc", :spending_limit => 50)
+
+user.add_transaction(
+  :amount => 100.00,
+  :description => 'Money',
+  :type => 'income',
+  :date => Time.now,
+  :account_id => 1)
+user.add_transaction(
+  :amount => 25.24,
+  :description => 'Money',
+  :type => 'income',
+  :date => Time.now,
+  :account_id => 1)
+
+user.add_transaction(
+  :amount => 6.45,
+  :type => 'expense',
+  :description => 'Subway',
+  :date => Time.now,
+  :account_id => 1)
+
+user.add_transaction(
+  :amount => 10.00,
+  :type => 'expense',
+  :description => 'Magic the Gathering Cards',
+  :date => Time.now,
+  :account_id => 1)
+
+user.add_transaction(
+  :amount => 9.58,
+  :type => 'expense',
+  :description => 'Magic Wok',
+  :date => Time.now,
+  :account_id => 1)

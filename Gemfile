@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # => core
 gem 'roda'
 gem 'concurrent-ruby'
-gem 'concurrent-ruby-ext'
+gem 'concurrent-ruby-ext', :platform => :mri
 # => database
 gem 'sequel'
 
@@ -12,31 +12,28 @@ gem 'sequel'
 gem 'bcrypt'
 
 # => templates
-gem 'tilt'
-gem 'erubis'
+gem 'slim'
 
 # => other
 gem "rack_csrf"
 gem 'mail'
 gem 'json'
 group :production do
-  gem 'pg'
+  gem 'pg', :platform => :mri
   gem 'puma'
 end
 
 group :development do
-  gem 'sqlite3'
+  gem 'jdbc-sqlite3', :platform => :jruby
+  gem 'sqlite3', :platform => :mri
   gem 'sass'
-  gem 'yard'
-  gem 'shotgun'
+  gem 'shotgun', :platform => :mri
 end
 
 group :test, :development do
-  gem 'sqlite3'
   gem 'rake'
   gem 'rack-test', require: 'rack/test'
   gem 'better_errors'
-  gem 'minitest'
+  gem 'rspec'
   gem 'capybara'
-  gem "minitest-hooks"
 end

@@ -31,3 +31,6 @@ node_modules
 .yardoc/*
 doc/*
 public/.yardoc/*
+
+# environment variables
+env.rb
