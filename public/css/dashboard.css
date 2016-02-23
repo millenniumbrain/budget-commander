@@ -1,252 +1,88 @@
-* {
-  margin: 0;
-  padding: 0; }
-  *:before, *:after {
-    box-sizing: inherit; }
+/*
+Error: Invalid CSS after "      outline": expected ";", was ": 0;"
+        on line 14 of public/sass/components/_forms.scss
+        from line 3 of public/sass/dashboard.scss
 
-html {
-  font: 62.5%/1.5 'Montserrat', sans-serif;
-  height: 100%;
-  box-sizing: border-box; }
+9:     font-size: 1.1em;
+10:     width: 90%;
+11:     padding: 8px 15px;
+12:     &:focus {
+13:       border: 1px solid 
+14:       outline: 0;
+15:     }
+16:   }
+17: }
 
-body {
-  font-size: 10px;
-  width: 100%;
-  height: 100%;
-  z-index: 100; }
-
-img {
-  box-sizing: content-box; }
-
-#container {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  z-index: 200; }
-
-.content {
-  width: 100%;
-  height: 100%;
-  z-index: 200; }
-
-.button, .primary {
-  color: #FFFFFF;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 2px;
-  text-transform: uppercase; }
-
-.primary {
-  background: #313131; }
-
-form fieldset {
-  border: none;
-  margin: 0;
-  padding: 0; }
-form input[type=text] {
-  font-size: 1.1em;
-  width: 90%;
-  padding: 8px 15px; }
-
-.flex-grid {
-  display: flex; }
-
-.flex-cell {
-  flex: 1; }
-
-.flex-fit > .flex-cell {
-  flex: 1; }
-
-.flex-full > .flex-cell {
-  flex: 0 0 100%; }
-
-.flex-1-2 > .flex-cell {
-  flex: 0 0 50%; }
-
-.flex-1-3 > .flex-cell {
-  flex: 0 0 33.3333%; }
-
-.flex-1-4 > .flex-cell {
-  flex: 0 0 25%; }
-
-.flex-align-left {
-  text-align: left; }
-
-.flex-cell-gutter {
-  margin: 0 10px 0 10px; }
-
-.flex-align-center {
-  text-align: center; }
-
-.flex-align-right {
-  text-align: right; }
-
-table thead {
-  color: #313131; }
-  table thead tr {
-    border-bottom: 1px solid #313131; }
-table th {
-  padding: 10px 15px 10px;
-  font-size: 1.6em;
-  text-transform: uppercase;
-  font-weight: normal; }
-table tbody {
-  color: #313131; }
-  table tbody tr {
-    border-bottom: 1px solid #c2c2c2; }
-table td {
-  font-size: 1.5em;
-  padding: 15px 15px; }
-
-.dashboard-home {
-  background: #FCFCFC; }
-
-.user-bar {
-  background: #313131;
-  height: 72px;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  list-style: none;
-  z-index: 400; }
-
-#user-menu {
-  list-style: none;
-  text-align: center;
-  z-index: 500;
-  height: 100%;
-  right: 0;
-  font-size: li;
-    font-size-color: #FFFFFF; }
-
-.user-dropdown {
-  float: right;
-  height: 100%; }
-  .user-dropdown a {
-    padding: 0 25px;
-    font-size: 1.4em;
-    height: 100%;
-    display: block;
-    text-decoration: none;
-    color: #FFFFFF; }
-    .user-dropdown a:hover {
-      background: #424242; }
-
-.user-bar-component {
-  position: relative;
-  top: 24px; }
-  .user-bar-component img {
-    position: relative;
-    border-radius: 48px;
-    display: block;
-    width: 48px;
-    height: 48px;
-    top: -12px; }
-
-.user-bar-component > .fa {
-  font-size: 1.5em;
-  margin-top: 2px; }
-
-.nav {
-  background: #ECECEC;
-  width: 128px;
-  height: 100%;
-  border-right: 1px solid #ccc;
-  position: fixed;
-  top: 72px;
-  z-index: 300; }
-
-#nav-menu li {
-  width: 100%;
-  height: 96px;
-  border-bottom: 1px solid #ccc; }
-
-.dash-link {
-  color: #313131;
-  display: block;
-  width: 100%;
-  height: 100%;
-  text-decoration: none; }
-  .dash-link:hover, .dash-link:focus {
-    background: #FCFCFC; }
-
-.icon {
-  font-size: 2.5em;
-  padding: 28px 0 0;
-  display: block;
-  text-align: center; }
-
-.icon-text {
-  font-size: 1.4em;
-  display: block;
-  text-align: center;
-  text-transform: uppercase; }
-
-.dashboard-container {
-  margin-left: 128px;
-  margin-top: 72px;
-  height: 100%;
-  width: calc(100% - 128px); }
-
-.dashboard {
-  padding: 20px; }
-
-#totals {
-  width: 90%;
-  text-align: center;
-  margin: 20px auto 40px; }
-  #totals h2 {
-    color: #313131;
-    font-weight: normal;
-    text-transform: uppercase;
-    font-size: 1.9em; }
-
-.total-amount {
-  font-size: 1.8em; }
-
-.seperator {
-  width: 90%;
-  border: 1px solid #ECECEC;
-  margin: 40px auto; }
-
-.transactions {
-  width: 100%; }
-
-.widget-controls {
-  font-size: 1.4em;
-  width: 90%;
-  text-transform: uppercase;
-  margin: 20px auto; }
-  .widget-controls h3 {
-    font-weight: normal; }
-
-.transaction-widget-form {
-  width: 100%; }
-
-#transaction-activity {
-  width: 90%;
-  margin: 0 auto; }
-
-.date-cell {
-  text-align: center; }
-
-.amount-cell {
-  text-align: right; }
-
-.red-amount {
-  color: #E74C3C; }
-
-.green-amount {
-  color: #6da8af; }
-
-.description-cell {
-  text-align: left; }
-
-.tags-cell {
-  text-align: left; }
-
-.account-cell {
-  text-align: left; }
-
-/*# sourceMappingURL=dashboard.css.map */
+Backtrace:
+public/sass/components/_forms.scss:14
+public/sass/dashboard.scss:3
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:1180:in `expected'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:1115:in `expected'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:1110:in `tok!'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:775:in `block in try_declaration'
+org/jruby/RubyProc.java:318:in `call'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:1155:in `rethrow'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:780:in `try_declaration'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:709:in `declaration_or_ruleset'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:674:in `block_child'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:663:in `block_contents'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:655:in `block'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:724:in `declaration_or_ruleset'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:674:in `block_child'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:666:in `block_contents'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:655:in `block'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:724:in `declaration_or_ruleset'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:674:in `block_child'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:666:in `block_contents'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:655:in `block'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:647:in `ruleset'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:673:in `block_child'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:663:in `block_contents'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:123:in `stylesheet'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/scss/parser.rb:39:in `parse'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/engine.rb:403:in `_to_tree'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/engine.rb:309:in `to_tree'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:324:in `block in visit_import'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/stack.rb:88:in `block in with_import'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/stack.rb:115:in `with_frame'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/stack.rb:88:in `with_import'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:323:in `visit_import'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/base.rb:36:in `visit'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/stack.rb:79:in `block in with_base'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/stack.rb:115:in `with_frame'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/stack.rb:79:in `with_base'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+org/jruby/RubyArray.java:2300:in `map'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/base.rb:36:in `visit'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:8:in `visit'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/root_node.rb:36:in `css_tree'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/engine.rb:378:in `_render_with_sourcemap'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/engine.rb:295:in `render_with_sourcemap'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/plugin/compiler.rb:490:in `update_stylesheet'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+org/jruby/RubyArray.java:1560:in `each'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/plugin/compiler.rb:293:in `watch'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/plugin.rb:109:in `method_missing'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/exec/sass_scss.rb:383:in `watch_or_update'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/exec/sass_scss.rb:51:in `process_result'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/exec/base.rb:52:in `parse'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/lib/sass/exec/base.rb:19:in `parse!'
+/home/millenniumbrain/Projects/budget-commander/vendor/jruby/2.2.0/gems/sass-3.4.21/bin/sass:13:in `<top>'
+org/jruby/RubyKernel.java:957:in `load'
+bin/sass:16:in `<top>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid CSS after \"      outline\": expected \";\", was \": 0;\"\A         on line 14 of public/sass/components/_forms.scss\A         from line 3 of public/sass/dashboard.scss\A \A 9:     font-size: 1.1em;\A 10:     width: 90%;\A 11:     padding: 8px 15px;\A 12:     &:focus {\A 13:       border: 1px solid \A 14:       outline: 0;\A 15:     }\A 16:   }\A 17: }"; }

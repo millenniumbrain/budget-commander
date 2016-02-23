@@ -20,6 +20,12 @@
     @include z-index-4;
 }
 
+#searchBar {
+  font-size: $base-font-size;
+  position: relative;
+  top: 16px;
+}
+
 #user-menu {
   list-style: none;
   text-align: center;

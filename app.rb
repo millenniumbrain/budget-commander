@@ -25,7 +25,7 @@ class BudgetCommander < Roda
   'Strict-Transport-Security' => 'max-age=160704400',
   'X-Frame-Options' => 'deny',
   'X-Content-Type-Options' => 'nosniff'
-  plugin :static, ['/css', '/fonts', '/img', '/js', ]
+  plugin :static, ['/css', '/fonts', '/img', '/js']
   plugin :json
   plugin :render, :engine => 'slim', :views => 'views'
   plugin :cookies

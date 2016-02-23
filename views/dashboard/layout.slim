@@ -10,19 +10,24 @@ html lang="en"
     link rel="stylesheet" href="/css/dashboard.css" type="text/css"
   body.dashboard-home
     #container
-      .user-bar
-        ul#user-menu
-          li.user-dropdown
-            a href="#"
-              span.user-bar-component
-                img src="/img/user-icon.png" alt="User Icon"
-          li.user-dropdown
-            a href="#" 
-              span.user-bar-component
-                span.fa.fa-bell
-          li.user-dropdown
-            a href="#" 
-              span.user-bar-component Help & Support
+      .user-bar.flex-grid.flex-fit.flex-1-3
+        .flex-cell
+        .flex-cell style="flex: 2;"
+          form.form#searchBar
+            input type="text" placeholder="Search"
+        .flex-cell
+          ul#user-menu
+            li.user-dropdown
+              a href="#"
+                span.user-bar-component
+                  img src="/img/user-icon.png" alt="User Icon"
+            li.user-dropdown
+              a href="#" 
+                span.user-bar-component
+                  span.fa.fa-bell
+            li.user-dropdown
+              a href="#" 
+                span.user-bar-component Help & Support
       nav.nav
         ul#nav-menu
           li
@@ -31,15 +36,11 @@ html lang="en"
               span.icon-text Dashboard
           li
             a.dash-link href="#"
-              span.icon.fa.fa-book
-              span.icon-text Reports
-          li
-            a.dash-link href="#"
-              span.icon.fa.fa-pie-chart
+              span.icon.fa.fa-line-chart
               span.icon-text Forecasts
           li
             a.dash-link href="#"
-              span.icon.fa.fa-line-chart
+              span.icon.fa.fa-book
               span.icon-text Accounts
           li
             a.dash-link href="#"
