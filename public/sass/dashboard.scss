@@ -8,28 +8,67 @@
   background: rgba(0, 0, 0, 0.6);
   visibility: hidden;
   position: absolute;
+  height: 100%;
   left: 0px;
-  top: 0px;
+  top: -72px;
   width: 100%;
   text-align: center;
-  @include z-index-10;
+  @include z-index-8;
   .overlay-box {
     position: relative;
     width: 820px;
-    margin: 50px auto;
+    margin: 10% auto;
     border: 1px solid #000;
     background: $gray;
     text-align: center;
   }
 }
 
+.overlay-close {
+  color: #fff;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 13px;
+  font-size: 1.4em;
+  text-align: right;
+  @include z-index-10;
+}
+
+.overlay-form {
+  font-size: 1.4em;
+  padding: 0 20px 30px 0;
+  legend {
+    text-transform: uppercase;
+    background: $dark-gray;
+    width: 800px;
+    color: #fff;
+    padding: 10px;
+    position: absolute;
+    left: 0;
+    text-align: left;
+    @include z-index-9;
+  }
+  .form-control-group {
+    margin-top: 10px;
+  }
+
+  .overlay-form-seperator {
+    padding: 20px 0 0;
+    margin: 20px 0 ;
+  }
+}
+
 #transactionOverlay {
+  @extend .overlay;
 }
 
 #accountOverlay {
+  @extend .overlay;
 }
 
 #budgetOverlay {
+  @extend .overlay;
 }
 
 .dashboard-home {
@@ -149,7 +188,8 @@
 
 #dashboard-controls {
   font-size: 1.3em;
-  padding: 20px;
+  padding: 2% 10px;
+  margin-bottom: 5%;
   button {
     margin: 0 5%;
     padding: 8px 20px;
@@ -173,9 +213,39 @@
 }
 
 #addOptions {
+  display: none;
   position: absolute;
   background: $dark-gray;
   color: #fff;
+  top: 35px;
+  left: 93.5px;
+  font-size: 1.1em;
+  list-style: none;
+  li {
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: $dark-gray;
+    padding: 10px 25px;
+    border-bottom: 1px solid $gray;
+    position: relative;
+    i {
+      display: inline-block;
+      padding-right: 2px;
+    }
+
+    span {
+      display: inline-block;
+    }
+
+    &:hover {
+      background: #4A4A4A;
+    }
+  }
+}
+
+#addOptions > li:first-of-type {
+  border-top: 1px solid $gray;
 }
 
 #totals {

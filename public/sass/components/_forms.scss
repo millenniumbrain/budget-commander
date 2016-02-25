@@ -18,3 +18,26 @@ form {
     }
   }
 }
+
+.form-aligned {
+  text-align: left;
+  label {
+    display: block;
+  }
+  input[type=text] {
+    width: 80% !important;
+  }
+  select {
+    padding: 6px;
+  }
+}
+
+.form-control-group {
+  padding: 0 25px;
+}
+
+.form-controls-group {
+  text-align: left;
+  padding: 0 25px;
+  margin-top: 20px;
+}

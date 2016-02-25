@@ -7,7 +7,6 @@ gem 'concurrent-ruby-ext', :platform => :mri
 # => database
 gem 'sequel'
 
-
 # => security
 gem 'bcrypt'
 
