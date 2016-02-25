@@ -1,18 +1,43 @@
+
 .dashboard-container
   .dashboard
+    #dashboard-controls.flex-grid.flex-fit.flex-1-3
+      .flex-cell
+        button.primary#addButton
+          span.fa.fa-dollar
+          | Add
+        ul#addOptions
+          li 
+            span.fa.fa-plus 
+              | &nbsp;
+            | Transaction
+        button.primary#uploadButton
+          span.fa.fa-upload
+          | Upload
+      .flex-cell style="flex: 2;"
+        form.form#searchBar
+          input type="text" placeholder="Search"
+      .flex-cell
+        button.primary#downloadButton
+          span.fa.fa-download
+          | Download
+        button.primary#exportButton
+          span.fa.fa-rocket
+          | Export
     #totals.flex-grid.flex-fit.flex-1-4
       .flex-cell
         h2 Net Worth
-        #networthTotal.total-amount.green-amount + 69,378.33
+        #networthTotal.total-amount.green-amount
       .flex-cell
         h2 Budget Balance
-        #budgetBalance.total-amount.green-amount + 2,968.68
+        #budgetBalance.total-amount.green-amount
       .flex-cell
-        h2 Monthly Income
-        #incomeTotal.total-amount.green-amount + 5,742.29
+        h2 Income this Month
+        #incomeTotal.total-amount.green-amount
       .flex-cell
-        h2 Monthly Expenses
-        #expenseTotal.total-amount.red-amount - 2,773.61
+        h2 Expenses this Month
+        #expenseTotal.total-amount.red-amount
+    img.spinner#totalSpinner src="/img/ring-alt.svg"
     .seperator
     .transactions.widget
       .widget-controls.flex-grid.flex-fit.flex-1-3.flex-cell-gutter
@@ -23,7 +48,7 @@
           form.form.transaction-widget-form id="transactionSearch"
             fieldset
               input type="text" placeholder="Search"
-      table#transaction-activity
+      table#transactionActivity
         thead
           tr
             th.date-cell Date
@@ -32,21 +57,4 @@
             th.tags-cell Tags
             th.account-cell Account Name
         tbody
-          tr
-            td.date-cell Feb 12
-            td.amount-cell.red-amount - 12.65
-            td.description-cell Subway
-            td.tags-cell Food
-            td.account-cell Wallet
-          tr
-            td.date-cell Feb 12
-            td.amount-cell.green-amount + 5.30
-            td.description-cell Walmart
-            td.tags-cell Groceries
-            td.account-cell Wallet    
-          tr
-            td.date-cell Feb 12
-            td.amount-cell.red-amount - 23.65
-            td.description-cell Magic the Gathering
-            td.tags-cell Entertainment
-            td.account-cell Wallet
+    img.spinner#transactionSpinner src="/img/ring-alt.svg"

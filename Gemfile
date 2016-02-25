@@ -17,9 +17,8 @@ gem 'slim'
 # => other
 gem "rack_csrf"
 gem 'mail'
-gem 'json'
 group :production do
-  gem 'pg', :platform => :mri
+  #gem 'pg', :platform => :mri
   gem 'puma'
 end
 
@@ -27,6 +26,7 @@ group :development do
   gem 'jdbc-sqlite3', :platform => :jruby
   gem 'sqlite3', :platform => :mri
   gem 'sass'
+  gem "binding_of_caller", :platform => :mri
   gem 'shotgun', :platform => :mri
 end
 

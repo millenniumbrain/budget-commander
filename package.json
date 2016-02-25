@@ -3,7 +3,9 @@
   "version": "0.0.3",
   "description": "Boilerplate for ruby roda projects",
   "main": "gulpfile.js",
-  "dependencies": {},
+  "dependencies": {
+    "moment": "^2.11.2"
+  },
   "devDependencies": {
     "browserify": "^12.0.1",
     "coffeeify": "^2.0.1",

@@ -9,8 +9,11 @@ form {
     font-size: 1.1em;
     width: 90%;
     padding: 8px 15px;
+    border: 1px solid $darker-gray;
+    border-radius: 3px;
     &:focus {
-      border: 1px solid 
+      border: 1px solid $light-blue;
+      border-radius: 3px;
       outline: 0;
     }
   }

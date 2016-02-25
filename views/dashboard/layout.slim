@@ -12,9 +12,7 @@ html lang="en"
     #container
       .user-bar.flex-grid.flex-fit.flex-1-3
         .flex-cell
-        .flex-cell style="flex: 2;"
-          form.form#searchBar
-            input type="text" placeholder="Search"
+        .flex-cell style="flex: 3;"
         .flex-cell
           ul#user-menu
             li.user-dropdown
@@ -56,3 +54,4 @@ html lang="en"
               span.icon-text Alerts
       .content
         ==yield
+    script src="/js/dist/app.js"

@@ -4,6 +4,33 @@
 @import 'components/grids';
 @import 'components/table';
 
+.overlay {
+  background: rgba(0, 0, 0, 0.6);
+  visibility: hidden;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  text-align: center;
+  @include z-index-10;
+  .overlay-box {
+    position: relative;
+    width: 820px;
+    margin: 50px auto;
+    border: 1px solid #000;
+    background: $gray;
+    text-align: center;
+  }
+}
+
+#transactionOverlay {
+}
+
+#accountOverlay {
+}
+
+#budgetOverlay {
+}
 
 .dashboard-home {
   background:  #FCFCFC;
@@ -18,12 +45,6 @@
     top: 0;
     list-style: none;
     @include z-index-4;
-}
-
-#searchBar {
-  font-size: $base-font-size;
-  position: relative;
-  top: 16px;
 }
 
 #user-menu {
@@ -123,7 +144,38 @@
 }
 
 .dashboard {
+  padding: 10px;
+}
+
+#dashboard-controls {
+  font-size: 1.3em;
   padding: 20px;
+  button {
+    margin: 0 5%;
+    padding: 8px 20px;
+    span {
+      padding-right: 5px;
+    }
+  }
+}
+
+#dashboard-controls > .flex-cell {
+    text-align: center;
+    position: relative;
+}
+
+#searchBar {
+  margin: 0 auto;
+  font-size: 1.05em;
+  width: 100%;
+  position: relative;
+  bottom: 2px;
+}
+
+#addOptions {
+  position: absolute;
+  background: $dark-gray;
+  color: #fff;
 }
 
 #totals {
@@ -134,7 +186,7 @@
     color: $dark-gray;
     font-weight: normal;
     text-transform: uppercase;
-    font-size: 1.9em;
+    font-size: 1.8em;
   }
 }
 
@@ -166,7 +218,7 @@
   width: 100%;
 }
 
-#transaction-activity {
+#transactionActivity {
   width: 90%;
   margin: 0 auto;
 
@@ -185,7 +237,7 @@
 }
 
 .green-amount {
-  color: $green;
+  color: $light-blue;
 }
 
 .transfer {
@@ -201,4 +253,10 @@
 }
 .account-cell {
   text-align: left;
+}
+
+.spinner {
+  display: block;
+  margin: 10px auto;
+  text-align: center;
 }
