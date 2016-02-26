@@ -13,7 +13,7 @@
   top: -72px;
   width: 100%;
   text-align: center;
-  @include z-index-8;
+  @include z-index-7;
   .overlay-box {
     position: relative;
     width: 820px;
@@ -32,7 +32,7 @@
   top: 13px;
   font-size: 1.4em;
   text-align: right;
-  @include z-index-10;
+  @include z-index-9;
 }
 
 .overlay-form {
@@ -47,7 +47,7 @@
     position: absolute;
     left: 0;
     text-align: left;
-    @include z-index-9;
+    @include z-index-8;
   }
   .form-control-group {
     margin-top: 10px;
@@ -59,15 +59,15 @@
   }
 }
 
-#transactionOverlay {
+#newTransactionOverlay {
   @extend .overlay;
 }
 
-#accountOverlay {
+#newAccountOverlay {
   @extend .overlay;
 }
 
-#budgetOverlay {
+#newBudgetOverlay {
   @extend .overlay;
 }
 
@@ -329,4 +329,8 @@
   display: block;
   margin: 10px auto;
   text-align: center;
+}
+
+.form-spinner {
+  @include z-index-10;
 }

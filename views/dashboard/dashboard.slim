@@ -1,9 +1,52 @@
-#accountOverlay style="visibility: visible;"
+#newAccountOverlay
   .overlay-box
     #closeNewAccount.fa.fa-close.overlay-close
-    form#newAccount.overlay-form.form.form-aligned method="post" action="/users/accounts"
+    form#newAccount.overlay-form.form.form-aligned method="post" action="/accounts"
       fieldset
         legend New Account
+        .overlay-form-seperator
+        .form-control-group.flex-grid.flex-1-2
+          .flex-cell
+            label Name
+            input type="text" name="account_name"
+          .flex-cell
+            label Type
+            select name="account_type"
+                option value="checkings" Checkings
+                option value="savings" Savings
+                option value="cash" Cash
+                option value="credit_card" Credit Card
+        .form-controls-group
+          button.primary Add Account
+#newTransactionOverlay
+  .overlay-box
+    img 
+    #closeNewTransaction.fa.fa-close.overlay-close
+    form#newTransaction.overlay-form.form.form-aligned method="post" action="/transactions"
+      fieldset
+        legend New Transaction
+        .overlay-form-seperator
+        .form-control-group.flex-grid.flex-1-4
+          .flex-cell
+            label Date
+            input#newTransactionDate type="text" name="transaction_date"
+          .flex-cell
+            label Amount
+            input#newTransactionAmount type="text" name="transaction_amount"
+          .flex-cell
+            label Description
+            input#newTransactionDesc type="text" name="transaction_description"
+          .flex-cell
+            label Type
+            select#newTransactionAccounts name="transaction_account"
+        .form-controls-group
+          button.primary Add Account
+#newBudgetOverlay
+  .overlay-box
+    #closeNewBudget.fa.fa-close.overlay-close
+    form#newBudget.overlay-form.form.form-aligned method="post" action="/budgets"
+      fieldset
+        legend New Budget
         .overlay-form-seperator
         .form-control-group.flex-grid.flex-1-2
           .flex-cell
@@ -12,14 +55,10 @@
           .flex-cell
             label Type
             select name="account[type]"
-                option Checkings
-                option Savings
-                option Cash
-                option Credit Card
+                option Percentage
+                option Cash Amount
         .form-controls-group
           button.primary Add Account
-#transactionOverlay
-#budgetOverlay
 .dashboard-container
   .dashboard
     #dashboard-controls.flex-grid.flex-fit.flex-1-3

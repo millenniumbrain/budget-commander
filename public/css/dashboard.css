@@ -121,7 +121,7 @@ table td {
   font-size: 1.5em;
   padding: 15px 15px; }
 
-.overlay, #transactionOverlay, #accountOverlay, #budgetOverlay {
+.overlay, #newTransactionOverlay, #newAccountOverlay, #newBudgetOverlay {
   background: rgba(0, 0, 0, 0.6);
   visibility: hidden;
   position: absolute;
@@ -130,8 +130,8 @@ table td {
   top: -72px;
   width: 100%;
   text-align: center;
-  z-index: 800; }
-  .overlay .overlay-box, #transactionOverlay .overlay-box, #accountOverlay .overlay-box, #budgetOverlay .overlay-box {
+  z-index: 700; }
+  .overlay .overlay-box, #newTransactionOverlay .overlay-box, #newAccountOverlay .overlay-box, #newBudgetOverlay .overlay-box {
     position: relative;
     width: 820px;
     margin: 10% auto;
@@ -147,7 +147,7 @@ table td {
   top: 13px;
   font-size: 1.4em;
   text-align: right;
-  z-index: 1000; }
+  z-index: 900; }
 
 .overlay-form {
   font-size: 1.4em;
@@ -161,7 +161,7 @@ table td {
     position: absolute;
     left: 0;
     text-align: left;
-    z-index: 900; }
+    z-index: 800; }
   .overlay-form .form-control-group {
     margin-top: 10px; }
   .overlay-form .overlay-form-seperator {
@@ -372,5 +372,8 @@ table td {
   display: block;
   margin: 10px auto;
   text-align: center; }
+
+.form-spinner {
+  z-index: 1000; }
 
 /*# sourceMappingURL=dashboard.css.map */
