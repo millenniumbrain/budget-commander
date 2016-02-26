@@ -5,6 +5,8 @@
       fieldset
         legend New Account
         .overlay-form-seperator
+        .form-spinner.account-spinner
+          img src="/img/ring-alt.svg"
         .form-control-group.flex-grid.flex-1-2
           .flex-cell
             label Name
@@ -26,6 +28,17 @@
       fieldset
         legend New Transaction
         .overlay-form-seperator
+        .form-spinner.transaction-spinner
+          img src="/img/ring-alt.svg"
+        .form-control-group.flex-grid.flex-1-2
+          .flex-cell
+            label Expense
+            input type="radio" name="transaction_type" value="expense"
+            label Income
+            input type="radio" name="transaction_type" value="income"
+          .flex-cell
+            label Type
+            select#newTransactionAccounts name="transaction_account"
         .form-control-group.flex-grid.flex-1-4
           .flex-cell
             label Date
@@ -36,11 +49,11 @@
           .flex-cell
             label Description
             input#newTransactionDesc type="text" name="transaction_description"
-          .flex-cell
-            label Type
-            select#newTransactionAccounts name="transaction_account"
+          .flex
+            label Tags
+            input type="text" name="transaction_tags"
         .form-controls-group
-          button.primary Add Account
+          button.primary type="submit" Add Transaction
 #newBudgetOverlay
   .overlay-box
     #closeNewBudget.fa.fa-close.overlay-close
@@ -98,7 +111,7 @@
     #totals.flex-grid.flex-fit.flex-1-4
       .flex-cell
         h2 Net Worth
-        #networthTotal.total-amount.green-amount
+        #networthTotal
       .flex-cell
         h2 Budget Balance
         #budgetBalance.total-amount.green-amount
@@ -106,7 +119,7 @@
         h2 Income this Month
         #incomeTotal.total-amount.green-amount
       .flex-cell
-        h2 Expenses this Month
+        h2 Expense this Month
         #expenseTotal.total-amount.red-amount
     img.spinner#totalSpinner src="/img/ring-alt.svg"
     .seperator

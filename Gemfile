@@ -2,8 +2,7 @@ source 'https://rubygems.org'
 
 # => core
 gem 'roda'
-gem 'concurrent-ruby'
-gem 'concurrent-ruby-ext', :platform => :mri
+gem 'twilio-ruby'
 # => database
 gem 'sequel'
 

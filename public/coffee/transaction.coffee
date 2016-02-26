@@ -39,13 +39,16 @@ class Transaction
     true
 
   getTransactions: () =>
-    $.get('/transactions', this.parseTransactions)
-    .success( () ->
+    $.get('/transactions', @parseTransactions)
+    .fail( () ->
     )
-    .complete( () ->
+    .done( () ->
       $("#transactionSpinner").hide()
       true
     )
     true
+
+  addMoreTransactions: (number) =>
+    transactionRefresh = document.getElementById("transactionRefresh")
 
 module.exports = Transaction

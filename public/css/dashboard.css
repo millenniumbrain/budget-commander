@@ -373,7 +373,52 @@ table td {
   margin: 10px auto;
   text-align: center; }
 
-.form-spinner {
+.form-spinner, .transaction-spinner {
+  background: rgba(0, 0, 0, 0.6);
+  visibility: hidden;
+  position: absolute;
+  height: 100%;
+  left: 0px;
+  top: 0;
+  width: 100%;
+  text-align: center;
   z-index: 1000; }
+  .form-spinner img, .transaction-spinner img {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%); }
+
+.message {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  color: #FFFFFF;
+  font-size: 1.4em; }
+
+.success {
+  background: #26A65B; }
+
+.warning {
+  background: #F7CA18; }
+
+.error {
+  background: #E74C3C; }
+
+#closeMessage {
+  cursor: pointer;
+  position: absolute;
+  top: 14px;
+  right: 18px; }
+
+.slider {
+  overflow-y: hidden;
+  max-height: 41px;
+  /* approximate max height */
+  transition-property: all;
+  transition-duration: .5s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1); }
+
+.closed {
+  max-height: 0; }
 
 /*# sourceMappingURL=dashboard.css.map */

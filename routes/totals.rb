@@ -4,7 +4,9 @@ BudgetCommander.route('totals') do |r|
       response['Content-Type'] = 'application/json'
       expenses = Total::Expense.new
       income = Total::Income.new
-      {:networth => Transaction.sum(:amount).round(2),
+      total_expenses = Transaction.where('type = ?', 'expense').sum(:amount).round(2)
+      total_income = Transaction.where('type = ?', 'income').sum(:amount).round(2)
+      {:networth => total_income - total_expenses,
         :budget_balance => 0,
         :income => income.current_month,
         :expense => expenses.current_month}.to_json

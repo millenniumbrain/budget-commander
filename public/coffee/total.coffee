@@ -7,7 +7,12 @@ class Total
     incomeTotal = document.getElementById("incomeTotal")
     expenseTotal = document.getElementById("expenseTotal")
 
-    networth.innerHTML = "+ " + data.networth
+    if data.networth >= 0
+      networth.setAttribute("class", "total-amount green-amount")
+      networth.innerHTML = "+ " + data.networth.toFixed(2)
+    else
+      networth.setAttribute("class", "total-amount red-amount")
+      networth.innerHTML = data.networth.toFixed(2)
     budgetBalance.innerHTML = "+ " + data.budget_balance
     incomeTotal.innerHTML = "+ " + data.income
     expenseTotal.innerHTML = "- " + data.expense

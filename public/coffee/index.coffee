@@ -3,7 +3,8 @@ Overlay = require './overlay'
 Total = require './total'
 Transaction = require './transaction'
 TransactionForm = require './transactionForm'
-
+AccountForm = require './accountForm'
+$ = require 'jquery'
 
 'use strict'
 
@@ -28,5 +29,9 @@ newBudgetOverlay = new Overlay("newBudgetOverlay", "addBudgetButton",
 "closeNewBudget");
 newBudgetOverlay.init()
 
+newAccount = new AccountForm("#newAccount")
+newAccount.submit()
+
 newTransaction = new TransactionForm("#newTransaction")
 newTransaction.init()
+newTransaction.submit()

@@ -332,5 +332,62 @@
 }
 
 .form-spinner {
+  background: rgba(0, 0, 0, 0.6);
+  visibility: hidden;
+  position: absolute;
+  height: 100%;
+  left: 0px;
+  top: 0;
+  width: 100%;
+  text-align: center;
   @include z-index-10;
+  img {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.transaction-spinner {
+  @extend .form-spinner;
+}
+
+.message {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  color: $white;
+  font-size: 1.4em;
+}
+
+.success {
+  background: $green;
+}
+
+.warning {
+  background: $yellow;
+}
+
+.error {
+  background: $red;
+}
+
+#closeMessage {
+  cursor: pointer;
+  position: absolute;
+  top: 14px;
+  right: 18px;
+}
+
+.slider {
+  overflow-y: hidden;
+  max-height: 41px; /* approximate max height */
+
+  transition-property: all;
+  transition-duration: .5s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.closed {
+  max-height: 0;
 }
