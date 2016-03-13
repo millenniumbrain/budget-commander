@@ -4,7 +4,9 @@ BudgetCommander.route('transactions') do |r|
       response['Content-Type'] = 'application/json'
       transaction = DB[:transactions].
       select(:date, :amount, :description, :account_id, :type)
-      .limit(10).all
+      .order(Sequel.desc(:id))
+      .limit(10)
+      .all
       transaction.each do |t|
         t[:date] = t[:date].to_s.tr('-:. UTC', '')
         t[:account_id] = account_name(t[:account_id])
