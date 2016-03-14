@@ -19,7 +19,6 @@ BudgetCommander.route('transactions') do |r|
         hash[item["name"]] = item["value"]
         hash
       end
-      transaction
       account = Account.where(:name => transaction["transaction_account"]).to_json
       account = JSON.parse(account)
       new_transaction = Transaction.new do |t|
