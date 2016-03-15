@@ -3,7 +3,6 @@ class User < Sequel::Model(:users)
 
   one_to_many :accounts
   one_to_many :budgets
-  one_to_many :reports
   one_to_many :tags
   one_to_many :transactions
 
