@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 # => core
 gem 'roda'
 gem 'twilio-ruby'
+gem 'rtesseract'
+gem "mini_magick"
+#gem 'ruby-opencv'
 # => database
 gem 'sequel'
 

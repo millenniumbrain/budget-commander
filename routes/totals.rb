@@ -1,11 +1,12 @@
 BudgetCommander.route('totals') do |r|
   r.is do
     r.get do
+      user = User[1]
       response['Content-Type'] = 'application/json'
-      {:networth => Transaction.total,
+      {:networth => Transaction.total('income', user.id),
         :budget_balance => 0,
-        :income => Transaction.current_month_total('income'),
-        :expense => Transaction.current_month_total('expense')}.to_json
+        :income => Transaction.current_month_total('income', user.id),
+        :expense => Transaction.current_month_total('expense', user.id)}.to_json
       end
     end
 
