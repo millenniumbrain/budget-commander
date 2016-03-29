@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>transaction.rb</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="account.html">
+                  account.rb
+                </a>
+              
+                
+                <a class="source" href="budget.html">
+                  budget.rb
+                </a>
+              
+                
+                <a class="source" href="tag.html">
+                  tag.rb
+                </a>
+              
+                
+                <a class="source" href="transaction.html">
+                  transaction.rb
+                </a>
+              
+                
+                <a class="source" href="user.html">
+                  user.rb
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>transaction.rb</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Transaction</span> &lt; Sequel::Model(:<span class="hljs-title">transactions</span>)</span>
+  plugin <span class="hljs-symbol">:json_serializer</span>
+  many_to_one <span class="hljs-symbol">:user</span>
+  many_to_one <span class="hljs-symbol">:account</span>
+  many_to_many <span class="hljs-symbol">:tags</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">self</span>.<span class="hljs-title">current_month_total</span><span class="hljs-params">(u_id, t_type = <span class="hljs-string">''</span>)</span></span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> u_id
+    <span class="hljs-keyword">if</span> t_type != <span class="hljs-string">''</span>
+      current_month_total = select(<span class="hljs-symbol">:amount</span>, <span class="hljs-symbol">:date</span>)
+        .where{(type =~ t_type) &amp; (user_id =~ u_id)}
+        .where(Sequel.extract(<span class="hljs-symbol">:month</span>, <span class="hljs-symbol">:date</span>) =&gt; Date.today.month)
+        .sum(<span class="hljs-symbol">:amount</span>)
+    <span class="hljs-keyword">else</span>
+      current_month_income = select(<span class="hljs-symbol">:amount</span>, <span class="hljs-symbol">:date</span>)
+        .where{(type =~ <span class="hljs-string">'income'</span>) &amp; (user_id =~ u_id)}
+        .where(Sequel.extract(<span class="hljs-symbol">:month</span>, <span class="hljs-symbol">:date</span>) =&gt; Date.today.month)
+        .sum(<span class="hljs-symbol">:amount</span>)
+      current_month_expense = select(<span class="hljs-symbol">:amount</span>, <span class="hljs-symbol">:date</span>)
+        .where{(type =~ <span class="hljs-string">'expense'</span>) &amp; (user_id =~ u_id)}
+        .where(Sequel.extract(<span class="hljs-symbol">:month</span>, <span class="hljs-symbol">:date</span>) =&gt; Date.today.month)
+        .sum(<span class="hljs-symbol">:amount</span>)
+    <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">if</span> current_month_total.<span class="hljs-keyword">nil</span>? &amp;&amp; t_type == <span class="hljs-string">'s'</span>
+      <span class="hljs-number">0</span>
+    <span class="hljs-keyword">elsif</span> !current_month_total.<span class="hljs-keyword">nil</span>?
+      current_month_total.round(<span class="hljs-number">2</span>)
+    <span class="hljs-keyword">else</span>
+      {
+        <span class="hljs-string">"income"</span> =&gt; current_month_income,
+        <span class="hljs-string">"expense"</span> =&gt; current_month_expense
+      }
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+  
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">self</span>.<span class="hljs-title">current_month_total_by_tag</span><span class="hljs-params">(u_id, t_type, tag_name = <span class="hljs-string">''</span>)</span></span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> u_id
+    current_month_total = select(<span class="hljs-symbol">:amount</span>).where(<span class="hljs-symbol">:tags</span> =&gt; tag_name)
+      .<span class="hljs-keyword">and</span>(<span class="hljs-symbol">:type</span> =&gt; t_type)
+      .<span class="hljs-keyword">and</span>(<span class="hljs-symbol">:user_id</span> =&gt; u_id)
+      .sum(<span class="hljs-symbol">:amount</span>)
+    <span class="hljs-keyword">if</span> current_month_total.<span class="hljs-keyword">nil</span>?
+      <span class="hljs-number">0</span>
+    <span class="hljs-keyword">else</span>
+      current_month_total.round(<span class="hljs-number">2</span>)
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">self</span>.<span class="hljs-title">total</span><span class="hljs-params">(u_id, t_type = <span class="hljs-string">''</span>)</span></span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">nil</span> <span class="hljs-keyword">unless</span> t_type.is_a? String
+    <span class="hljs-keyword">if</span> t_type != <span class="hljs-string">''</span>
+      total = select(<span class="hljs-symbol">:amount</span>)
+      .where(<span class="hljs-string">'type = ?'</span>, t_type)
+      .sum(<span class="hljs-symbol">:amount</span>)
+    <span class="hljs-keyword">else</span>
+      total_income = select(<span class="hljs-symbol">:amount</span>)
+        .where{(type =~ <span class="hljs-string">'income'</span>) &amp; (user_id =~ u_id)}
+        .sum(<span class="hljs-symbol">:amount</span>)
+      total_expense = select(<span class="hljs-symbol">:amount</span>)
+        .where{(type =~ <span class="hljs-string">'expense'</span>) &amp; (user_id =~ u_id)}
+        .sum(<span class="hljs-symbol">:amount</span>)
+      total = total_income - total_expense
+    <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">if</span> total.<span class="hljs-keyword">nil</span>?
+      <span class="hljs-number">0</span>
+    <span class="hljs-keyword">else</span>
+      total.round(<span class="hljs-number">2</span>)
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span></pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

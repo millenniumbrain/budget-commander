@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>sms.rb</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="accounts.html">
+                  accounts.rb
+                </a>
+              
+                
+                <a class="source" href="budgets.html">
+                  budgets.rb
+                </a>
+              
+                
+                <a class="source" href="dashboard.html">
+                  dashboard.rb
+                </a>
+              
+                
+                <a class="source" href="sms.html">
+                  sms.rb
+                </a>
+              
+                
+                <a class="source" href="tags.html">
+                  tags.rb
+                </a>
+              
+                
+                <a class="source" href="totals.html">
+                  totals.rb
+                </a>
+              
+                
+                <a class="source" href="transactions.html">
+                  transactions.rb
+                </a>
+              
+                
+                <a class="source" href="users.html">
+                  users.rb
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>sms.rb</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>BudgetCommander.route(<span class="hljs-string">'sms'</span>) <span class="hljs-keyword">do</span> |r|
+  r.is <span class="hljs-keyword">do</span>
+    r.post <span class="hljs-keyword">do</span>
+      text = r[<span class="hljs-symbol">:Body</span>]
+      <span class="hljs-keyword">case</span> text
+      <span class="hljs-keyword">when</span> /(?:Add\sAccount)|(?:add\saccount)/
+        account_name = text.match(<span class="hljs-regexp">/"(.*?)"/</span>).to_a.first
+        account_name = account_name.to_s.tr(<span class="hljs-string">'\/"'</span>, <span class="hljs-string">''</span>)
+        new_account = Account.new(<span class="hljs-symbol">:name</span> =&gt; account_name, <span class="hljs-symbol">:user_id</span> =&gt; <span class="hljs-number">1</span>)
+        new_account.save
+        twiml = <span class="hljs-symbol">Twilio:</span><span class="hljs-symbol">:TwiML</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Response</span>.new <span class="hljs-keyword">do</span> |r|
+          r.Message <span class="hljs-string">"Account <span class="hljs-subst">#{account_name}</span> successfully added!"</span>
+        <span class="hljs-keyword">end</span>
+        twiml.text
+      <span class="hljs-keyword">when</span> /(?:Delete\sAccount)|(?:delete\saccount)/
+        account_name = text.match(<span class="hljs-regexp">/"(.*?)"/</span>).to_a.first
+        account_name = account_name.to_s.tr(<span class="hljs-string">'\/"'</span>, <span class="hljs-string">''</span>)
+        account = Account.where(Sequel.ilike(account_name + <span class="hljs-string">'%'</span>)).first
+        account.delete
+        twiml = <span class="hljs-symbol">Twilio:</span><span class="hljs-symbol">:TwiML</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Response</span>.new <span class="hljs-keyword">do</span> |r|
+          r.Message <span class="hljs-string">"Account <span class="hljs-subst">#{account_name}</span> successfully deleted!"</span>
+        <span class="hljs-keyword">end</span>
+        twiml.text
+      <span class="hljs-keyword">when</span> /(?:Add\sTransaction)|(?:add\stransaction)/
+        account_name = text.match(<span class="hljs-regexp">/"(.*?)"/</span>).to_a.first
+        account_name = account_name.to_s.tr(<span class="hljs-string">'\/"'</span>, <span class="hljs-string">''</span>)
+        account = Account.where(<span class="hljs-string">'name = ?'</span>, account_name).to_json
+        account = JSON.parse(account).first
+        sign = text.match(<span class="hljs-regexp">/(\+|\-){1}/</span>).to_a.first
+        sign = sign.to_s
+        type = <span class="hljs-string">""</span>
+        <span class="hljs-keyword">if</span> sign.eql? <span class="hljs-string">"+"</span>
+          type = <span class="hljs-string">"income"</span>
+        <span class="hljs-keyword">elsif</span> sign.eql? <span class="hljs-string">"-"</span>
+          type = <span class="hljs-string">"expense"</span>
+        <span class="hljs-keyword">end</span>
+        amount = text.match(<span class="hljs-regexp">/\$(\d+)/</span>).to_a.first
+        amount = amount.tr(<span class="hljs-string">'$'</span>, <span class="hljs-string">''</span>).to_f
+        date = text.match(<span class="hljs-regexp">/(?:[A-Z]{1}[a-z]{2}\s\d{2}\s\d{4})/</span>).to_a.first
+        description = text.split(<span class="hljs-string">"\n"</span>).last
+        new_transaction = Transaction.new <span class="hljs-keyword">do</span> |t|
+          t.amount = amount
+          t.description = description
+          t.type = type
+          t.date = DateTime.strptime(date, <span class="hljs-string">'%b %d %Y'</span>)
+          t.account_id = account[<span class="hljs-string">"id"</span>]
+          t.user_id = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">end</span>
+        new_transaction.save
+        twiml = <span class="hljs-symbol">Twilio:</span><span class="hljs-symbol">:TwiML</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Response</span>.new <span class="hljs-keyword">do</span> |r|
+          r.Message <span class="hljs-string">"Transaction added successfully"</span>
+        <span class="hljs-keyword">end</span>
+        twiml.text
+      <span class="hljs-keyword">when</span> /(?:Delete\sTransaction)|(?:delete\stransaction)/
+        description = text.match(<span class="hljs-regexp">/"(.*?)"/</span>).to_a.first
+        description = description.to_s.tr(<span class="hljs-string">'\/"'</span>, <span class="hljs-string">''</span>)
+        transaction = Transaction.where(Sequel.ilike(<span class="hljs-symbol">:description</span>, description + <span class="hljs-string">'%'</span>)).first
+        transaction.delete
+        twiml = <span class="hljs-symbol">Twilio:</span><span class="hljs-symbol">:TwiML</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Response</span>.new <span class="hljs-keyword">do</span> |r|
+          r.Message <span class="hljs-string">"Transaction deleted successfully"</span>
+        <span class="hljs-keyword">end</span>
+        twiml.text
+      <span class="hljs-keyword">when</span> /(?:My\sIncome)|(?:my\sincome)/
+        income = <span class="hljs-symbol">Total:</span><span class="hljs-symbol">:Income</span>.new.current_month
+        twiml = <span class="hljs-symbol">Twilio:</span><span class="hljs-symbol">:TwiML</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Response</span>.new <span class="hljs-keyword">do</span> |r|
+          r.Message <span class="hljs-string">"Your total income this month is \n+$%.2f"</span> % income
+        <span class="hljs-keyword">end</span>
+        twiml.text
+      <span class="hljs-keyword">when</span> /(?:My\sExpense)|(?:my\sexpense)/
+        twiml = <span class="hljs-symbol">Twilio:</span><span class="hljs-symbol">:TwiML</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Response</span>.new <span class="hljs-keyword">do</span> |r|
+          expense = <span class="hljs-symbol">Total:</span><span class="hljs-symbol">:Expense</span>.new.current_month
+          r.Message <span class="hljs-string">"Your total expense this month is \n-$%.2f"</span> % expense.abs
+        <span class="hljs-keyword">end</span>
+        twiml.text
+      <span class="hljs-keyword">when</span> /(?:My\sNetworth)|(?:my\snetworth)/
+        total_expense = Transaction.where(<span class="hljs-string">'type = ?'</span>, <span class="hljs-string">'expense'</span>).sum(<span class="hljs-symbol">:amount</span>).round(<span class="hljs-number">2</span>)
+        total_income = Transaction.where(<span class="hljs-string">'type = ?'</span>, <span class="hljs-string">'income'</span>).sum(<span class="hljs-symbol">:amount</span>).round(<span class="hljs-number">2</span>)
+        networth = total_income - total_expense
+        <span class="hljs-keyword">if</span> networth &gt;= <span class="hljs-number">0</span>
+          twiml = <span class="hljs-symbol">Twilio:</span><span class="hljs-symbol">:TwiML</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Response</span>.new <span class="hljs-keyword">do</span> |r|
+            r.Message <span class="hljs-string">"Your total networth is \n+$%.2f"</span> % networth
+          <span class="hljs-keyword">end</span>
+          twiml.text
+        <span class="hljs-keyword">else</span>
+          twiml = <span class="hljs-symbol">Twilio:</span><span class="hljs-symbol">:TwiML</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Response</span>.new <span class="hljs-keyword">do</span> |r|
+            r.Message <span class="hljs-string">"Your total networth is \n-$%.2f"</span> % networth.abs
+          <span class="hljs-keyword">end</span>
+          twiml.text
+        <span class="hljs-keyword">end</span>
+      <span class="hljs-keyword">when</span> /(?:My\sTotals)|(?:my\stotals)/
+        total_expense = Transaction.where(<span class="hljs-string">'type = ?'</span>, <span class="hljs-string">'expense'</span>).sum(<span class="hljs-symbol">:amount</span>).round(<span class="hljs-number">2</span>)
+        total_income = Transaction.where(<span class="hljs-string">'type = ?'</span>, <span class="hljs-string">'income'</span>).sum(<span class="hljs-symbol">:amount</span>).round(<span class="hljs-number">2</span>)
+        networth = total_income - total_expense
+        income = <span class="hljs-symbol">Total:</span><span class="hljs-symbol">:Income</span>.new.current_month
+        expense = <span class="hljs-symbol">Total:</span><span class="hljs-symbol">:Expense</span>.new.current_month
+        <span class="hljs-keyword">if</span> networth &gt;= <span class="hljs-number">0</span>
+          twiml = <span class="hljs-symbol">Twilio:</span><span class="hljs-symbol">:TwiML</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Response</span>.new <span class="hljs-keyword">do</span> |r|
+            r.Message <span class="hljs-string">%Q(
+  Your totals this month are
+  Networth: + $<span class="hljs-subst">#{networth}</span>
+  Income this Month + $<span class="hljs-subst">#{income}</span>
+  Expense this Month - $<span class="hljs-subst">#{expense}</span>
+  )</span>
+          <span class="hljs-keyword">end</span>
+          twiml.text
+        <span class="hljs-keyword">else</span>
+          twiml = <span class="hljs-symbol">Twilio:</span><span class="hljs-symbol">:TwiML</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Response</span>.new <span class="hljs-keyword">do</span> |r|
+            r.Message <span class="hljs-string">%Q(
+  Your totals this month are
+  Networth:\n - $<span class="hljs-subst">#{networth.abs.round(<span class="hljs-number">2</span>)}</span>
+  Income this Month:\n + $<span class="hljs-subst">#{income}</span>
+  Expense this Month:\n - $<span class="hljs-subst">#{expense}</span>
+  )</span>
+          <span class="hljs-keyword">end</span>
+          twiml.text
+        <span class="hljs-keyword">end</span>
+      <span class="hljs-keyword">else</span>
+        twiml = <span class="hljs-symbol">Twilio:</span><span class="hljs-symbol">:TwiML</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Response</span>.new <span class="hljs-keyword">do</span> |r|
+          r.Message <span class="hljs-string">%Q(Text Message is invalid valid commands are
+Add Account
+Delete Account
+Add Transaction
+Delete Transaction
+My Income
+My Expenses
+My Networth
+My Totals
+)</span>
+        <span class="hljs-keyword">end</span>
+        twiml.text
+      <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span></pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

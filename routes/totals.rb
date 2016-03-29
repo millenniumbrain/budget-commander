@@ -3,31 +3,39 @@ BudgetCommander.route('totals') do |r|
     r.get do
       user = User[1]
       response['Content-Type'] = 'application/json'
-      {:networth => Transaction.total('income', user.id),
-        :budget_balance => 0,
-        :income => Transaction.current_month_total('income', user.id),
-        :expense => Transaction.current_month_total('expense', user.id)}.to_json
-      end
+      { :networth => Transaction.total(user.id),
+        :budget_balance => Budget.balance(user.id)["budget_balance"],
+        :income => Transaction.current_month_total(user.id)["income"],
+        :expense => Transaction.current_month_total(user.id)["expense"]
+      }.to_json
     end
+  end
 
-    r.is 'income' do
-      r.get do
-        response['Content-Type'] = 'application/json'
-        {:income => Transaction.current_month_total('income')}.to_json
-      end
+  r.is 'income' do
+    r.get do
+      response['Content-Type'] = 'application/json'
+      {:income => Transaction.current_month_total('income')}.to_json
     end
+  end
 
-    r.is 'expense' do
-      r.get do
-        response['Content-Type'] = 'application/json'
-        {:expense => Transaction.current_month_total('expense')}.to_json
-      end
+  r.is 'expense' do
+    r.get do
+      response['Content-Type'] = 'application/json'
+      {:expense => Transaction.current_month_total('expense')}.to_json
     end
+  end
+  
+  r.is 'networth' do
+    r.get do
+      response['Content-Type'] = 'application/json'
+    end
+  end
 
-    r.is 'budgets' do
-      r.get do
-        response['Content-Type'] = 'application/json'
-        Budget.all.to_json
-      end
+  r.is 'budgets' do
+    r.get do
+      response['Content-Type'] = 'application/json'
+      user = User[1]
+      Budget.where('user_id = ?', user.id).to_json
     end
+  end
 end

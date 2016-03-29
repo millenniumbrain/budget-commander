@@ -2,16 +2,17 @@ BudgetCommander.route('transactions') do |r|
   r.is do
     r.get do
       response['Content-Type'] = 'application/json'
-      transaction = DB[:transactions].
-      select(:date, :amount, :description, :account_id, :type)
+      user = User[1]
+      transaction = Transaction.filter(:user_id => user.id)
+      .association_join(:tags)
+      .select_all(:transactions__user_id)
       .order(Sequel.desc(:id))
       .limit(10)
-      .all
       transaction.each do |t|
-        t[:date] = t[:date].to_s.tr('-:. UTC', '')
-        t[:account_id] = account_name(t[:account_id])
+        t["data"] = t["date"].to_s.tr('-:. UTC', '')
+        t["account_id"] = account_name(t["account_id"])
       end
-      transaction.to_json
+      transaction
     end
 
     r.post do

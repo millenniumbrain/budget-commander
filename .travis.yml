@@ -6,6 +6,5 @@ before_install:
 script:
   - mkdir db
   - bundle exec rake db:new
-  - bundle exec rake db:sqlite:migrate
-  - bundle exec ruby setup.rb
-  - bundle exec rake test
+  - bundle exec rake sqlite:migrate
+  - bundle exec rspec --format doc

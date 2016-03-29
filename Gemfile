@@ -5,7 +5,7 @@ gem 'roda'
 gem 'twilio-ruby'
 gem 'rtesseract'
 gem "mini_magick"
-#gem 'ruby-opencv'
+gem 'ruby-opencv'
 # => database
 gem 'sequel'
 

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>user.rb</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="account.html">
+                  account.rb
+                </a>
+              
+                
+                <a class="source" href="budget.html">
+                  budget.rb
+                </a>
+              
+                
+                <a class="source" href="tag.html">
+                  tag.rb
+                </a>
+              
+                
+                <a class="source" href="transaction.html">
+                  transaction.rb
+                </a>
+              
+                
+                <a class="source" href="user.html">
+                  user.rb
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>user.rb</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> &lt; Sequel::Model(:<span class="hljs-title">users</span>)</span>
+  <span class="hljs-keyword">include</span> BCrypt
+
+  one_to_many <span class="hljs-symbol">:accounts</span>
+  one_to_many <span class="hljs-symbol">:budgets</span>
+  one_to_many <span class="hljs-symbol">:tags</span>
+  one_to_many <span class="hljs-symbol">:transactions</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">self</span>.<span class="hljs-title">login</span><span class="hljs-params">(username, password)</span></span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> username &amp;&amp; password
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> user = filter(<span class="hljs-symbol">name:</span> username).first
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> <span class="hljs-symbol">BCrypt:</span><span class="hljs-symbol">:Password</span>.new(user.password_hash) == password
+    <span class="hljs-keyword">true</span>
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">self</span>.<span class="hljs-title">login_id</span><span class="hljs-params">(username)</span></span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> username
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">unless</span> user = filter(<span class="hljs-symbol">name:</span> username).first
+    user.id
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">self</span>.<span class="hljs-title">password</span></span>
+    @password ||= Password.new(password_hash)
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">password=</span><span class="hljs-params">(new_password)</span></span>
+    @password = Password.create(new_password)
+    <span class="hljs-keyword">self</span>.password_hash = @password
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span></pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

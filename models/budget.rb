@@ -3,20 +3,54 @@ class Budget < Sequel::Model(:budgets)
   many_to_one :user
   many_to_many :tags
 
-  def self.current_month_balance(u_id, budget_name = nil, tag_name = nil)
+  # Calculating budget balances
+  #------
+  # Retrive all expense transactions with the same tag as the budget with
+  # the budget table working as a psuedo category table.
+  def self.balance(u_id, budget_name = '')
+    if budget_name != ''
+      total_expense = 0
+      self[:name => budget_name].tags.each do |t|
+        total = Transaction.select(:amount).where(:tags => t)
+        .and(:type => 'expense')
+        .and(:user_id => u_id)
+        .sum(:amount)
+        unless total.nil?
+          total_expense = total_expense + total
+        end
+      end
+      budget = self[:name => budget_name][:spending_limit] 
+      {budget_name => budget - total_expense}
+    else
+      total_expense = 0
+      self.all.each do |k,v|
+        k.tags.each do |t|        
+          total = Transaction.select(:amount).where(:tags => t)
+            .and(:type => 'expense')
+            .and(:user_id => u_id)
+            .sum(:amount)   
+          unless total.nil?
+            total_expense = (total_expense + total).round(2)
+          end
+        end
+      end
+      budget = self.sum(:spending_limit)
+      {"budget_balance" => (budget - total_expense).round(2)}
+    end
+  end
+  
+  # Asking for the total spending limit
+  #------
+  def self.total?(u_id, budget_name = nil)
     return unless u_id
-    if budget_name.nil? && tag_name.nil?
-      budget_balance = select(:spending_limit)
-        .where('type = ?', u_id)
-.sum(:spending_limit)
-			month_total = Transaction.current_month_total('expense', u_id)
-			budget_balance - month_total
-    elsif tag_name.nil?
-      budget_balance = select(:spending_limit)
-        .where{(name =~ budget_name.downcase) & (user_id =~ u_id)}
+    if budget_name.nil?
+      budget_total = select(:spending_limit)
+        .where('user_id = ?', u_id)
         .sum(:spending_limit)
     else
-      #budget_balance = 
+      budget_total = select(:spending_limit)
+        .where{(user_id =~ u_id) & (name =~ budget_name)}
+        .sum(:spending_limit)
     end
   end
 end
