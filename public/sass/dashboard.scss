@@ -45,6 +45,7 @@
     color: #fff;
     padding: 10px;
     position: absolute;
+    top: 0;
     left: 0;
     text-align: left;
     @include z-index-8;
@@ -218,7 +219,7 @@
   background: $dark-gray;
   color: #fff;
   top: 35px;
-  left: 93.5px;
+  left: 160px;
   font-size: 1.1em;
   list-style: none;
   li {

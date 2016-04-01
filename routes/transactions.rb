@@ -3,16 +3,19 @@ BudgetCommander.route('transactions') do |r|
     r.get do
       response['Content-Type'] = 'application/json'
       user = User[1]
-      transaction = Transaction.filter(:user_id => user.id)
-      .association_join(:tags)
-      .select_all(:transactions__user_id)
-      .order(Sequel.desc(:id))
+      transactions = Transaction
+      .where(:user_id => user.id)
+      .order(Sequel.desc(:transactions__id))
       .limit(10)
-      transaction.each do |t|
-        t["data"] = t["date"].to_s.tr('-:. UTC', '')
-        t["account_id"] = account_name(t["account_id"])
+      .to_json(:include => :tag_names,:only => [:date, 
+      :amount, :type, :description, :account_id, :updated_at])
+      transactions = JSON.parse(transactions)
+      for i in 0..transactions.length do
+        transactions[i]["date"] = transactions[i]["date"].to_s.tr('-:. UTC', '')
+        transactions[i]["account_id"] = account_name(transactions[i]["account_id"])
+        r.last_modified(DateTime.parse(transactions[i]["updated_at"]).to_time)
       end
-      transaction
+      transactions.to_json
     end
 
     r.post do
@@ -47,8 +50,8 @@ BudgetCommander.route('transactions') do |r|
       r.get do
         response['Content-Type'] = 'application/json'
         transaction = JSON.parse(Transaction[id].to_json)
-          transaction["date"] = transaction["date"].to_s.tr('-:. UTC', '')
-          transaction["account_id"] = account_name(transaction["account_id"])
+        transaction["date"] = transaction["date"].to_s.tr('-:. UTC', '')
+        transaction["account_id"] = account_name(transaction["account_id"])
         transaction.to_json
       end
     end

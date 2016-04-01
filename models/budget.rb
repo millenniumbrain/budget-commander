@@ -26,6 +26,7 @@ class Budget < Sequel::Model(:budgets)
       self.all.each do |k,v|
         k.tags.each do |t|        
           total = Transaction.select(:amount).where(:tags => t)
+            .and(Sequel.extract(:month, :date) => Date.today.month)
             .and(:type => 'expense')
             .and(:user_id => u_id)
             .sum(:amount)   
@@ -52,5 +53,9 @@ class Budget < Sequel::Model(:budgets)
         .where{(user_id =~ u_id) & (name =~ budget_name)}
         .sum(:spending_limit)
     end
+  end
+  
+  def tag_names
+    self.tags.map(&:names)
   end
 end

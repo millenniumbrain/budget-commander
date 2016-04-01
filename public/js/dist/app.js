@@ -1,6 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*!
- * jQuery JavaScript Library v2.2.1
+ * jQuery JavaScript Library v2.2.2
  * http://jquery.com/
  *
  * Includes Sizzle.js
@@ -10,7 +10,7 @@
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2016-02-22T19:11Z
+ * Date: 2016-03-17T17:51Z
  */
 
 (function( global, factory ) {
@@ -66,7 +66,7 @@ var support = {};
 
 
 var
-	version = "2.2.1",
+	version = "2.2.2",
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
@@ -277,6 +277,7 @@ jQuery.extend( {
 	},
 
 	isPlainObject: function( obj ) {
+		var key;
 
 		// Not plain objects:
 		// - Any object or value whose internal [[Class]] property is not "[object Object]"
@@ -286,14 +287,18 @@ jQuery.extend( {
 			return false;
 		}
 
+		// Not own constructor property must be Object
 		if ( obj.constructor &&
-				!hasOwn.call( obj.constructor.prototype, "isPrototypeOf" ) ) {
+				!hasOwn.call( obj, "constructor" ) &&
+				!hasOwn.call( obj.constructor.prototype || {}, "isPrototypeOf" ) ) {
 			return false;
 		}
 
-		// If the function hasn't returned already, we're confident that
-		// |obj| is a plain object, created by {} or constructed with new Object
-		return true;
+		// Own properties are enumerated firstly, so to speed up,
+		// if last one is own, then all properties are own
+		for ( key in obj ) {}
+
+		return key === undefined || hasOwn.call( obj, key );
 	},
 
 	isEmptyObject: function( obj ) {
@@ -7326,6 +7331,12 @@ jQuery.extend( {
 	}
 } );
 
+// Support: IE <=11 only
+// Accessing the selectedIndex property
+// forces the browser to respect setting selected
+// on the option
+// The getter ensures a default option is selected
+// when in an optgroup
 if ( !support.optSelected ) {
 	jQuery.propHooks.selected = {
 		get: function( elem ) {
@@ -7334,6 +7345,16 @@ if ( !support.optSelected ) {
 				parent.parentNode.selectedIndex;
 			}
 			return null;
+		},
+		set: function( elem ) {
+			var parent = elem.parentNode;
+			if ( parent ) {
+				parent.selectedIndex;
+
+				if ( parent.parentNode ) {
+					parent.parentNode.selectedIndex;
+				}
+			}
 		}
 	};
 }
@@ -7528,7 +7549,8 @@ jQuery.fn.extend( {
 
 
 
-var rreturn = /\r/g;
+var rreturn = /\r/g,
+	rspaces = /[\x20\t\r\n\f]+/g;
 
 jQuery.fn.extend( {
 	val: function( value ) {
@@ -7604,9 +7626,15 @@ jQuery.extend( {
 		option: {
 			get: function( elem ) {
 
-				// Support: IE<11
-				// option.value not trimmed (#14858)
-				return jQuery.trim( elem.value );
+				var val = jQuery.find.attr( elem, "value" );
+				return val != null ?
+					val :
+
+					// Support: IE10-11+
+					// option.text throws exceptions (#14686, #14858)
+					// Strip and collapse whitespace
+					// https://html.spec.whatwg.org/#strip-and-collapse-whitespace
+					jQuery.trim( jQuery.text( elem ) ).replace( rspaces, " " );
 			}
 		},
 		select: {
@@ -7659,7 +7687,7 @@ jQuery.extend( {
 				while ( i-- ) {
 					option = options[ i ];
 					if ( option.selected =
-							jQuery.inArray( jQuery.valHooks.option.get( option ), values ) > -1
+						jQuery.inArray( jQuery.valHooks.option.get( option ), values ) > -1
 					) {
 						optionSet = true;
 					}
@@ -9354,18 +9382,6 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 
 
 
-// Support: Safari 8+
-// In Safari 8 documents created via document.implementation.createHTMLDocument
-// collapse sibling forms: the second one becomes a child of the first one.
-// Because of that, this security measure has to be disabled in Safari 8.
-// https://bugs.webkit.org/show_bug.cgi?id=137337
-support.createHTMLDocument = ( function() {
-	var body = document.implementation.createHTMLDocument( "" ).body;
-	body.innerHTML = "<form></form><form></form>";
-	return body.childNodes.length === 2;
-} )();
-
-
 // Argument "data" should be string of html
 // context (optional): If specified, the fragment will be created in this context,
 // defaults to document
@@ -9378,12 +9394,7 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 		keepScripts = context;
 		context = false;
 	}
-
-	// Stop scripts or inline event handlers from being executed immediately
-	// by using document.implementation
-	context = context || ( support.createHTMLDocument ?
-		document.implementation.createHTMLDocument( "" ) :
-		document );
+	context = context || document;
 
 	var parsed = rsingleTag.exec( data ),
 		scripts = !keepScripts && [];
@@ -9833,7 +9844,7 @@ return jQuery;
 
 },{}],2:[function(require,module,exports){
 //! moment.js
-//! version : 2.11.2
+//! version : 2.12.0
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -9857,7 +9868,7 @@ return jQuery;
     }
 
     function isArray(input) {
-        return Object.prototype.toString.call(input) === '[object Array]';
+        return input instanceof Array || Object.prototype.toString.call(input) === '[object Array]';
     }
 
     function isDate(input) {
@@ -10063,7 +10074,82 @@ return jQuery;
         return diffs + lengthDiff;
     }
 
-    function Locale() {
+    function warn(msg) {
+        if (utils_hooks__hooks.suppressDeprecationWarnings === false &&
+                (typeof console !==  'undefined') && console.warn) {
+            console.warn('Deprecation warning: ' + msg);
+        }
+    }
+
+    function deprecate(msg, fn) {
+        var firstTime = true;
+
+        return extend(function () {
+            if (firstTime) {
+                warn(msg + '\nArguments: ' + Array.prototype.slice.call(arguments).join(', ') + '\n' + (new Error()).stack);
+                firstTime = false;
+            }
+            return fn.apply(this, arguments);
+        }, fn);
+    }
+
+    var deprecations = {};
+
+    function deprecateSimple(name, msg) {
+        if (!deprecations[name]) {
+            warn(msg);
+            deprecations[name] = true;
+        }
+    }
+
+    utils_hooks__hooks.suppressDeprecationWarnings = false;
+
+    function isFunction(input) {
+        return input instanceof Function || Object.prototype.toString.call(input) === '[object Function]';
+    }
+
+    function isObject(input) {
+        return Object.prototype.toString.call(input) === '[object Object]';
+    }
+
+    function locale_set__set (config) {
+        var prop, i;
+        for (i in config) {
+            prop = config[i];
+            if (isFunction(prop)) {
+                this[i] = prop;
+            } else {
+                this['_' + i] = prop;
+            }
+        }
+        this._config = config;
+        // Lenient ordinal parsing accepts just a number in addition to
+        // number + (possibly) stuff coming from _ordinalParseLenient.
+        this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + (/\d{1,2}/).source);
+    }
+
+    function mergeConfigs(parentConfig, childConfig) {
+        var res = extend({}, parentConfig), prop;
+        for (prop in childConfig) {
+            if (hasOwnProp(childConfig, prop)) {
+                if (isObject(parentConfig[prop]) && isObject(childConfig[prop])) {
+                    res[prop] = {};
+                    extend(res[prop], parentConfig[prop]);
+                    extend(res[prop], childConfig[prop]);
+                } else if (childConfig[prop] != null) {
+                    res[prop] = childConfig[prop];
+                } else {
+                    delete res[prop];
+                }
+            }
+        }
+        return res;
+    }
+
+    function Locale(config) {
+        if (config != null) {
+            this.set(config);
+        }
     }
 
     // internal storage for locale config files
@@ -10139,11 +10225,25 @@ return jQuery;
         return globalLocale._abbr;
     }
 
-    function defineLocale (name, values) {
-        if (values !== null) {
-            values.abbr = name;
-            locales[name] = locales[name] || new Locale();
-            locales[name].set(values);
+    function defineLocale (name, config) {
+        if (config !== null) {
+            config.abbr = name;
+            if (locales[name] != null) {
+                deprecateSimple('defineLocaleOverride',
+                        'use moment.updateLocale(localeName, config) to change ' +
+                        'an existing locale. moment.defineLocale(localeName, ' +
+                        'config) should only be used for creating a new locale');
+                config = mergeConfigs(locales[name]._config, config);
+            } else if (config.parentLocale != null) {
+                if (locales[config.parentLocale] != null) {
+                    config = mergeConfigs(locales[config.parentLocale]._config, config);
+                } else {
+                    // treat as if there is no base config
+                    deprecateSimple('parentLocaleUndefined',
+                            'specified parentLocale is not defined yet');
+                }
+            }
+            locales[name] = new Locale(config);
 
             // backwards compat for now: also set the locale
             locale_locales__getSetGlobalLocale(name);
@@ -10154,6 +10254,31 @@ return jQuery;
             delete locales[name];
             return null;
         }
+    }
+
+    function updateLocale(name, config) {
+        if (config != null) {
+            var locale;
+            if (locales[name] != null) {
+                config = mergeConfigs(locales[name]._config, config);
+            }
+            locale = new Locale(config);
+            locale.parentLocale = locales[name];
+            locales[name] = locale;
+
+            // backwards compat for now: also set the locale
+            locale_locales__getSetGlobalLocale(name);
+        } else {
+            // pass null for config to unupdate, useful for tests
+            if (locales[name] != null) {
+                if (locales[name].parentLocale != null) {
+                    locales[name] = locales[name].parentLocale;
+                } else if (locales[name] != null) {
+                    delete locales[name];
+                }
+            }
+        }
+        return locales[name];
     }
 
     // returns locale data
@@ -10178,6 +10303,10 @@ return jQuery;
         }
 
         return chooseLocale(key);
+    }
+
+    function locale_locales__listLocales() {
+        return Object.keys(locales);
     }
 
     var aliases = {};
@@ -10206,10 +10335,6 @@ return jQuery;
         }
 
         return normalizedInput;
-    }
-
-    function isFunction(input) {
-        return input instanceof Function || Object.prototype.toString.call(input) === '[object Function]';
     }
 
     function makeGetSet (unit, keepTime) {
@@ -10545,12 +10670,15 @@ return jQuery;
             return mom;
         }
 
-        // TODO: Move this out of here!
         if (typeof value === 'string') {
-            value = mom.localeData().monthsParse(value);
-            // TODO: Another silent failure?
-            if (typeof value !== 'number') {
-                return mom;
+            if (/^\d+$/.test(value)) {
+                value = toInt(value);
+            } else {
+                value = mom.localeData().monthsParse(value);
+                // TODO: Another silent failure?
+                if (typeof value !== 'number') {
+                    return mom;
+                }
             }
         }
 
@@ -10668,36 +10796,6 @@ return jQuery;
 
         return m;
     }
-
-    function warn(msg) {
-        if (utils_hooks__hooks.suppressDeprecationWarnings === false &&
-                (typeof console !==  'undefined') && console.warn) {
-            console.warn('Deprecation warning: ' + msg);
-        }
-    }
-
-    function deprecate(msg, fn) {
-        var firstTime = true;
-
-        return extend(function () {
-            if (firstTime) {
-                warn(msg + '\nArguments: ' + Array.prototype.slice.call(arguments).join(', ') + '\n' + (new Error()).stack);
-                firstTime = false;
-            }
-            return fn.apply(this, arguments);
-        }, fn);
-    }
-
-    var deprecations = {};
-
-    function deprecateSimple(name, msg) {
-        if (!deprecations[name]) {
-            warn(msg);
-            deprecations[name] = true;
-        }
-    }
-
-    utils_hooks__hooks.suppressDeprecationWarnings = false;
 
     // iso 8601 regex
     // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
@@ -11344,7 +11442,7 @@ return jQuery;
     }
 
     var prototypeMin = deprecate(
-         'moment().min is deprecated, use moment.min instead. https://github.com/moment/moment/issues/1548',
+         'moment().min is deprecated, use moment.max instead. https://github.com/moment/moment/issues/1548',
          function () {
              var other = local__createLocal.apply(null, arguments);
              if (this.isValid() && other.isValid()) {
@@ -11356,7 +11454,7 @@ return jQuery;
      );
 
     var prototypeMax = deprecate(
-        'moment().max is deprecated, use moment.max instead. https://github.com/moment/moment/issues/1548',
+        'moment().max is deprecated, use moment.min instead. https://github.com/moment/moment/issues/1548',
         function () {
             var other = local__createLocal.apply(null, arguments);
             if (this.isValid() && other.isValid()) {
@@ -11654,7 +11752,8 @@ return jQuery;
 
     // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
     // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
-    var isoRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/;
+    // and further modified to allow for strings containing both week and day
+    var isoRegex = /^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$/;
 
     function create__createDuration (input, key) {
         var duration = input,
@@ -11692,11 +11791,11 @@ return jQuery;
             duration = {
                 y : parseIso(match[2], sign),
                 M : parseIso(match[3], sign),
-                d : parseIso(match[4], sign),
-                h : parseIso(match[5], sign),
-                m : parseIso(match[6], sign),
-                s : parseIso(match[7], sign),
-                w : parseIso(match[8], sign)
+                w : parseIso(match[4], sign),
+                d : parseIso(match[5], sign),
+                h : parseIso(match[6], sign),
+                m : parseIso(match[7], sign),
+                s : parseIso(match[8], sign)
             };
         } else if (duration == null) {// checks for null or undefined
             duration = {};
@@ -11760,6 +11859,14 @@ return jQuery;
         return res;
     }
 
+    function absRound (number) {
+        if (number < 0) {
+            return Math.round(-1 * number) * -1;
+        } else {
+            return Math.round(number);
+        }
+    }
+
     // TODO: remove 'name' arg after deprecation is removed
     function createAdder(direction, name) {
         return function (val, period) {
@@ -11779,8 +11886,8 @@ return jQuery;
 
     function add_subtract__addSubtract (mom, duration, isAdding, updateOffset) {
         var milliseconds = duration._milliseconds,
-            days = duration._days,
-            months = duration._months;
+            days = absRound(duration._days),
+            months = absRound(duration._months);
 
         if (!mom.isValid()) {
             // No op
@@ -12106,8 +12213,8 @@ return jQuery;
     }
 
     function toJSON () {
-        // JSON.stringify(new Date(NaN)) === 'null'
-        return this.isValid() ? this.toISOString() : 'null';
+        // new Date(NaN).toJSON() === null
+        return this.isValid() ? this.toISOString() : null;
     }
 
     function moment_valid__isValid () {
@@ -12217,7 +12324,6 @@ return jQuery;
         var dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy),
             date = createUTCDate(dayOfYearData.year, 0, dayOfYearData.dayOfYear);
 
-        // console.log("got", weekYear, week, weekday, "set", date.toISOString());
         this.year(date.getUTCFullYear());
         this.month(date.getUTCMonth());
         this.date(date.getUTCDate());
@@ -12927,21 +13033,6 @@ return jQuery;
         return isFunction(format) ? format(output) : format.replace(/%s/i, output);
     }
 
-    function locale_set__set (config) {
-        var prop, i;
-        for (i in config) {
-            prop = config[i];
-            if (isFunction(prop)) {
-                this[i] = prop;
-            } else {
-                this['_' + i] = prop;
-            }
-        }
-        // Lenient ordinal parsing accepts just a number in addition to
-        // number + (possibly) stuff coming from _ordinalParseLenient.
-        this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + (/\d{1,2}/).source);
-    }
-
     var prototype__proto = Locale.prototype;
 
     prototype__proto._calendar       = defaultCalendar;
@@ -13405,7 +13496,7 @@ return jQuery;
     // Side effect imports
 
 
-    utils_hooks__hooks.version = '2.11.2';
+    utils_hooks__hooks.version = '2.12.0';
 
     setHookCallback(local__createLocal);
 
@@ -13428,6 +13519,8 @@ return jQuery;
     utils_hooks__hooks.monthsShort           = lists__listMonthsShort;
     utils_hooks__hooks.weekdaysMin           = lists__listWeekdaysMin;
     utils_hooks__hooks.defineLocale          = defineLocale;
+    utils_hooks__hooks.updateLocale          = updateLocale;
+    utils_hooks__hooks.locales               = locale_locales__listLocales;
     utils_hooks__hooks.weekdaysShort         = lists__listWeekdaysShort;
     utils_hooks__hooks.normalizeUnits        = normalizeUnits;
     utils_hooks__hooks.relativeTimeThreshold = duration_humanize__getSetRelativeTimeThreshold;
@@ -13571,17 +13664,27 @@ return jQuery;
 
     Helper.floatToDecimal = function(number) {
       var decimalNumber;
-      return decimalNumber = parseFloat(number);
+      return decimalNumber = parseFloat(number).toFixed(2);
     };
 
     Helper.parseAmount = function(el, type, amount) {
       switch (type) {
         case "expense":
           el.setAttribute("class", "red-amount amount-cell");
-          return el.innerHTML = "-" + this.floatToDecimal(amount).toFixed(2);
+          return el.innerHTML = "-" + this.floatToDecimal(amount);
         case "income":
           el.setAttribute("class", "green-amount amount-cell");
-          return el.innerHTML = "+" + this.floatToDecimal(amount).toFixed(2);
+          return el.innerHTML = "+" + this.floatToDecimal(amount);
+      }
+    };
+
+    Helper.parseTotal = function(el, amount) {
+      if (amount >= 0) {
+        el.setAttribute("class", "green-amount total-amount");
+        return el.innerHTML = "+" + this.floatToDecimal(amount);
+      } else {
+        el.setAttribute("class", "red-amount total-amount");
+        return el.innerHTML = "-" + this.floatToDecimal(amount);
       }
     };
 
@@ -13695,9 +13798,11 @@ return jQuery;
 },{"jquery":1}],9:[function(require,module,exports){
 // Generated by CoffeeScript 1.10.0
 (function() {
-  var $, Total;
+  var $, Helper, Total;
 
   $ = require('jquery');
+
+  Helper = require('./helper');
 
   Total = (function() {
     function Total() {}
@@ -13708,16 +13813,10 @@ return jQuery;
       budgetBalance = document.getElementById("budgetBalance");
       incomeTotal = document.getElementById("incomeTotal");
       expenseTotal = document.getElementById("expenseTotal");
-      if (data.networth >= 0) {
-        networth.setAttribute("class", "total-amount green-amount");
-        networth.innerHTML = "+ " + data.networth.toFixed(2);
-      } else {
-        networth.setAttribute("class", "total-amount red-amount");
-        networth.innerHTML = data.networth.toFixed(2);
-      }
-      budgetBalance.innerHTML = "+ " + data.budget_balance;
-      incomeTotal.innerHTML = "+ " + data.income;
-      return expenseTotal.innerHTML = "- " + data.expense;
+      Helper.parseTotal(networth, data.networth);
+      Helper.parseTotal(budgetBalance, data.budget_balance);
+      Helper.parseTotal(incomeTotal, data.income);
+      return expenseTotal.innerHTML = "- " + data.expense.toFixed(2);
     };
 
     Total.prototype.getTotals = function() {
@@ -13737,7 +13836,7 @@ return jQuery;
 }).call(this);
 
 
-},{"jquery":1}],10:[function(require,module,exports){
+},{"./helper":6,"jquery":1}],10:[function(require,module,exports){
 // Generated by CoffeeScript 1.10.0
 (function() {
   var $, Helper, Transaction, moment,
@@ -13760,7 +13859,7 @@ return jQuery;
       var table;
       table = document.querySelector('#transactionActivity tbody');
       data.map(function(transaction) {
-        var accountName, amount, date, description, row, tags;
+        var accountName, amount, date, description, i, len, my_tag, ref, row, tag, tags;
         row = document.createElement("tr");
         date = document.createElement("td");
         date.setAttribute("class", "date-cell");
@@ -13772,7 +13871,13 @@ return jQuery;
         description.innerHTML = transaction.description;
         tags = document.createElement("td");
         tags.setAttribute("class", "tags-cell");
-        tags.innerHTML = "Entertainment";
+        ref = transaction.tag_names;
+        for (i = 0, len = ref.length; i < len; i++) {
+          my_tag = ref[i];
+          tag = document.createElement("span");
+          tag.innerHTML = my_tag;
+          tags.appendChild(tag);
+        }
         accountName = document.createElement("td");
         accountName.setAttribute("class", "account-cell");
         accountName.innerHTML = transaction.account_id;

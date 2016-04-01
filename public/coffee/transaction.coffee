@@ -21,7 +21,10 @@ class Transaction
 
       tags = document.createElement("td")
       tags.setAttribute("class", "tags-cell")
-      tags.innerHTML = "Entertainment"
+      for my_tag in transaction.tag_names
+        tag = document.createElement("span")
+        tag.innerHTML = my_tag
+        tags.appendChild(tag)
 
       accountName = document.createElement("td")
       accountName.setAttribute("class", "account-cell")

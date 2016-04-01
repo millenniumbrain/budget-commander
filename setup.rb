@@ -35,7 +35,6 @@ one = Transaction.create do |t|
   t.user_id =  user.id
 end
 one.add_tag(clothes)
-one
 two = Transaction.create do |t|
   t.date = 'Mar 26 2016'
   t.amount = 100
@@ -45,7 +44,6 @@ two = Transaction.create do |t|
   t.user_id =  user.id
 end
 two.add_tag(hardware)
-two
 three = Transaction.create do |t|
   t.date = 'Mar 6 2016'
   t.amount = 10.89
@@ -55,7 +53,6 @@ three = Transaction.create do |t|
   t.user_id =  user.id
 end
 three.add_tag(hardware)
-three
 four = Transaction.create do |t|
   t.date = 'Mar 26 2015'
   t.amount = 25.23
@@ -65,4 +62,3 @@ four = Transaction.create do |t|
   t.user_id =  user.id
 end
 four.add_tag(gardening)
-four

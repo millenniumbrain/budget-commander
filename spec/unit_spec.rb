@@ -124,11 +124,11 @@ describe Transaction do
 
   context 'when retriving totals' do
     it 'has an income this month' do
-      expect(Transaction.current_month_total('income', user.id)).to eql 100.0
+      expect(Transaction.current_month_total(user.id, 'income')).to eql 100.0
     end
 
     it 'has an income' do
-      expect(Transaction.total('income', user.id)).to eq 200
+      expect(Transaction.total(user.id, 'income')).to eq 200
     end
   end
 end

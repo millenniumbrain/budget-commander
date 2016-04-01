@@ -29,7 +29,7 @@ public/uploads/*.gif
 js modules
 node_modules
 .yardoc/*
-doc/*
+docs
 public/.yardoc/*
 
 # environment variables

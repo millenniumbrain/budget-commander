@@ -8,6 +8,7 @@ require 'json'
 require 'slim'
 require 'date'
 require 'twilio-ruby'
+require 'axlsx'
 require 'better_errors'
 require './models'
 require './env'
@@ -32,6 +33,7 @@ class BudgetCommander < Roda
   plugin :flash
   plugin :render
   plugin :multi_route
+  plugin :caching
   plugin :not_found do
     render('404')
   end
