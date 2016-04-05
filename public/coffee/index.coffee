@@ -33,5 +33,5 @@ newAccount = new AccountForm("#newAccount")
 newAccount.submit()
 
 newTransaction = new TransactionForm("#newTransaction")
-newTransaction.init()
+#newTransaction.init()
 newTransaction.submit()

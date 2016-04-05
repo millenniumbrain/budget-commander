@@ -1,7 +1,7 @@
-BudgetCommander.route('dashboard') do |r|
+BudgetCommander.route('dashboard'.freeze) do |r|
   r.is do
     r.get do
-      view 'dashboard/dashboard', layout: 'dashboard/layout'
+      view 'dashboard/dashboard'.freeze, layout: 'dashboard/layout'.freeze
     end
   end
 end

@@ -12,7 +12,7 @@ class Budget < Sequel::Model(:budgets)
       total_expense = 0
       self[:name => budget_name].tags.each do |t|
         total = Transaction.select(:amount).where(:tags => t)
-        .and(:type => 'expense')
+          .and(:type => 'expense'.freeze)
         .and(:user_id => u_id)
         .sum(:amount)
         unless total.nil?
@@ -27,7 +27,7 @@ class Budget < Sequel::Model(:budgets)
         k.tags.each do |t|        
           total = Transaction.select(:amount).where(:tags => t)
             .and(Sequel.extract(:month, :date) => Date.today.month)
-            .and(:type => 'expense')
+            .and(:type => 'expense'.freeze)
             .and(:user_id => u_id)
             .sum(:amount)   
           unless total.nil?
@@ -36,7 +36,7 @@ class Budget < Sequel::Model(:budgets)
         end
       end
       budget = self.sum(:spending_limit)
-      {"budget_balance" => (budget - total_expense).round(2)}
+      {:budget_balance => (budget - total_expense).round(2)}
     end
   end
   
@@ -46,7 +46,7 @@ class Budget < Sequel::Model(:budgets)
     return unless u_id
     if budget_name.nil?
       budget_total = select(:spending_limit)
-        .where('user_id = ?', u_id)
+        .where(:user_id =>  u_id)
         .sum(:spending_limit)
     else
       budget_total = select(:spending_limit)

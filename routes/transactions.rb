@@ -1,26 +1,26 @@
-BudgetCommander.route('transactions') do |r|
+BudgetCommander.route('transactions'.freeze) do |r|
   r.is do
     r.get do
-      response['Content-Type'] = 'application/json'
+      response['Content-Type'.freeze] = 'application/json'.freeze
       user = User[1]
       transactions = Transaction
       .where(:user_id => user.id)
       .order(Sequel.desc(:transactions__id))
       .limit(10)
-      .to_json(:include => :tag_names,:only => [:date, 
+      .to_json(:include => :tag_names,:only => [:date,
       :amount, :type, :description, :account_id, :updated_at])
       transactions = JSON.parse(transactions)
-      for i in 0..transactions.length do
-        transactions[i]["date"] = transactions[i]["date"].to_s.tr('-:. UTC', '')
-        transactions[i]["account_id"] = account_name(transactions[i]["account_id"])
-        r.last_modified(DateTime.parse(transactions[i]["updated_at"]).to_time)
+      transactions.each do |t|
+        t["date".freeze] = t["date"].to_s.tr('-:. UTC'.freeze, '')
+        t["account_id".freeze] = account_name(t["account_id".freeze])
+        r.last_modified(DateTime.parse(t["updated_at".freeze].to_s).to_time)
       end
       transactions.to_json
     end
 
     r.post do
       transaction = parse_json_inputs.inject({}) do |hash, item|
-        hash[item["name"]] = item["value"]
+        hash[item["name".freeze]] = item["value".freeze]
         hash
       end
       account = Account.where(:name => transaction["transaction_account"]).to_json

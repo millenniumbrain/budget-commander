@@ -11,19 +11,19 @@ class TransactionForm
     @form = $(form)
 
 
-  init: () =>
-    transactionAccounts = document.getElementById("newTransactionAccounts")
-    $.get(@accountsUrl, (data) ->
-      data.map( (account) ->
-        option = document.createElement("option")
-        option.innerHTML = account.name
-        option.value = account.name
-        transactionAccounts.appendChild(option)
-        true
-      )
-      true
-    )
-    true
+  #init: () =>
+   # transactionAccounts = document.getElementById("newTransactionAccounts")
+   # $.get(@accountsUrl, (data) ->
+   #   data.map( (account) ->
+   #     option = document.createElement("option")
+   #     option.innerHTML = account.name
+   #     option.value = account.name
+   #     transactionAccounts.appendChild(option)
+   #     true
+   #   )
+   #   true
+   # )
+   # true
 
   addTransaction: (data) =>
     table = document.querySelector('#transactionActivity tbody')

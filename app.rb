@@ -13,17 +13,17 @@ require 'better_errors'
 require './models'
 require './env'
 
-Dir['./helpers/*.rb'].each{ |f| require f }
+Dir['./helpers/*.rb'.freeze].each{ |f| require f }
 
 class BudgetCommander < Roda
 
   plugin :default_headers,
-  'Content-Type' => 'text/html',
+    'Content-Type'.freeze => 'text/html'.freeze,
   #'Content-Security-Policy' => "default-src 'self'",
-  'Strict-Transport-Security' => 'max-age=160704400',
-  'X-Frame-Options' => 'deny',
-  'X-Content-Type-Options' => 'nosniff'
-  plugin :static, ['/css', '/fonts', '/img', '/js']
+    'Strict-Transport-Security'.freeze => 'max-age=160704400'.freeze,
+    'X-Frame-Options'.freeze => 'deny'.freeze,
+    'X-Content-Type-Options'.freeze => 'nosniff.freeze'
+  plugin :static, ['/css'.freeze, '/fonts'.freeze, '/img'.freeze, '/js'.freeze]
   plugin :json
   plugin :render, :engine => 'slim', :views => 'views'
   plugin :cookies
@@ -35,7 +35,7 @@ class BudgetCommander < Roda
   plugin :multi_route
   plugin :caching
   plugin :not_found do
-    render('404')
+    render('404'.freeze)
   end
 
   # custom plugins
@@ -44,12 +44,13 @@ class BudgetCommander < Roda
   self.environment = :development
 
   configure do
-    use Rack::Session::Cookie, :secret => ENV['SECRET']
+    use Rack::Deflater
+    use Rack::Session::Cookie, :secret => ENV['SECRET'.freeze]
     use Rack::Session::Pool, :expire_after => 252000
   end
 
   configure :development do
-    Slim::Engine.set_options :pretty => true, :sort_attrs => true
+    #Slim::Engine.set_options :pretty => true, :sort_attrs => true
     use Rack::MethodOverride
     use BetterErrors::Middleware
     BetterErrors.application_root = __dir__
@@ -58,7 +59,7 @@ class BudgetCommander < Roda
   configure :production do
   end
 
-  Dir['./routes/*.rb'].each{ |f| require f }
+  Dir['./routes/*.rb'.freeze].each{ |f| require f }
 
   route do |r|
     r.multi_route

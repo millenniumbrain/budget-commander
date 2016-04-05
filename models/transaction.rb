@@ -10,11 +10,11 @@ class Transaction < Sequel::Model(:transactions)
     else
     end
   end
-  
+
   def self.current_month_income(u_id)
     income = select(:amount, :date)
       .where(:user_id => u_id)
-      .and(:type => 'income')
+      .and(:type => 'income'.freeze)
       .and(Sequel.extract(:month, :date) => Date.today.month)
       .sum(:amount)
     if income.nil?
@@ -22,25 +22,25 @@ class Transaction < Sequel::Model(:transactions)
       now = Date.today
       first_of_the_month = Date.new(now.year, now.month, 1)
       {
-        "income" => {
-          "amount" => income,
-          "updated_at" => first_of_the_month
+        :income => {
+          :amount => income,
+          :updated_at => first_of_the_month
         }
       }
     else
       {
-        "income" => {
-          "amount" => income.round(2),
-          "updated_at" => first_of_the_month
+        :income => {
+          :amount => income.round(2),
+          :updated_at => first_of_the_month
         }
       }
     end
   end
-   
+
   def self.current_month_expense(u_id)
     expense = select(:amount, :date)
       .where(:user_id => u_id)
-      .and(:type => 'expense')
+      .and(:type => 'expense'.freeze)
       .and(Sequel.extract(:month, :date) => Date.today.month)
       .sum(:amount)
     if expense.nil?
@@ -48,16 +48,16 @@ class Transaction < Sequel::Model(:transactions)
       now = Date.today
       first_of_the_month = Date.new(now.year, now.month, 1)
       {
-        "expense" => {
-          "amount" => expense,
-          "updated_at" => first_of_the_month
+        :expense => {
+          :amount => expense,
+          :updated_at => first_of_the_month
         }
       }
     else
       {
-        "income" => {
-          "amount" => income.round(2),
-          "updated_at" => first_of_the_month
+        :income => {
+          :amount => income.round(2),
+          :updated_at => first_of_the_month
         }
       }
     end
@@ -65,10 +65,10 @@ class Transaction < Sequel::Model(:transactions)
 
   def self.total(u_id)
     total_income = select(:amount)
-      .where{(type =~ 'income') & (user_id =~ u_id)}
+      .where{(type =~ 'income'.freeze) & (user_id =~ u_id)}
       .sum(:amount)
     total_expense = select(:amount)
-      .where{(type =~ 'expense') & (user_id =~ u_id)}
+      .where{(type =~ 'expense'.freeze) & (user_id =~ u_id)}
       .sum(:amount)
     if !total_income.nil? && !total_expense.nil?
       total = (total_income - total_expense).round(2)
@@ -76,7 +76,7 @@ class Transaction < Sequel::Model(:transactions)
       total = 0.00
     end
   end
-  
+
   def tag_names
     self.tags.map(&:name)
   end
