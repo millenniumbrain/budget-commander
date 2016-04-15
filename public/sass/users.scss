@@ -1,0 +1,32 @@
+@import 'base/base';
+@import 'components/buttons';
+@import 'components/grids';
+@import 'components/forms';
+
+.user-form {
+  width: 30%;
+  padding: 10% 0 0;
+  margin: 0 auto 0;
+  
+  legend {
+    width: 100%;
+    text-align: center;
+    font-size: 4em;
+    padding: 0 0 25px;
+  }
+  
+  .form-control-group {
+    width: 90.5%;
+    font-size: 1.6em;
+    padding: 10px 25px;
+  }
+  
+  .form-controls-group {
+    font-size: 1.4em;
+    button {
+      padding: 10px;
+      width: 100%;
+    }
+  }
+}
+

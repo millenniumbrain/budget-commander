@@ -2,10 +2,10 @@ Sequel.migration do
   up do
     create_table :users do
       primary_key :id
-      String :email, :null => false
-      String :name, :length => 20, :null => false, :unique => true
-      String :password_hash
+      String :email, :null => false, :unique => true
+      String :password_hash, :null => false
       String :avatar, :default => ''
+      String :twilio_client_token, :unique => true
       DateTime :created_at
       DateTime :updated_at
     end

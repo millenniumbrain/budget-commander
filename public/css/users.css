@@ -1,0 +1,127 @@
+* {
+  margin: 0;
+  padding: 0; }
+  *:before, *:after {
+    box-sizing: inherit; }
+
+html {
+  font: 62.5%/1.5 'Montserrat', sans-serif;
+  height: 100%;
+  box-sizing: border-box; }
+
+body {
+  font-size: 10px;
+  width: 100%;
+  height: 100%;
+  z-index: 100; }
+
+img {
+  box-sizing: content-box; }
+
+#container {
+  background: #FCFCFC;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 200; }
+
+.content {
+  width: 100%;
+  height: 100%;
+  z-index: 200; }
+
+.button, .primary {
+  color: #FFFFFF;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 2px;
+  text-transform: uppercase; }
+
+.primary {
+  background: #313131; }
+
+.flex-grid {
+  display: flex; }
+
+.flex-cell {
+  flex: 1; }
+
+.flex-fit > .flex-cell {
+  flex: 1; }
+
+.flex-full > .flex-cell {
+  flex: 0 0 100%; }
+
+.flex-1-2 > .flex-cell {
+  flex: 0 0 50%; }
+
+.flex-1-3 > .flex-cell {
+  flex: 0 0 33.3333%; }
+
+.flex-1-4 > .flex-cell {
+  flex: 0 0 25%; }
+
+.flex-align-left {
+  text-align: left; }
+
+.flex-cell-gutter {
+  margin: 0 10px 0 10px; }
+
+.flex-align-center {
+  text-align: center; }
+
+.flex-align-right {
+  text-align: right; }
+
+form fieldset {
+  border: none;
+  margin: 0;
+  padding: 0; }
+form input[type=text], form input[type=email], form input[type=password] {
+  font-size: 1.1em;
+  width: 90%;
+  padding: 8px 15px;
+  border: 1px solid #CACACA;
+  border-radius: 3px; }
+  form input[type=text]:focus, form input[type=email]:focus, form input[type=password]:focus {
+    border: 1px solid #6da8af;
+    border-radius: 3px;
+    outline: 0; }
+
+.form-aligned {
+  text-align: left; }
+  .form-aligned label {
+    display: block; }
+  .form-aligned input[type=text] {
+    width: 80% !important; }
+  .form-aligned select {
+    padding: 6px; }
+
+.form-control-group {
+  padding: 0 25px; }
+
+.form-controls-group {
+  text-align: left;
+  padding: 0 25px;
+  margin-top: 20px; }
+
+.user-form {
+  width: 30%;
+  padding: 10% 0 0;
+  margin: 0 auto 0; }
+  .user-form legend {
+    width: 100%;
+    text-align: center;
+    font-size: 4em;
+    padding: 0 0 25px; }
+  .user-form .form-control-group {
+    width: 90.5%;
+    font-size: 1.6em;
+    padding: 10px 25px; }
+  .user-form .form-controls-group {
+    font-size: 1.4em; }
+    .user-form .form-controls-group button {
+      padding: 10px;
+      width: 100%; }
+
+/*# sourceMappingURL=users.css.map */

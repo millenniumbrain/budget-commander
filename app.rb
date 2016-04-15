@@ -1,6 +1,7 @@
 =begin
-# This library is to provide a framework for using modern tools
-# to leverage the power of a cms service
+This is Budget Commander, command your budget everywhere you go
+
+Tally, ho!
 =end
 require 'puma'
 require 'roda'
@@ -64,6 +65,47 @@ class BudgetCommander < Roda
   route do |r|
     r.multi_route
 
+    r.is 'login' do
+      r.get do
+        @title = "Log In"
+        view 'users/login', layout: 'users/layout'
+      end
+      
+      r.post do
+        user = r["user"]
+        if User.login(user["email"], user["password"])
+          current_user = User.where(:email => user[:email])
+          session[:user_id] = current_user.id
+          session[:logged_in] = true
+        else
+        end
+      end
+    end
+    
+    r.is 'signup' do
+      r.get do
+        @title = "Sign Up"
+        view 'users/signup', layout: 'users/layout'
+      end
+      
+      r.post do
+        user = r["user"]
+        if User.where(:email => user["email"]).nil?
+        else
+          new_user = User.new do |u|
+            u.email = user["email"]
+            u.password = user["password"]
+          end
+          new_user.save
+        end
+      end
+    end
+    
+    r.is 'logout' do
+      session[:user_id] = nil
+      session[:logged_in] = nil
+    end
+    
     r.root do
       view 'index'
     end

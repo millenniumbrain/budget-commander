@@ -6,16 +6,16 @@ class User < Sequel::Model(:users)
   one_to_many :tags
   one_to_many :transactions
 
-  def self.login(username, password)
-    return unless username && password
-    return unless user = filter(name: username).first
+  def self.login(email, password)
+    return unless email && password
+    return unless user = filter(email: email).first
     return unless BCrypt::Password.new(user.password_hash) == password
     true
   end
 
-  def self.login_id(username)
-    return unless username
-    return unless user = filter(name: username).first
+  def self.login_id(email)
+    return unless email
+    return unless user = filter(email: email).first
     user.id
   end
 
