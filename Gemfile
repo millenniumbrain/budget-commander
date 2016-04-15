@@ -7,7 +7,7 @@ gem 'twilio-ruby'
 #gem "mini_magick"
 #gem 'ruby-opencv'
 gem 'axlsx'
-
+gem 'curb'
 # => database
 gem 'sequel'
 

@@ -50,7 +50,7 @@ class BudgetCommander < Roda
   end
 
   configure :development do
-    #Slim::Engine.set_options :pretty => true, :sort_attrs => true
+    Slim::Engine.set_options :pretty => true, :sort_attrs => true
     use Rack::MethodOverride
     use BetterErrors::Middleware
     BetterErrors.application_root = __dir__
@@ -65,7 +65,7 @@ class BudgetCommander < Roda
     r.multi_route
 
     r.root do
-
+      view 'index'
     end
   end
 end
