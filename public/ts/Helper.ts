@@ -1,4 +1,4 @@
-module Helper {
+export module Helper {
     export function floatToDecimal(float: string) {
         const decimalNumber:string = parseFloat(float).toFixed(2);
         return decimalNumber;
@@ -21,13 +21,4 @@ module Helper {
         }
     }
     
-    export function parseTotal(el: HTMLElement, amount: string) {
-        if (amount >= "0") {
-            el.setAttribute("class", "green-amount total-amount");
-            el.innerHTML = "+" + this.floatToDecimal(amount);
-        } else {
-            el.setAttribute("class", "red-amount total-amount");
-            el.innerHTML = "-" + this.floatToDecimal(amount);         
-        }
-    }
 }

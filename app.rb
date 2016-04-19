@@ -7,6 +7,7 @@ require 'puma'
 require 'roda'
 require 'json'
 require 'slim'
+require 'erubis'
 require 'date'
 require 'twilio-ruby'
 require 'axlsx'
@@ -32,7 +33,7 @@ class BudgetCommander < Roda
   plugin :h
   plugin :environments
   plugin :flash
-  plugin :render
+  plugin :render, :engine => 'erubis'
   plugin :multi_route
   plugin :caching
   plugin :not_found do
@@ -51,7 +52,6 @@ class BudgetCommander < Roda
   end
 
   configure :development do
-    Slim::Engine.set_options :pretty => true, :sort_attrs => true
     use Rack::MethodOverride
     use BetterErrors::Middleware
     BetterErrors.application_root = __dir__

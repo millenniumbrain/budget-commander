@@ -4,13 +4,6 @@ class Transaction < Sequel::Model(:transactions)
   many_to_one :account
   many_to_many :tags
 
-  def current_month_total(u_id, t_type = '')
-    return unless u_id
-    if t_type == ''
-    else
-    end
-  end
-
   def self.current_month_income(u_id)
     income = select(:amount, :date)
       .where(:user_id => u_id)
@@ -55,8 +48,8 @@ class Transaction < Sequel::Model(:transactions)
       }
     else
       {
-        :income => {
-          :amount => income.round(2),
+        :expense => {
+          :amount => -1.00 * income.round(2),
           :updated_at => first_of_the_month
         }
       }
@@ -79,5 +72,29 @@ class Transaction < Sequel::Model(:transactions)
 
   def tag_names
     self.tags.map(&:name)
+  end
+  
+  def self.total_income_by_month(u_id, year = nil)
+    income = select(:amount, :date)
+      .where(:user_id => u_id)
+      .and(:type => 'income')
+      .select_group(Sequel.function(:strftime, '%m-%Y', :date).as(:year))
+      .select_append(sum(:amount).as(:income))
+    income.inject({}) do |hash, item|
+      hash[item[:year]] = item[:income]
+      hash
+    end
+  end
+  
+  def total_expense_by_month(u_id, year = year)
+      expense = select(:amount, :date)
+      .where(:user_id => u_id)
+      .and(:type => 'expense')
+      .select_group(Sequel.function(:strftime, '%m-%Y', :date).as(:year))
+      .select_append(sum(:amount).as(:expense))
+      expense.inject({}) do |hash, item|
+        hash[item[:year]] = item[:expense]
+        hash
+      end
   end
 end

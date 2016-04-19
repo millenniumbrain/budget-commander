@@ -26,7 +26,7 @@ BudgetCommander.route('totals'.freeze) do |r|
   r.is 'expense' do
     r.get do
       response['Content-Type'] = 'application/json'
-      @income.to_json
+      @expense.to_json
     end
   end
 

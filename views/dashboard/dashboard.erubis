@@ -1,0 +1,40 @@
+<div class="dashboard-container">
+  <div class="dashboard">
+    <div id="totals">
+      <div class="flex-grid flex-fit flex-1-4">
+        <div class="flex-cell">
+          <h2>Networth</h2>
+          <div id="networthTotal"></div>
+        </div>
+        <div class="flex-cell">
+          <h2>Budget Balance</h2>
+          <div id="budgetBalance"></div>
+        </div>
+        <div class="flex-cell">
+          <h2>Income this Month</h2>
+          <div id="incomeTotal"></div>
+        </div>
+        <div class="flex-cell">
+          <h2>Expense this Month</h2>
+          <div id="expenseTotal"></div>
+        </div>
+      </div>
+      <img class="spinner" id="totalsSpinner" src="/img/ring-alt.svg">
+    </div>
+    <div class="seperator"></div>
+    <div class="transactions widget">
+      <table id="transactionActivity">
+        <thead>
+          <th class="date-cell">Date</th>
+          <th class="amount-cell">Amount</th>
+          <th class="description-cell">Description</th>
+          <th class="tags-cell">Tags</th>
+          <th class="account-cell">Account Name</th>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <img class="spinner" id="transactionSpinner" src="/img/ring-alt.svg">
+    </div>
+  </div>
+</div>
