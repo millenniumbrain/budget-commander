@@ -6,7 +6,7 @@ gem 'twilio-ruby'
 #gem 'rtesseract'
 #gem "mini_magick"
 #gem 'ruby-opencv'
-gem 'concurrent-ruby', require: 'concurrent'
+#gem 'concurrent-ruby', require: 'concurrent'
 gem 'axlsx'
 gem 'curb'
 # => database

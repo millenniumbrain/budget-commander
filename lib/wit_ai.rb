@@ -1,8 +1,7 @@
 module Wit
 	require 'json'
 	require 'curb'
-	require 'pp'
-
+	
 	WIT_AI_URL = ENV['WIT_URL'] || 'https://api.wit.ai'
 	class WitException < Exception
 	end
@@ -19,11 +18,10 @@ module Wit
 		def send
 			params = {}
 			if @body
-				params[:v] = "20160405".freeze
 				params[:q] = @body.to_s
 			end
 
-			@response = request('/message', params)
+			@response = request('message', params)
 		end
 
 		private

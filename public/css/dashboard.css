@@ -222,7 +222,7 @@ table td {
 
 .nav {
   background: #ECECEC;
-  width: 128px;
+  width: 15%;
   height: 100%;
   border-right: 1px solid #ccc;
   position: fixed;
@@ -231,7 +231,6 @@ table td {
 
 #nav-menu li {
   width: 100%;
-  height: 96px;
   border-bottom: 1px solid #ccc; }
 
 .dash-link {
@@ -239,27 +238,26 @@ table td {
   display: block;
   width: 100%;
   height: 100%;
-  text-decoration: none; }
+  text-decoration: none;
+  text-align: left;
+  padding: 15px 15px 15px 0; }
   .dash-link:hover, .dash-link:focus {
     background: #FCFCFC; }
 
 .icon {
-  font-size: 2.5em;
-  padding: 28px 0 0;
-  display: block;
-  text-align: center; }
+  padding-left: 25px;
+  font-size: 1.5em; }
 
 .icon-text {
-  font-size: 1.4em;
-  display: block;
-  text-align: center;
+  padding-left: 5px;
+  font-size: 1.5em;
   text-transform: uppercase; }
 
 .dashboard-container {
-  margin-left: 128px;
+  margin-left: 15%;
   margin-top: 72px;
   height: 100%;
-  width: calc(100% - 128px); }
+  width: calc(100% - 15%); }
 
 .dashboard {
   padding: 10px; }

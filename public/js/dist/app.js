@@ -9970,7 +9970,7 @@ TotalWidget.getAllTotals();
 var transactionWidget = new TransactionTable_1.TransactionTable();
 transactionWidget.getTransactions();
 
-},{"./Total":3,"./TransactionTable":4}]},{},[5,4])
+},{"./Total":3,"./TransactionTable":4}]},{},[5])
 
 
 //# sourceMappingURL=app.js.map

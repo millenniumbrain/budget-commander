@@ -1,5 +1,32 @@
 <div class="dashboard-container">
   <div class="dashboard">
+    <div class="flex-grid flex-fit flex-1-3" id="dashboard-controls">
+      <div class="flex-cell">
+        <button class="primary" id="addButton">
+          <span class="fa fa-dollar"></span>
+          Add
+        </button>
+        <button id="uploadButton" class="primary">
+          <span class="fa fa-upload"></span>
+          Upload
+        </button>
+      </div>
+      <div class="flex-cell">
+        <form id="searchBar">
+          <input type="text" placeholder="Search">
+        </form>
+      </div>
+      <div class="flex-cell">
+        <button id="downloadButton" class="primary">
+          <span class="fa fa-download"></span>
+          Download
+        </button>
+        <button id="exportButton" class="primary">
+          <span class="fa fa-rocket"></span>
+          Export
+        </button>
+      </div>
+    </div>
     <div id="totals">
       <div class="flex-grid flex-fit flex-1-4">
         <div class="flex-cell">
@@ -23,6 +50,20 @@
     </div>
     <div class="seperator"></div>
     <div class="transactions widget">
+      <div class="widget-controls flex-grid flex-fit flex-1-3 flex-cell-gutter">
+        <div class="flex-cell" style="flex: 2;">
+          <h3 class="widget-title">Transactions</h3>
+        </div>
+        <div class="flex-cell flex-align-right flex-cell-gutter">
+        </div>
+        <div class="flex-cell flex-align-left flex-cell-gutter">
+          <form id="transactionSearch" class="form transaction-widget-form">
+            <fieldset>
+              <input type="text" placeholder="Search Transactions">
+            </fieldset>
+          </form>
+        </div> 
+      </div>
       <table id="transactionActivity">
         <thead>
           <th class="date-cell">Date</th>

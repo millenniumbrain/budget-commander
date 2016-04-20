@@ -14,6 +14,8 @@ require 'axlsx'
 require 'better_errors'
 require './models'
 require './env'
+require './lib/wit_ai.rb'
+require 'pp'
 
 Dir['./helpers/*.rb'.freeze].each{ |f| require f }
 
@@ -60,7 +62,7 @@ class BudgetCommander < Roda
   configure :production do
   end
 
-  Dir['./routes/*.rb'.freeze].each{ |f| require f }
+  Dir['./routes/**/*.rb'.freeze].each{ |f| require f }
 
   route do |r|
     r.multi_route

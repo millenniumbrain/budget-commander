@@ -86,7 +86,7 @@ class Transaction < Sequel::Model(:transactions)
     end
   end
   
-  def total_expense_by_month(u_id, year = year)
+  def total_expense_by_month(u_id, year = nil)
       expense = select(:amount, :date)
       .where(:user_id => u_id)
       .and(:type => 'expense')

@@ -1,3 +1,10 @@
 BudgetCommander.route('v1', 'api') do |r|
-    r.multi_route('v1')
+  r.is do
+    r.is do
+      r.get do
+        "It works"
+      end
+    end
+  end
+  r.multi_route('v1')
 end

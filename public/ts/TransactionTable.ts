@@ -17,12 +17,12 @@ export class TransactionTable {
     private parseData(data: any) {
          const tranTable: Element = document.querySelector("#transactionActivity tbody");
         data.forEach( (transaction: any) => {
-            const transactionRow: HTMLTableRowElement = document.createElement("tr");
-            const dateCell: HTMLTableDataCellElement = document.createElement("td");
-            const amountCell: HTMLTableDataCellElement = document.createElement("td");
-            const descCell: HTMLTableDataCellElement = document.createElement("td");
-            const tagsCell: HTMLTableDataCellElement = document.createElement("td");
-            const accountNameCell: HTMLTableDataCellElement = document.createElement("td");
+            let transactionRow: HTMLTableRowElement = document.createElement("tr");
+            let dateCell: HTMLTableDataCellElement = document.createElement("td");
+            let amountCell: HTMLTableDataCellElement = document.createElement("td");
+            let descCell: HTMLTableDataCellElement = document.createElement("td");
+            let tagsCell: HTMLTableDataCellElement = document.createElement("td");
+            let accountNameCell: HTMLTableDataCellElement = document.createElement("td");
             
             accountNameCell.setAttribute("class", "account-cell");
             dateCell.innerHTML = transaction.date;

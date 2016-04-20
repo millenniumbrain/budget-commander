@@ -25,15 +25,45 @@
             </a>
           </li>
           <li>
-            <a href="#">
-              <span></span>
-              <span></span>
+            <a class="dash-link" href="#">
+              <span class="icon fa fa-bank"></span>
+              <span class="icon-text">Accounts</span>
             </a>
           </li>
           <li>
-            <a href="#">
-              <span></span>
-              <span></span>
+            <a class="dash-link" href="#">
+              <span class="icon fa fa-book"></span>
+              <span class="icon-text">Budgets</span>
+            </a>
+          </li>
+          <li>
+            <a class="dash-link" href="#">
+              <span class="icon fa fa-pie-chart"></span>
+              <span class="icon-text">Reports</span>
+            </a>
+          </li>
+          <li>
+            <a class="dash-link" href="#">
+              <span class="icon fa fa-line-chart"></span>
+              <span class="icon-text">Forecasts</span>
+            </a>
+          </li>
+          <li>
+            <a class="dash-link" href="#">
+              <span class="icon fa fa-tags"></span>
+              <span class="icon-text">Tags</span>
+            </a>
+          </li>
+          <li>
+            <a class="dash-link" href="#">
+              <span class="icon fa fa-dashboard"></span>
+              <span class="icon-text">Receipts</span>
+            </a>
+          </li>
+          <li>
+            <a class="dash-link" href="#">
+              <span class="icon fa fa-group"></span>
+              <span class="icon-text">Groups</span>
             </a>
           </li>
         </ul>
