@@ -3,7 +3,7 @@
 import $ = require("jquery");
 import {Helper} from "./Helper";
 
-export class Total {
+export default class Total {
     public getAllTotals() {
         $.get('/totals', this.parseAllTotals)
         .fail( () => {

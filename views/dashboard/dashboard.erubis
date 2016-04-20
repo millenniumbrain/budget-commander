@@ -1,11 +1,125 @@
 <div class="dashboard-container">
   <div class="dashboard">
+    <div id="newAccountOverlay">
+      <div class="overlay-box">
+        <div id="closeNewAccount" class="fa fa-close overlay-close"></div>
+        <form id="newAccount" class="overlay-form form form-aligned" method="post" action="/accounts">
+          <fieldset>
+            <legend>New Account</legend>
+            <div class="overlay-form-seperator"></div>
+            <div class="form-spinner account-spinner">
+              <img src="/img/ring-alt.svg">
+            </div>
+            <div class="form-control-group.flex-grid.flex-1-2">
+              <div class="flex-cell">
+                <label>Name</label>
+                <input type="text" name="account_name">
+              </div>
+            </div>
+            <div class="form-controls-group">
+              <button class="primary">Add Account</button>
+            </div>
+          </fieldset>
+        </form> 
+      </div>      
+    </div>
+    <div id="newTransactionOverlay">
+      <div class="overlay-box">
+        <div id="closeNewTransaction" class="fa fa-close overlay-close"></div>
+        <form id="newTransaction" class="overlay-form form form-aligned" method="post" action="/transactions">
+          <fieldset>
+            <legend>New Transaction</legend>
+            <div class="overlay-form-seperator"></div>
+            <div class="form-spinner transaction-spinner">
+              <img src="/img/ring-alt.svg">
+            </div>
+            <div class="form-control-group flex-grid flex-1-2">
+              <div class="flex-cell">
+                <label>Expense</label>
+                <input type="radio" name="transaction_type" value="expense">
+                <label>Income</label>
+                <input type="radio" name="transaction_type" value="income">
+              </div>
+              <div class="flex-cell">
+                <label>Type</label>
+                <select id="newTransactionAccounts" name="transaction_account"></select>
+              </div>
+            </div>
+            <div class="form-control-group flex-grid flex-1-4">
+              <div class="flex-cell">
+                <label>Date</label>
+                <input id="newTransactionDate" type="text" name="transaction_date">
+              </div>
+              <div class="flex-cell">
+                <label>Amount</label>
+                <input id="newTransactionAmount" type="text" name="transaction_amount">
+              </div>
+              <div class="flex-cell">
+                <label>Description</label>
+                <input id="newTransactionDesc" type="text" name="transaction_description">
+              </div>
+              <div class="flex-cell">
+                <label>Tags</label>
+                <input type="text" name="transaction_tags">
+              </div>
+            </div>
+            <div class="form-controls-group">
+              <button class="primary" type="submit">Add Transaction</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>    
+    </div>
+    <div id="newBudgetOverlay">
+      <div class="overlay-box">
+        <div id="closeNewBudget" class="fa fa-close overlay-close"></div>
+        <form id="newBudget" class="overlay-form form form-aligned" method="post" action="/budgets">
+          <fieldset>
+            <legend>New Budget</legend>
+            <div class="overlay-form-seperator"></div>
+            <div class="form-control-group flex-grid flex-1-2">
+              <div class="flex-cell">
+                <label>Budget Name</label>
+                <input type="text" name="budget_name">
+              </div>
+              <div class="flex-cell">
+                <label>Type</label>
+                <select name="budget_calc">
+                    <option>Percentage</option>
+                    <option>Cash Amount</option>
+                </select>
+             </div>
+            <div class="form-controls-group">
+              <button class="primary">Add Account</button>     
+            </div> 
+          </div>
+        </fieldset>
+       </form>
+      </div> 
+    </div>
     <div class="flex-grid flex-fit flex-1-3" id="dashboard-controls">
       <div class="flex-cell">
-        <button class="primary" id="addButton">
+        <button id="addButton" class="primary">
           <span class="fa fa-dollar"></span>
           Add
         </button>
+        <ul id="addOptions">
+          <li id="addAccountButton">
+            <span class="fa fa-plus" style="position: relative; right: 20px;"></span>
+            &nbsp;
+            <span>Account</span>
+          </li>
+          <li id="addTransactionButton">
+            <span class="fa fa-plus" style="position: relative; right: 20px;"></span>
+            &nbsp;
+            <span>Transaction</span>
+          </li>
+          <li id="addBudgetButton">
+            <span class="fa fa-plus" style="position: relative; right: 20px;"></span>
+            &nbsp;
+            <span>Budget</span>
+          </li>
+        </ul>
         <button id="uploadButton" class="primary">
           <span class="fa fa-upload"></span>
           Upload

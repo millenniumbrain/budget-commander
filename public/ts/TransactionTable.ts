@@ -2,7 +2,7 @@
 import $ = require("jquery");
 import {Helper} from "./Helper";
 
-export class TransactionTable {
+export default class TransactionTable {
     
     public getTransactions() {
         $.get('/transactions', this.parseData)

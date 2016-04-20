@@ -9844,6 +9844,35 @@ return jQuery;
 
 },{}],2:[function(require,module,exports){
 "use strict";
+var Dropdown = (function () {
+    function Dropdown(el, menu) {
+        var _this = this;
+        this.el = el;
+        this.menu = menu;
+        this.clicked = false;
+        this.toggle = function () {
+            if (_this.clicked === false) {
+                _this.menu.style.display = "block";
+                _this.clicked = true;
+            }
+            else {
+                _this.menu.style.display = "none";
+                _this.clicked = false;
+            }
+        };
+        this.el = document.getElementById(el);
+        this.menu = document.getElementById(menu);
+    }
+    Dropdown.prototype.init = function () {
+        this.el.addEventListener("click", this.toggle, false);
+    };
+    return Dropdown;
+}());
+exports.__esModule = true;
+exports["default"] = Dropdown;
+
+},{}],3:[function(require,module,exports){
+"use strict";
 var Helper;
 (function (Helper) {
     function floatToDecimal(float) {
@@ -9870,7 +9899,35 @@ var Helper;
     Helper.parseAmount = parseAmount;
 })(Helper = exports.Helper || (exports.Helper = {}));
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
+"use strict";
+var Overlay = (function () {
+    function Overlay(overlay) {
+        this.overlay = overlay;
+        this.overlay = document.getElementById(overlay);
+    }
+    Overlay.prototype.openToggle = function (el) {
+        var openElement = document.getElementById(el);
+        openElement.addEventListener("click", this.toggleOverlay, false);
+    };
+    Overlay.prototype.closeToggle = function (el) {
+        var closeElement = document.getElementById(el);
+        closeElement.addEventListener("click", this.toggleOverlay, false);
+    };
+    Overlay.prototype.toggleOverlay = function () {
+        if (this.overlay.style.visibility === "visible") {
+            this.overlay.style.visibility = "hidden";
+        }
+        else {
+            this.overlay.style.visibility = "visible";
+        }
+    };
+    return Overlay;
+}());
+exports.__esModule = true;
+exports["default"] = Overlay;
+
+},{}],5:[function(require,module,exports){
 /// <reference path="./jquery.d.ts" />
 "use strict";
 var $ = require("jquery");
@@ -9909,9 +9966,10 @@ var Total = (function () {
     };
     return Total;
 }());
-exports.Total = Total;
+exports.__esModule = true;
+exports["default"] = Total;
 
-},{"./Helper":2,"jquery":1}],4:[function(require,module,exports){
+},{"./Helper":3,"jquery":1}],6:[function(require,module,exports){
 "use strict";
 /// <reference path="./jquery.d.ts" />
 var $ = require("jquery");
@@ -9959,18 +10017,30 @@ var TransactionTable = (function () {
     };
     return TransactionTable;
 }());
-exports.TransactionTable = TransactionTable;
+exports.__esModule = true;
+exports["default"] = TransactionTable;
 
-},{"./Helper":2,"jquery":1}],5:[function(require,module,exports){
+},{"./Helper":3,"jquery":1}],7:[function(require,module,exports){
 "use strict";
+/// <reference path="./jquery.d.ts" />
+var $ = require("jquery");
 var TransactionTable_1 = require("./TransactionTable");
 var Total_1 = require("./Total");
-var TotalWidget = new Total_1.Total();
-TotalWidget.getAllTotals();
-var transactionWidget = new TransactionTable_1.TransactionTable();
-transactionWidget.getTransactions();
+var Overlay_1 = require("./Overlay");
+var Dropdown_1 = require("./Dropdown");
+$(document).ready(function () {
+    var addButton = new Dropdown_1["default"]("addButton", "addOptions");
+    addButton.init();
+    var totalsWidget = new Total_1["default"]();
+    totalsWidget.getAllTotals();
+    var transactionWidget = new TransactionTable_1["default"]();
+    transactionWidget.getTransactions();
+    var accountOverlay = new Overlay_1["default"]("newAccountOverlay");
+    accountOverlay.openToggle("addAccountButton");
+    accountOverlay.closeToggle("closeNewAccount");
+});
 
-},{"./Total":3,"./TransactionTable":4}]},{},[5])
+},{"./Dropdown":2,"./Overlay":4,"./Total":5,"./TransactionTable":6,"jquery":1}]},{},[7])
 
 
 //# sourceMappingURL=app.js.map
