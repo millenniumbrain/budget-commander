@@ -1,0 +1,38 @@
+.group {
+  background: $gray;
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
+.members {
+  padding: 20px;
+
+}
+
+.member {
+  img {
+    width: 64px;
+    height: 64px;
+    display: block;
+    margin: 0 auto;
+  }
+  span {
+  }
+}
+
+.add-group {
+  padding: 40px;
+  border: 1px dashed $darker-gray;
+  font-size: $medium;
+  text-align: center;
+  color: $darker-gray;
+  
+  &:hover {
+    border: 1px solid $darker-gray;
+    cursor: pointer;
+  }
+  
+  span {
+    margin-right: 10px;
+  }
+}

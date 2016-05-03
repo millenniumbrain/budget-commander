@@ -8,15 +8,15 @@ export module Helper {
         switch(type) {
             case "income":
                 el.setAttribute("class", "green-amount amount-cell");
-                el.innerHTML = "-" + this.floatToDecimal(amount);
+                el.innerHTML = "+" + " " + this.floatToDecimal(amount).toString();
                 break;
             case "expense":
                 el.setAttribute("class", "red-amount amount-cell");
-                el.innerHTML = "-" + this.floatToDecimal(amount);
+                el.innerHTML = "-" + " " + this.floatToDecimal(amount).toString();
                 break;
             default:
                 el.setAttribute("class", "amount-cell");
-                el.innerHTML = this.floatToDecimal(amount);
+                el.innerHTML = this.floatToDecimal(amount).toString();
                 break;
         }
     }

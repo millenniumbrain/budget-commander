@@ -9844,6 +9844,40 @@ return jQuery;
 
 },{}],2:[function(require,module,exports){
 "use strict";
+/// <reference path="./jquery.d.ts" />
+/// <reference path="./chart.d.ts" />
+var $ = require("jquery");
+var BudgetWidget = (function () {
+    function BudgetWidget(context) {
+        this.context = context;
+        var budgetData = $.get('/totals/budgets', this.generateData)
+            .fail()
+            .done();
+    }
+    BudgetWidget.prototype.generateData = function (data) {
+        console.log(data);
+        var dataset = {};
+        for (var i = 0; i < data.length; i++) {
+            dataset = {};
+        }
+    };
+    BudgetWidget.prototype.generateLabels = function (data) {
+        var labels = [];
+        for (var i = 0; i < data.length; i++) {
+            labels.push(data[i]);
+        }
+        return labels;
+    };
+    BudgetWidget.prototype.drawChart = function () {
+        var ctx = document.getElementById(this.context);
+    };
+    return BudgetWidget;
+}());
+exports.__esModule = true;
+exports["default"] = BudgetWidget;
+
+},{"jquery":1}],3:[function(require,module,exports){
+"use strict";
 var Dropdown = (function () {
     function Dropdown(el, menu) {
         var _this = this;
@@ -9871,7 +9905,7 @@ var Dropdown = (function () {
 exports.__esModule = true;
 exports["default"] = Dropdown;
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 "use strict";
 var Helper;
 (function (Helper) {
@@ -9884,22 +9918,22 @@ var Helper;
         switch (type) {
             case "income":
                 el.setAttribute("class", "green-amount amount-cell");
-                el.innerHTML = "-" + this.floatToDecimal(amount);
+                el.innerHTML = "+" + " " + this.floatToDecimal(amount).toString();
                 break;
             case "expense":
                 el.setAttribute("class", "red-amount amount-cell");
-                el.innerHTML = "-" + this.floatToDecimal(amount);
+                el.innerHTML = "-" + " " + this.floatToDecimal(amount).toString();
                 break;
             default:
                 el.setAttribute("class", "amount-cell");
-                el.innerHTML = this.floatToDecimal(amount);
+                el.innerHTML = this.floatToDecimal(amount).toString();
                 break;
         }
     }
     Helper.parseAmount = parseAmount;
 })(Helper = exports.Helper || (exports.Helper = {}));
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 "use strict";
 var Overlay = (function () {
     function Overlay(overlay) {
@@ -9927,7 +9961,7 @@ var Overlay = (function () {
 exports.__esModule = true;
 exports["default"] = Overlay;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 /// <reference path="./jquery.d.ts" />
 "use strict";
 var $ = require("jquery");
@@ -9957,11 +9991,12 @@ var Total = (function () {
     Total.prototype.parseTotal = function (el, amount) {
         if (amount >= "0") {
             el.setAttribute("class", "green-amount total-amount");
-            el.innerHTML = "+" + Helper_1.Helper.floatToDecimal(amount);
+            el.innerHTML = "+" + " " + Helper_1.Helper.floatToDecimal(amount).toString();
         }
         else {
+            var absAmount = Math.abs(amount).toString();
             el.setAttribute("class", "red-amount total-amount");
-            el.innerHTML = "-" + Helper_1.Helper.floatToDecimal(amount);
+            el.innerHTML = "-" + " " + absAmount;
         }
     };
     return Total;
@@ -9969,7 +10004,7 @@ var Total = (function () {
 exports.__esModule = true;
 exports["default"] = Total;
 
-},{"./Helper":3,"jquery":1}],6:[function(require,module,exports){
+},{"./Helper":4,"jquery":1}],7:[function(require,module,exports){
 "use strict";
 /// <reference path="./jquery.d.ts" />
 var $ = require("jquery");
@@ -10020,7 +10055,7 @@ var TransactionTable = (function () {
 exports.__esModule = true;
 exports["default"] = TransactionTable;
 
-},{"./Helper":3,"jquery":1}],7:[function(require,module,exports){
+},{"./Helper":4,"jquery":1}],8:[function(require,module,exports){
 "use strict";
 /// <reference path="./jquery.d.ts" />
 var $ = require("jquery");
@@ -10028,6 +10063,7 @@ var TransactionTable_1 = require("./TransactionTable");
 var Total_1 = require("./Total");
 var Overlay_1 = require("./Overlay");
 var Dropdown_1 = require("./Dropdown");
+var BudgetWidget_1 = require("./BudgetWidget");
 $(document).ready(function () {
     var addButton = new Dropdown_1["default"]("addButton", "addOptions");
     addButton.init();
@@ -10038,9 +10074,11 @@ $(document).ready(function () {
     var accountOverlay = new Overlay_1["default"]("newAccountOverlay");
     accountOverlay.openToggle("addAccountButton");
     accountOverlay.closeToggle("closeNewAccount");
+    var budgetWidget = new BudgetWidget_1["default"]("budgetPieChart");
+    budgetWidget;
 });
 
-},{"./Dropdown":2,"./Overlay":4,"./Total":5,"./TransactionTable":6,"jquery":1}]},{},[7])
+},{"./BudgetWidget":2,"./Dropdown":3,"./Overlay":5,"./Total":6,"./TransactionTable":7,"jquery":1}]},{},[8])
 
 
 //# sourceMappingURL=app.js.map

@@ -162,6 +162,14 @@
       </div>
       <img class="spinner" id="totalsSpinner" src="/img/ring-alt.svg">
     </div>
+    <div class="flex-grid flex-fit flex-1-2">
+      <div class="budget widget flex-cell">
+        <canvas id="budgetPieChart"></canvas>
+      </div>
+      <div class="networth widget flex-cell">
+        <canvas id="networthChart"></canvas>
+      </div>
+    </div>
     <div class="seperator"></div>
     <div class="transactions widget">
       <div class="widget-controls flex-grid flex-fit flex-1-3 flex-cell-gutter">

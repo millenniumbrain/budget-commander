@@ -4,7 +4,9 @@ Sequel.migration do
       primary_key :id
       String :name, length: 20
       Integer :spending_limit
+      TrueClass :rollover
       foreign_key :user_id
+      foreign_key :group_id
     end
   end
 

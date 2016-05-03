@@ -4,6 +4,7 @@ import TransactionTable from "./TransactionTable";
 import Total from "./Total";
 import Overlay from "./Overlay";
 import Dropdown from "./Dropdown";
+import BudgetWidget from "./BudgetWidget";
 
 $(document).ready(() => {
   const addButton = new Dropdown("addButton", "addOptions");
@@ -18,4 +19,8 @@ $(document).ready(() => {
   const accountOverlay = new Overlay("newAccountOverlay");
   accountOverlay.openToggle("addAccountButton");
   accountOverlay.closeToggle("closeNewAccount");
+  
+  
+  const budgetWidget = new BudgetWidget("budgetPieChart");
+  budgetWidget
 });

@@ -7,7 +7,7 @@ module Wit
 	end
 
 	class Message
-		attr_reader :response
+		attr_reader :response, :entities, :id
 		attr_accessor :body
 
 		def initialize(body, access_token = '')
@@ -23,14 +23,45 @@ module Wit
 
 			@response = request('message', params)
 		end
+		
+		def id
+		  if @response.nil?
+		    ""
+		  else
+		    @id = @response["msg_id"]
+		  end
+		end
+		
+		def entities
+		  if @response.nil?
+		  else
+		    @entities = @response["outcomes"][0]["entities"]
+		  end
+		end
+		
+		
+		def entity_value(name)
+		  if entities[name].nil?
+		    nil
+		  else
+		    entity = entities[name].first
+		    entity["value"]
+		  end
+		end
+		
+		def entity(name)
+		  entities[name]
+		end
 
 		private
-
+		
+		
 		def request(path, params)
 			req_params = Curl::postalize(params)
 			req = Curl::Easy.new("#{WIT_AI_URL}/#{path}?#{req_params}") do |http|
 				http.follow_location = true
 				http.headers['Authorization'] = "Bearer #{@access_token}"
+				http.headers['charset'] = 'utf-8'
 			end
 			req.perform
 			if req.response_code > 200

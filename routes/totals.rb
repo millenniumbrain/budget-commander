@@ -5,8 +5,6 @@ BudgetCommander.route('totals'.freeze) do |r|
   @networth = Transaction.total(@user.id)
   r.is do
     r.get do
-      r.last_modified(DateTime.parse(@income[:income][:updated_at].to_s).to_time)
-      r.last_modified(DateTime.parse(@expense[:expense][:updated_at].to_s).to_time)
       response['Content-Type'.freeze] = 'application/json'.freeze
       { :networth => @networth,
         :budget_balance => Budget.balance(@user.id)[:budget_balance],
@@ -19,6 +17,7 @@ BudgetCommander.route('totals'.freeze) do |r|
   r.is 'income' do
     r.get do
       response['Content-Type'] = 'application/json'
+      query_params = parse_nested_query(r.query_string)
       @income.to_json
     end
   end

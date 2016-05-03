@@ -4,17 +4,17 @@ BudgetCommander.route('transactions') do |r|
       response['Content-Type'] = 'application/json'
       user = User[1]
       transactions = Transaction
-      .where(:user_id => user.id)
-      .order(Sequel.desc(:transactions__id))
-      .limit(10)
-      .to_json(:include => :tag_names,:only => [:date,
-      :amount, :type, :description, :account_id, :updated_at])
+        .where(:user_id => user.id)
+        .order(Sequel.desc(:transactions__id))
+        .limit(10)
+        .to_json(:include => :tag_names,:only => [:date,
+          :amount, :type, :description, :account_id, :updated_at])
       transactions = JSON.parse(transactions)
       transactions.each do |t|
         t["date"] = Date.parse(t["date"]).strftime('%b %d %Y')
         t["account_id"] = account_name(t["account_id"])
-        r.last_modified(DateTime.parse(t["updated_at"].to_s).to_time)
       end
+      r.etag(transactions.length)
       transactions.to_json
     end
 
@@ -30,11 +30,15 @@ BudgetCommander.route('transactions') do |r|
         t.description = transaction["transaction_description"]
         t.type = transaction["transaction_type"]
         t.date = DateTime.strptime(transaction["transaction_date"], '%b %d %Y')
-        t.account_id = account[0]["id"]
+        t.account_id = account.first["id"]
         t.user_id = 1
       end
-      new_transaction.save
-      response.status = 200
+      if new_transaction.save
+        response.status = 200
+      else
+        raise Sequel::Rollback
+        response.status = 503
+      end
     end
   end
 

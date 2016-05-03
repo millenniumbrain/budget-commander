@@ -15,7 +15,7 @@ export default class TransactionTable {
     }
     
     private parseData(data: any) {
-         const tranTable: Element = document.querySelector("#transactionActivity tbody");
+        const tranTable: Element = document.querySelector("#transactionActivity tbody");
         data.forEach( (transaction: any) => {
             let transactionRow: HTMLTableRowElement = document.createElement("tr");
             let dateCell: HTMLTableDataCellElement = document.createElement("td");

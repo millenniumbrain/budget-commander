@@ -1,3 +1,7 @@
 def account_name(id)
-  Account[id].name
+  if id.nil?
+    ""
+  else
+    Account[id].name
+  end
 end

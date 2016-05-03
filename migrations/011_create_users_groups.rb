@@ -1,14 +1,13 @@
 Sequel.migration do
   up do
-    create_table :tags do
+    create_table :users_groups do
       primary_key :id
-      String :name, length: 20
       foreign_key :user_id
       foreign_key :group_id
     end
   end
-
+  
   down do
-    drop_table :tags
+    drop_table(:users_groups)
   end
 end

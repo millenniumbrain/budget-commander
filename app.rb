@@ -7,7 +7,7 @@ require 'puma'
 require 'roda'
 require 'json'
 require 'slim'
-require 'erubis'
+require 'tilt/erubis'
 require 'date'
 require 'twilio-ruby'
 require 'axlsx'
@@ -17,17 +17,18 @@ require './env'
 require './lib/wit_ai.rb'
 require 'pp'
 
-Dir['./helpers/*.rb'.freeze].each{ |f| require f }
+Dir['./helpers/*.rb'].each{ |f| require f }
 
 class BudgetCommander < Roda
 
   plugin :default_headers,
-    'Content-Type'.freeze => 'text/html'.freeze,
-  #'Content-Security-Policy' => "default-src 'self'",
-    'Strict-Transport-Security'.freeze => 'max-age=160704400'.freeze,
-    'X-Frame-Options'.freeze => 'deny'.freeze,
-    'X-Content-Type-Options'.freeze => 'nosniff.freeze'
-  plugin :static, ['/css'.freeze, '/fonts'.freeze, '/img'.freeze, '/js'.freeze]
+    'Content-Type' => 'text/html',
+    #'Content-Security-Policy' => "default-src 'self'",
+    'charset' => 'utf-8',
+    'Strict-Transport-Security' => 'max-age=160704400',
+    'X-Frame-Options' => 'deny',
+    'X-Content-Type-Options' => 'nosniff'
+  plugin :static, ['/css', '/fonts', '/img', '/js']
   plugin :json
   plugin :render, :engine => 'slim', :views => 'views'
   plugin :cookies
@@ -39,9 +40,11 @@ class BudgetCommander < Roda
   plugin :multi_route
   plugin :caching
   plugin :not_found do
-    render('404'.freeze)
+    render('404')
   end
-
+  
+  include Rack::Utils
+  
   # custom plugins
   Roda.plugin JSONParserHelper
 
@@ -49,7 +52,7 @@ class BudgetCommander < Roda
 
   configure do
     use Rack::Deflater
-    use Rack::Session::Cookie, :secret => ENV['SECRET'.freeze]
+    use Rack::Session::Cookie, :secret => ENV['SECRET']
     use Rack::Session::Pool, :expire_after => 252000
   end
 
@@ -62,7 +65,7 @@ class BudgetCommander < Roda
   configure :production do
   end
 
-  Dir['./routes/**/*.rb'.freeze].each{ |f| require f }
+  Dir['./routes/**/*.rb'].each{ |f| require f }
 
   route do |r|
     r.multi_route

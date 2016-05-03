@@ -122,6 +122,32 @@ table td {
   font-size: 1.5em;
   padding: 15px 15px; }
 
+.group {
+  background: #ECECEC;
+  width: 100%;
+  border: 1px solid #ccc; }
+
+.members {
+  padding: 20px; }
+
+.member img {
+  width: 64px;
+  height: 64px;
+  display: block;
+  margin: 0 auto; }
+
+.add-group {
+  padding: 40px;
+  border: 1px dashed #CACACA;
+  font-size: 1.5em;
+  text-align: center;
+  color: #CACACA; }
+  .add-group:hover {
+    border: 1px solid #CACACA;
+    cursor: pointer; }
+  .add-group span {
+    margin-right: 10px; }
+
 .overlay, #newTransactionOverlay, #newAccountOverlay, #newBudgetOverlay {
   background: rgba(0, 0, 0, 0.6);
   visibility: hidden;
@@ -364,6 +390,14 @@ table td {
 
 .tags-cell {
   text-align: left; }
+  .tags-cell span {
+    background: #ECECEC;
+    margin: 0 5px;
+    padding: 8px 10px;
+    border-radius: 2px; }
+    .tags-cell span:hover {
+      background: #CACACA;
+      cursor: pointer; }
 
 .account-cell {
   text-align: left; }

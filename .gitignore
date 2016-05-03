@@ -34,3 +34,6 @@ public/.yardoc/*
 
 # environment variables
 env.rb
+
+# ngrok
+ngrok
