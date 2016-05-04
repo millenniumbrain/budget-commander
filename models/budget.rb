@@ -44,6 +44,7 @@ class Budget < Sequel::Model(:budgets)
         end
       end
       # group all amounts by id and then merge them if the :id is identical
+      # reduce the amount array to a single value
       total_tag_expense = tag_expense_totals.group_by{ |h| h[:id] }.map{ |_, hs| hs.reduce(:merge)}
       # return the sum of the hash
       total_tag_expense = total_tag_expense.inject(0) {|sum, hash| sum + hash[:amount]}

@@ -1,12 +1,22 @@
 /// <reference path="./jquery.d.ts" />
 import $ = require("jquery");
 
-class Receipt {
+export default class Receipt {
     constructor() {
         
     }
     
-    getData() {
+    public getData() {
+        $.get('/api/v1/receipts' this.parseData)
+        .fail( () => {
+            
+        })
+        .done( () => {
+            
+        });
+    }
+    
+    private parseData(data: any) {
         
     }
 }
