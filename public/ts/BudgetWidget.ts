@@ -8,30 +8,30 @@ export default class BudgetWidget {
          .fail()
          .done();
     }
-    
+
     private generateData(data: any) {
-        console.log(data);
-        
+        //console.log(data);
+
         let dataset: Object = {};
         for (let i = 0; i < data.length; i++) {
             dataset = {
-                
+
             }
         }
     }
-    
+
     private generateLabels(data: any) {
         let labels: string[] = [];
         for (let i = 0; i < data.length; i++) {
             labels.push(data[i]);
         }
-        
+
         return labels;
     }
-    
-    
+
+
     public drawChart() {
         let ctx: HTMLCanvasElement =  <HTMLCanvasElement>document.getElementById(this.context);
     }
-    
+
 }

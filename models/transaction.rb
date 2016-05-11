@@ -3,7 +3,7 @@ class Transaction < Sequel::Model(:transactions)
   many_to_one :user
   many_to_one :account
   many_to_many :tags
-  
+
   def before_save
     cancel_action if amount.nil?
     cancel_action if type.nil?
@@ -76,34 +76,30 @@ class Transaction < Sequel::Model(:transactions)
     end
   end
 
-  def tag_names
-    self.tags.map(&:name)
-  end
-  
   def self.total_income_by_month(u_id, year = nil)
     income = select(:amount, :date)
       .where(:user_id => u_id)
       .and(:type => 'income')
       .select_group(Sequel.function(:strftime, '%m-%Y', :date).as(:year))
-      .select_append(sum(:amount).as(:income))
+      .select_append(Sequel.function(:round, sum(:amount), 2).as(:income))
     income.inject({}) do |hash, item|
       hash[item[:year]] = item[:income]
       hash
     end
   end
-  
-  def total_expense_by_month(u_id, year = nil)
+
+  def self.total_expense_by_month(u_id, year = nil)
     expense = select(:amount, :date)
       .where(:user_id => u_id)
       .and(:type => 'expense')
       .select_group(Sequel.function(:strftime, '%m-%Y', :date).as(:year))
-      .select_append(sum(:amount).as(:expense))
+      .select_append(Sequel.function(:round, sum(:amount), 2).as(:expense))
       expense.inject({}) do |hash, item|
         hash[item[:year]] = item[:expense]
         hash
       end
   end
-  
+
   def self.add_using_sms(u_id, date, type, amount, desc, tags, account_name)
     if type.nil? && amount.nil?
       return "Transaction was not added. You did not specify a type or amount"
@@ -120,33 +116,33 @@ class Transaction < Sequel::Model(:transactions)
       else
       end
     end
-    
+
     if date.nil?
       new_transaction.date = DateTime.now.new_offset(0)
     else
       new_transaction.date = date
     end
-    
+
     if amount.nil?
       'Transaction was not added. Amount was not specified'
     else
       new_transaction.amount = amount
     end
-    
+
     if type.nil?
       'Transaction was not added. A type was not specified'
     else
       new_transaction.type = type
     end
-    
+
     if desc.nil?
       new_transaction.description = ""
     else
       new_transaction.description = desc
     end
-    
 
-    
+
+
     if new_transaction.save
       user.add_transaction(new_transaction)
       if found_account.nil?
@@ -169,6 +165,13 @@ class Transaction < Sequel::Model(:transactions)
     else
       "Transaction failed to be added"
     end
-    
+
+  end
+
+  def tag_data
+    tags = []
+    self.tags.each do |t|
+      tags.push({:id => t.id, :name => t.name})
+    end
   end
 end

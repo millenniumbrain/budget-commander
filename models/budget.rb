@@ -20,7 +20,7 @@ class Budget < Sequel::Model(:budgets)
           total_expense = total_expense + total
         end
       end
-      budget = self[:name => budget_name][:spending_limit] 
+      budget = self[:name => budget_name][:spending_limit]
       {budget_name => budget - total_expense}
     else
       tag_expense_totals = []
@@ -49,11 +49,11 @@ class Budget < Sequel::Model(:budgets)
       # return the sum of the hash
       total_tag_expense = total_tag_expense.inject(0) {|sum, hash| sum + hash[:amount]}
       budget = self.sum(:spending_limit)
-      
+
       {:budget_balance => (budget - total_tag_expense).round(2)}
     end
   end
-  
+
   # Asking for the total spending limit
   def self.total?(u_id, budget_name = nil)
     return unless u_id
@@ -67,9 +67,12 @@ class Budget < Sequel::Model(:budgets)
         .sum(:spending_limit)
     end
   end
-  
+
   # retrive the tag names and map them to a tag_names array
-  def tag_names
-    self.tags.map(&:names)
+  def tag_data
+    tags = []
+    self.tags.each do |t|
+      tags.push({:id => t.id, :name => t.name})
+    end
   end
 end

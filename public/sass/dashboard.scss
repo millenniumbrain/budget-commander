@@ -3,6 +3,7 @@
 @import 'components/forms';
 @import 'components/grids';
 @import 'components/table';
+@import 'components/spinner';
 @import 'groups';
 
 .overlay {
@@ -164,6 +165,12 @@
   }
 }
 
+.active {
+  a {
+    background: $light-gray;
+  }
+}
+
 .icon {
   padding-left: 25px;
   font-size: $medium;
@@ -173,6 +180,63 @@
   padding-left: 5px;
   font-size: $medium;
   text-transform: uppercase;
+}
+
+#tagList {
+  cursor: pointer;
+  position: relative;
+}
+
+#tagListSpinner {
+  display: none;
+  position: absolute;
+  height: 20px;
+  top: 5px;
+  left: 60%;
+}
+
+
+.slide-left {
+    transform:  translateX(-200%);
+}
+
+.slide-right {
+    transform: translateX(148.5%);
+}
+
+.slide {
+    transition: transform 1s;
+}
+
+#tagsList {
+  @extend .slide;
+  background: #fcfcfc;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  @include z-index-2;
+  position: fixed;
+  height: 100%;
+  left: -15%;
+  width: 20%;
+  position: absolute;
+  li {
+    padding: 11px 20px;
+  }
+}
+
+.tag-list-title {
+  font-size: $larger;
+  border-bottom: 1px solid #ccc;
+  text-transform: uppercase;
+}
+
+.add-tag-button {
+  margin-top: 20px;
+}
+
+#addTag {
+  width: 100%;
+  font-size: $medium;
 }
 
 .dashboard-container {
@@ -217,23 +281,27 @@
   position: absolute;
   background: $dark-gray;
   color: #fff;
-  top: 35px;
-  left: 160px;
+  top: 38px;
   font-size: 1.1em;
   list-style: none;
+  @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 2) {
+  /* Styles */
+  }
+  /* Desktops and laptops ----------- */
+  @media only screen  and (min-width : 1224px) {
+  /* Styles */
+    left: 76px;
+  }
+
+  /* Large screens ----------- */
+  @media only screen  and (min-width : 1824px) {
+  /* Styles */
+  }
   li {
-    text-align: center;
     text-transform: uppercase;
     cursor: pointer;
     background: $dark-gray;
-    padding: 10px 25px;
-    border-bottom: 1px solid $gray;
     position: relative;
-    i {
-      display: inline-block;
-      padding-right: 2px;
-    }
-
     span {
       display: inline-block;
     }
@@ -244,8 +312,23 @@
   }
 }
 
-#addOptions > li:first-of-type {
-  border-top: 1px solid $gray;
+#addAccountButton {
+  padding: 10px 26px;
+  text-align: left;
+}
+
+#addTransactionButton {
+  padding: 10px 25px;
+  text-align: center;
+}
+
+#addBudgetButton {
+  padding: 10px 25px;
+  text-align: left;
+}
+
+#uploadButton {
+  padding: 10px 25px;
 }
 
 #totals {

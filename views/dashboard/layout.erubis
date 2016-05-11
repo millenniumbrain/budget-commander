@@ -48,10 +48,17 @@
               <span class="icon-text">Forecasts</span>
             </a>
           </li>
-          <li>
-            <a class="dash-link" href="#">
+          <li id="tagList">
+            <a class="dash-link">
               <span class="icon fa fa-tags"></span>
               <span class="icon-text">Tags</span>
+              <div id="tagListSpinner" class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+              </div>
             </a>
           </li>
           <li>
@@ -68,6 +75,12 @@
           </li>
         </ul>
       </nav>
+      <ul id="tagsList">
+        <li class="tag-list-title">Tags</li>
+        <li class="add-tag-button">
+          <button id="addTag" class="primary">Add Tag</button>
+        </li>
+      </ul>
       <div class="content">
         <%= yield %>
       </div>

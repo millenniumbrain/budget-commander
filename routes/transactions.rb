@@ -7,14 +7,14 @@ BudgetCommander.route('transactions') do |r|
         .where(:user_id => user.id)
         .order(Sequel.desc(:transactions__id))
         .limit(10)
-        .to_json(:include => :tag_names,:only => [:date,
+        .to_json(:include => :tag_data,:only => [:date,
           :amount, :type, :description, :account_id, :updated_at])
       transactions = JSON.parse(transactions)
       transactions.each do |t|
         t["date"] = Date.parse(t["date"]).strftime('%b %d %Y')
         t["account_id"] = account_name(t["account_id"])
       end
-      r.etag(transactions.length)
+      #r.etag(transactions.length)
       transactions.to_json
     end
 
