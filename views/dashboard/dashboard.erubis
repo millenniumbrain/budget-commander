@@ -218,8 +218,9 @@
         <tbody>
         </tbody>
       </table>
-      <div id="tableSize">
-        <span id="shownSize"></span> of <span id="totalSize"></div>
+      <div id="numTransactions">
+        <span id="shownSize"></span>&nbsp;of&nbsp;<span id="totalSize"></span>&nbsp;transactions
+      </div>
       </div>
       <div class="spinner" id="transactionSpinner">
         <div class="rect1"></div>

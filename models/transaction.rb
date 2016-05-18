@@ -141,8 +141,6 @@ class Transaction < Sequel::Model(:transactions)
       new_transaction.description = desc
     end
 
-
-
     if new_transaction.save
       user.add_transaction(new_transaction)
       if found_account.nil?

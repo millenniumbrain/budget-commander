@@ -4,7 +4,7 @@ import {Helper} from "./Helper";
 
 export default class TransactionTable {
 
-    public getTransactions() {
+    public getTransactions() : void {
         $.get("/transactions", this.parseData)
         .fail( () => {
 
@@ -14,7 +14,7 @@ export default class TransactionTable {
         });
     }
 
-    private parseData(data: any) {
+    private parseData(data: any) : void {
         const tranTable: Element = document.querySelector("#transactionActivity tbody");
         data.forEach( (transaction: any) => {
             let transactionRow: HTMLTableRowElement = document.createElement("tr");
@@ -48,5 +48,9 @@ export default class TransactionTable {
 
             tranTable.appendChild(transactionRow);
         });
+    }
+
+    public append() : void{
+
     }
 }

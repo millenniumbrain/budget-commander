@@ -32,13 +32,13 @@
   position: absolute;
   right: 20px;
   top: 13px;
-  font-size: 1.4em;
+  font-size: 1.4rem;
   text-align: right;
   @include z-index-9;
 }
 
 .overlay-form {
-  font-size: 1.4em;
+  font-size: 1.4rem;
   padding: 0 20px 30px 0;
   legend {
     text-transform: uppercase;
@@ -131,7 +131,7 @@
 }
 
 .user-bar-component > .fa {
-  font-size: 1.5em;
+  font-size: 1.5rem;
   margin-top: 2px;
 }
 
@@ -195,13 +195,21 @@
   left: 60%;
 }
 
+.tags-list {
+  @include z-index-2;
+  position: fixed;
+  margin-left: 15%;
+  height: 100%;
+  width: 20%;
+  left: -20.5%;
+}
 
 .slide-left {
-    transform:  translateX(-200%);
+    transform: translateX(-100%);
 }
 
 .slide-right {
-    transform: translateX(148.5%);
+    transform: translateX(100%);
 }
 
 .slide {
@@ -210,15 +218,14 @@
 
 #tagsList {
   @extend .slide;
+  @include z-index-3;
+  position: relative;
   background: #fcfcfc;
+  list-style: none;
   border-right: 1px solid #ccc;
   border-left: 1px solid #ccc;
-  @include z-index-2;
-  position: fixed;
   height: 100%;
-  left: -15%;
-  width: 20%;
-  position: absolute;
+  width:100%;
   li {
     padding: 11px 20px;
   }
@@ -251,7 +258,7 @@
 }
 
 #dashboard-controls {
-  font-size: 1.3em;
+  font-size: 1.3rem;
   padding: 2% 10px;
   margin-bottom: 5%;
   button {
@@ -270,7 +277,7 @@
 
 #searchBar {
   margin: 0 auto;
-  font-size: 1.05em;
+  font-size: 1.05rem;
   width: 100%;
   position: relative;
   bottom: 2px;
@@ -282,7 +289,7 @@
   background: $dark-gray;
   color: #fff;
   top: 38px;
-  font-size: 1.1em;
+  font-size: 1.1rem;
   list-style: none;
   @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 2) {
   /* Styles */
@@ -339,12 +346,12 @@
     color: $dark-gray;
     font-weight: normal;
     text-transform: uppercase;
-    font-size: 1.8em;
+    font-size: 1.8rem;
   }
 }
 
 .total-amount {
-  font-size: 1.8em;
+  font-size: 1.8rem;
 }
 
 .seperator {
@@ -375,6 +382,12 @@
   width: 90%;
   margin: 0 auto;
 
+}
+
+#numTransactions {
+  text-align: center;
+  padding: 10px;
+  margin-top: 10px;
 }
 
 .date-cell {
@@ -450,7 +463,7 @@
   padding: 10px;
   text-align: center;
   color: $white;
-  font-size: 1.4em;
+  font-size: 1.4rem;
 }
 
 .success {

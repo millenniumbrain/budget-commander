@@ -75,12 +75,14 @@
           </li>
         </ul>
       </nav>
-      <ul id="tagsList">
-        <li class="tag-list-title">Tags</li>
-        <li class="add-tag-button">
-          <button id="addTag" class="primary">Add Tag</button>
-        </li>
-      </ul>
+      <div class="tags-list">
+        <ul id="tagsList">
+          <li class="tag-list-title">Tags</li>
+          <li class="add-tag-button">
+            <button id="addTag" class="primary">Add Tag</button>
+          </li>
+        </ul>
+      </div>
       <div class="content">
         <%= yield %>
       </div>

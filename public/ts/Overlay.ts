@@ -1,19 +1,26 @@
-
+interface JSONCallback {
+  () : any;
+}
 export default class Overlay {
     constructor(private overlay: string) {
     }
 
-    public openToggle(el: string) {
+    public openToggle(el: string, loadForm: JSONCallback) : void {
       const openElement: HTMLElement = document.getElementById(el);
-      openElement.addEventListener("click", this.toggleOverlay, false);
+      openElement.addEventListener("click", () => {
+        this.toggleOverlay();
+        loadForm();
+      }, false);
     }
 
-    public closeToggle(el: string) {
+    public closeToggle(el: string) : void {
         const closeElement: HTMLElement = document.getElementById(el);
-        closeElement.addEventListener("click", this.toggleOverlay, false);
+        closeElement.addEventListener("click", () => {
+          this.toggleOverlay();
+        }, false);
     }
 
-    private toggleOverlay = () => {
+    private toggleOverlay = () : void => {
         const overlay: HTMLElement = document.getElementById(this.overlay);
         if (overlay.style.visibility === "visible") {
           overlay.style.visibility = "hidden";

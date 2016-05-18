@@ -1,10 +1,10 @@
 export module Helper {
-    export function floatToDecimal(float: string) {
+    export function floatToDecimal(float: string) : string {
         const decimalNumber:string = parseFloat(float).toFixed(2);
         return decimalNumber;
     }
-    
-    export function parseAmount(el: HTMLElement, type: string, amount: string) {
+
+    export function parseAmount(el: HTMLElement, type: string, amount: string) : void {
         switch(type) {
             case "income":
                 el.setAttribute("class", "green-amount amount-cell");
@@ -20,5 +20,5 @@ export module Helper {
                 break;
         }
     }
-    
+
 }
