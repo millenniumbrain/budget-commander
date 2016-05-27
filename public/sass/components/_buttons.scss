@@ -1,12 +1,21 @@
 .button {
-  color: $white;
+  color: $dark-gray;
   padding: 8px 15px;
   border: none;
   border-radius: 2px;
   text-transform: uppercase;
+  outline: none;
 }
 
 .primary {
   @extend .button;
+  color: $white;
   background: $dark-gray;
+  &:hover {
+    background: #4a4a4a;
+  }
+
+  &:active {
+    background: #181818;
+  }
 }

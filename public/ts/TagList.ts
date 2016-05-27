@@ -15,7 +15,7 @@ export default class TagList {
         tagList.setAttribute("class", "");
         tagsList.setAttribute("class", "slide-left");
       } else {
-        $("#tagListSpinner").show().css( "display", "block !important");
+        $("#tagListSpinner").css( "display", "block !important");
         $.get('/totals/budgets', this.generateTags)
         .fail( () => {
 

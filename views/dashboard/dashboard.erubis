@@ -1,20 +1,16 @@
-<div class="dashboard-container">
+<div id="dashboardContainer">
   <div class="dashboard">
     <div id="newAccountOverlay">
       <div class="overlay-box">
         <div id="closeNewAccount" class="fa fa-close overlay-close"></div>
         <form id="newAccount" class="overlay-form form form-aligned" method="post" action="/accounts">
           <fieldset>
-            <legend>New Account</legend>
+            <legend>Create Account</legend>
             <div class="overlay-form-seperator"></div>
-            <div class="spinner form-spinner account-spinner">
-              <div class="rect1"></div>
-              <div class="rect2"></div>
-              <div class="rect3"></div>
-              <div class="rect4"></div>
-              <div class="rect5"></div>
+            <div id="accountLoader" class="form-spinner">
+              <div class="loader"></div>
             </div>
-            <div class="form-control-group.flex-grid.flex-1-2">
+            <div class="form-control-group">
               <div class="flex-cell">
                 <label>Name</label>
                 <input type="text" name="account_name">
@@ -32,39 +28,40 @@
         <div id="closeNewTransaction" class="fa fa-close overlay-close"></div>
         <form id="newTransaction" class="overlay-form form form-aligned" method="post" action="/transactions">
           <fieldset>
-            <legend>New Transaction</legend>
+            <legend>Add Transaction</legend>
             <div class="overlay-form-seperator"></div>
-            <div class="spinner form-spinner transaction-spinner">
-              <div class="rect1"></div>
-              <div class="rect2"></div>
-              <div class="rect3"></div>
-              <div class="rect4"></div>
-              <div class="rect5"></div>
+            <div id="transactionLoader" class="form-spinner">
+              <div class="loader"></div>
             </div>
             <div class="form-control-group flex-grid flex-1-2">
               <div class="flex-cell">
-                <label>Expense</label>
-                <input type="radio" name="transaction_type" value="expense">
-                <label>Income</label>
-                <input type="radio" name="transaction_type" value="income">
+                <label>Type</type>
+                <label>
+                <input type="radio" name="transaction_type" value="expense">Expense
+                </label>
+                <label>
+                <input type="radio" name="transaction_type" value="income">Income
+                </label>
               </div>
               <div class="flex-cell">
-                <label>Type</label>
-                <select id="newTransactionAccounts" name="transaction_account"></select>
+                <label>Account(s)</label>
+                <label class="select">
+                  <select id="addTransactionAccounts" name="transaction_account"></select>
+                </label>
               </div>
             </div>
             <div class="form-control-group flex-grid flex-1-4">
               <div class="flex-cell">
                 <label>Date</label>
-                <input id="newTransactionDate" type="text" name="transaction_date">
+                <input id="addTransactionDate" type="text" name="transaction_date">
               </div>
               <div class="flex-cell">
                 <label>Amount</label>
-                <input id="newTransactionAmount" type="text" name="transaction_amount">
+                <input id="addTransactionAmount" type="text" name="transaction_amount">
               </div>
               <div class="flex-cell">
                 <label>Description</label>
-                <input id="newTransactionDesc" type="text" name="transaction_description">
+                <input id="addTransactionDesc" type="text" name="transaction_description">
               </div>
               <div class="flex-cell">
                 <label>Tags</label>
@@ -83,30 +80,44 @@
         <div id="closeNewBudget" class="fa fa-close overlay-close"></div>
         <form id="newBudget" class="overlay-form form form-aligned" method="post" action="/budgets">
           <fieldset>
-            <legend>New Budget</legend>
-            <div class="spinner form-spinner budget-spinner">
-              <div class="rect1"></div>
-              <div class="rect2"></div>
-              <div class="rect3"></div>
-              <div class="rect4"></div>
-              <div class="rect5"></div>
+            <legend>Add Budget</legend>
+            <div class="loader form-spinner budget-spinner">
+
             </div>
             <div class="overlay-form-seperator"></div>
-            <div class="form-control-group flex-grid flex-1-2">
+            <div class="form-control-group flex-grid flex-1-3">
+              <div class="flex-cell">
+                <label>Overall Spending Limit</label>
+                <input type="text" name="budget_name">
+              </div>
+          </div>
+            <div class="form-control-group flex-grid flex-1-3">
               <div class="flex-cell">
                 <label>Budget Name</label>
                 <input type="text" name="budget_name">
               </div>
               <div class="flex-cell">
+                <label>Spending Limit</label>
+                <input type="text" name="spending_limit">
+              </div>
+              <div class="flex-cell">
                 <label>Type</label>
-                <select name="budget_calc">
-                    <option>Percentage</option>
-                    <option>Cash Amount</option>
-                </select>
+                <label class="select">
+                  <select name="budget_calc">
+                      <option>Percentage</option>
+                      <option>Cash Amount</option>
+                  </select>
+                </label>
              </div>
-            <div class="form-controls-group">
-              <button class="primary">Add Account</button>
+          </div>
+          <div class="form-control-group flex-grid flex-1-3">
+            <div class="flex-cell">
+              <label>&nbsp;</label>
+              <button class="button">Add another Budget</buttion>
             </div>
+        </div>
+          <div class="form-controls-group">
+            <button class="primary">Save</button>
           </div>
         </fieldset>
        </form>
@@ -117,7 +128,9 @@
         <button id="addButton" class="primary">
           <span class="fa fa-dollar"></span>
           Add
+          <div id="addLoader" class="loader"></div>
         </button>
+
         <ul id="addOptions">
           <li id="addAccountButton">
             <span class="fa fa-plus"></span>
@@ -175,20 +188,7 @@
           <div id="expenseTotal"></div>
         </div>
       </div>
-      <div class="spinner" id="totalsSpinner">
-        <div class="rect1"></div>
-        <div class="rect2"></div>
-        <div class="rect3"></div>
-        <div class="rect4"></div>
-        <div class="rect5"></div>
-      </div>
-    </div>
-    <div class="flex-grid flex-fit flex-1-2">
-      <div class="budget widget flex-cell">
-        <canvas id="budgetPieChart"></canvas>
-      </div>
-      <div class="networth widget flex-cell">
-        <canvas id="networthChart"></canvas>
+      <div class="loader" id="totalsSpinner">
       </div>
     </div>
     <div class="seperator"></div>
@@ -222,13 +222,9 @@
         <span id="shownSize"></span>&nbsp;of&nbsp;<span id="totalSize"></span>&nbsp;transactions
       </div>
       </div>
-      <div class="spinner" id="transactionSpinner">
-        <div class="rect1"></div>
-        <div class="rect2"></div>
-        <div class="rect3"></div>
-        <div class="rect4"></div>
-        <div class="rect5"></div>
+      <div class="loader" id="transactionSpinner">
       </div>
     </div>
   </div>
 </div>
+<script src="/js/dist/app.js"></script>

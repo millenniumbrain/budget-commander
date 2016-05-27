@@ -5,8 +5,8 @@ import TransactionTable from "./TransactionTable";
 import Total from "./Total";
 import Overlay from "./Overlay";
 import Dropdown from "./Dropdown";
-import BudgetWidget from "./BudgetWidget";
 import TransactionForm from "./TransactionForm";
+import AccountForm from "./AccountForm";
 
 $(document).ready(() => {
   const tagListWidget = new TagList();
@@ -28,17 +28,23 @@ $(document).ready(() => {
   accountOverlay.closeToggle("closeNewAccount");
 
   const transactionForm = new TransactionForm("#newTransaction");
+
   const transactionOverlay = new Overlay("newTransactionOverlay");
   transactionOverlay.openToggle("addTransactionButton", () => {
+    transactionForm.init("addLoader");
   });
+  transactionForm.submitTransaction("/transactions",
+  transactionOverlay.overlay,
+  "transactionLoader");
+
   transactionOverlay.closeToggle("closeNewTransaction");
+
+  const accountForm = new AccountForm("#newAccount");
+  accountForm.submitAccount("/accounts", accountOverlay.overlay, "accountLoader");
 
   const budgetOverlay = new Overlay("newBudgetOverlay");
   budgetOverlay.openToggle("addBudgetButton", () => {
 
   });
   budgetOverlay.closeToggle("closeNewBudget");
-
-  const budgetWidget = new BudgetWidget("budgetPieChart");
-  budgetWidget
 });

@@ -7,7 +7,10 @@ export default class Dropdown {
   }
 
  public init(): void {
-   this.el.addEventListener("click", this.toggle, false);
+   if (this.el != null) {
+     this.el.addEventListener("click", this.toggle, false);
+   }
+
  }
 
   private toggle = () : void => {

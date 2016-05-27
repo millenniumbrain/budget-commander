@@ -7,15 +7,8 @@ export default class AccountForm extends Form {
       super(form);
   }
 
-  public retrieveData(url: string) {
-    $.get(url, (data) => {
-
-    })
-    .fail( () => {
-
-    })
-    .done( () => {
-
-    });
+  public submitAccount(url: string, overlay : any, loader: string) : void {
+    let $form : JQuery = $(this.form);
+    this.submit(url, overlay, loader);
   }
 }

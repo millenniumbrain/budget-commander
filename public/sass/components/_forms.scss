@@ -17,6 +17,69 @@ form {
       outline: 0;
     }
   }
+
+  label {
+    input[type=radio] {
+      margin: 10px 0;
+      position: relative;
+      top: 2px;
+      right: 5px;
+    }
+  }
+}
+
+.select {
+  position: relative;
+  width: 270px;
+
+  select {
+    padding: 8px 10px 8px !important;
+    margin: 0;
+    background: #fff;
+    color: #313131;
+    border:none;
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+    width: 250px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+  }
+
+  &:before {
+    content:'';
+    right: 20px;
+    top: 0px;
+    width: 38px;
+    height: 36px;
+    background: #fff;
+    position:absolute;
+    pointer-events:none;
+    display:block;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+  }
+
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    select {padding-right:18px}
+}
+
+  &:after {
+    content:"\f078";
+    font-family: "FontAwesome";
+    font-size: 11px;
+    color: #313131;
+    right: 33.5px;
+    top: 11px;
+    padding:0 0 2px;
+    position:absolute;
+    pointer-events:none;
+  }
 }
 
 .form-aligned {
@@ -33,11 +96,11 @@ form {
 }
 
 .form-control-group {
-  padding: 0 25px;
+  padding: 0  30px 25px;
 }
 
 .form-controls-group {
   text-align: left;
-  padding: 0 25px;
+  padding: 0 30px;
   margin-top: 20px;
 }

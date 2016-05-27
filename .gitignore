@@ -3,7 +3,9 @@ db/*.sqlite
 
 # sass output files
 *.map
-.css
+public/css/dashboard.css
+public/css/users.css
+public/css/style.css
 
 # sass cache
 .sass-cache
@@ -26,12 +28,12 @@ public/uploads/*.jpeg
 public/uploads/*.png
 public/uploads/*.gif
 
-js modules
+#js modules
 node_modules
 .yardoc/*
 docs
 public/.yardoc/*
-
+public/js/dist/app.js
 # environment variables
 env.rb
 

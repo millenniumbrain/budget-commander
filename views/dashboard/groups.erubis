@@ -1,4 +1,4 @@
-<div class="dashboard-container">
+<div id="dashboardContainer">
   <div class="dashboard">
     <div class="group">
       <div class="members flex-grid">

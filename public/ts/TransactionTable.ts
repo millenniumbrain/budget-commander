@@ -16,6 +16,8 @@ export default class TransactionTable {
 
     private parseData(data: any) : void {
         const tranTable: Element = document.querySelector("#transactionActivity tbody");
+        const showTransactionsNum : HTMLElement = document.getElementById("shownSize");
+        const transacitonNum : HTMLElement = document.getElementById("totalSize");
         data.forEach( (transaction: any) => {
             let transactionRow: HTMLTableRowElement = document.createElement("tr");
             let dateCell: HTMLTableDataCellElement = document.createElement("td");
@@ -48,9 +50,9 @@ export default class TransactionTable {
 
             tranTable.appendChild(transactionRow);
         });
-    }
-
-    public append() : void{
-
+        $.get('/transactions?count=true', (data) => {
+            transacitonNum.innerHTML = data
+        });
+        showTransactionsNum.innerHTML = data.length;
     }
 }

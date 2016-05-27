@@ -2,7 +2,7 @@ interface JSONCallback {
   () : any;
 }
 export default class Overlay {
-    constructor(private overlay: string) {
+    constructor(public overlay: string) {
     }
 
     public openToggle(el: string, loadForm: JSONCallback) : void {
@@ -20,7 +20,7 @@ export default class Overlay {
         }, false);
     }
 
-    private toggleOverlay = () : void => {
+    public toggleOverlay = () : void => {
         const overlay: HTMLElement = document.getElementById(this.overlay);
         if (overlay.style.visibility === "visible") {
           overlay.style.visibility = "hidden";

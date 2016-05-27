@@ -28,6 +28,7 @@ group :production do
 end
 
 group :development do
+  gem 'rubocop'
   gem 'jdbc-sqlite3', :platform => :jruby
   gem 'sqlite3', :platform => :mri
   gem 'sass'

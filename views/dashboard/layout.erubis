@@ -52,12 +52,7 @@
             <a class="dash-link">
               <span class="icon fa fa-tags"></span>
               <span class="icon-text">Tags</span>
-              <div id="tagListSpinner" class="spinner">
-                <div class="rect1"></div>
-                <div class="rect2"></div>
-                <div class="rect3"></div>
-                <div class="rect4"></div>
-                <div class="rect5"></div>
+              <div id="tagListSpinner" class="loader">
               </div>
             </a>
           </li>
@@ -87,6 +82,5 @@
         <%= yield %>
       </div>
     </div>
-    <script src="/js/dist/app.js"></script>
   </body>
 </html>

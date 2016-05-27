@@ -9,10 +9,10 @@
 .overlay {
   background: rgba(0, 0, 0, 0.6);
   visibility: hidden;
-  position: absolute;
+  position: fixed;
   height: 100%;
   left: 0px;
-  top: -72px;
+  top: 0;
   width: 100%;
   text-align: center;
   @include z-index-7;
@@ -39,7 +39,7 @@
 
 .overlay-form {
   font-size: 1.4rem;
-  padding: 0 20px 30px 0;
+  padding: 0 0 30px 0;
   legend {
     text-transform: uppercase;
     background: $dark-gray;
@@ -191,7 +191,8 @@
   display: none;
   position: absolute;
   height: 20px;
-  top: 5px;
+  width: 20px;
+  top: -48px;
   left: 60%;
 }
 
@@ -246,7 +247,7 @@
   font-size: $medium;
 }
 
-.dashboard-container {
+#dashboardContainer {
   margin-left: 15%;
   margin-top: 72px;
   height: 100%;
@@ -262,7 +263,7 @@
   padding: 2% 10px;
   margin-bottom: 5%;
   button {
-    margin: 0 5%;
+    margin: 5px 8%;
     padding: 8px 20px;
     span {
       padding-right: 5px;
@@ -275,12 +276,28 @@
     position: relative;
 }
 
+#addButton {
+  position: relative;
+  .loader {
+      position: absolute;
+      border-left: 1.1em solid #313131;
+      width: 4em;
+      height: 4em;
+      top: -162%;
+      left: 105px;
+      display: none;
+  }
+}
+
 #searchBar {
-  margin: 0 auto;
-  font-size: 1.05rem;
+  margin: 5px auto;
+  font-size: 1.2rem;
   width: 100%;
   position: relative;
   bottom: 2px;
+  input[type=text] {
+    padding: 10px 15px;
+  }
 }
 
 #addOptions {
@@ -288,16 +305,17 @@
   position: absolute;
   background: $dark-gray;
   color: #fff;
-  top: 38px;
+  top: 40px;
   font-size: 1.1rem;
   list-style: none;
+
   @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 2) {
   /* Styles */
   }
   /* Desktops and laptops ----------- */
   @media only screen  and (min-width : 1224px) {
   /* Styles */
-    left: 76px;
+    left: 65px;
   }
 
   /* Large screens ----------- */
@@ -316,7 +334,12 @@
     &:hover {
       background: #4A4A4A;
     }
+
+    &:active {
+      background: #181818;
+    }
   }
+
 }
 
 #addAccountButton {
@@ -385,9 +408,13 @@
 }
 
 #numTransactions {
+  font-size: 1.2em;
   text-align: center;
   padding: 10px;
   margin-top: 10px;
+}
+
+#shownSize {
 }
 
 .date-cell {
@@ -433,9 +460,10 @@
 
 .spinner {
   display: block;
-  margin: 10px auto;
+  margin: 0 auto;
   text-align: center;
 }
+
 
 .form-spinner {
   background: rgba(0, 0, 0, 0.6);
@@ -447,11 +475,6 @@
   width: 100%;
   text-align: center;
   @include z-index-10;
-  img {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-  }
 }
 
 .transaction-spinner {
@@ -459,7 +482,9 @@
 }
 
 .message {
+  margin-bottom: 2%;
   display: block;
+  position: relative;
   padding: 10px;
   text-align: center;
   color: $white;
@@ -467,18 +492,22 @@
 }
 
 .success {
+  @extend .message;
   background: $green;
 }
 
 .warning {
+  @extend .message;
   background: $yellow;
 }
 
 .error {
+  @extend .message;
   background: $red;
 }
 
 #closeMessage {
+  color: $white;
   cursor: pointer;
   position: absolute;
   top: 14px;

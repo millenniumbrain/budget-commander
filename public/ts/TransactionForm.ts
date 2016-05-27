@@ -7,15 +7,37 @@ export default class TransactionForm extends Form {
       super(form);
   }
 
-  public retrieveData(url: string) {
-    $.get(url, (data) => {
-      
+  public init(loader: string) : void {
+    $.get('/accounts', (data) => {
+      const selectAccount : HTMLElement = document.getElementById("addTransactionAccounts");
+      if (data.length > selectAccount.childNodes.length) {
+        data.forEach( (account : any) => {
+          let accountName : HTMLElement = document.createElement("option");
+          accountName.innerHTML = account.name;
+          selectAccount.appendChild(accountName);
+        });
+      }
     })
     .fail( () => {
-
     })
     .done( () => {
-
     });
+  }
+
+  public submitTransaction(url: string, overlay : any, loader: string) : void {
+    let $form : JQuery = $(this.form);
+    this.submit(url, overlay, loader)
+  }
+
+  public appendTable() {
+
+  }
+
+  private validateNumber() {
+
+  }
+
+  private validateSelection() {
+
   }
 }
