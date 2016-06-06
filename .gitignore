@@ -28,7 +28,7 @@ node_modules
 .yardoc/*
 docs
 public/.yardoc/*
-public/js/dist/app.js
+public/js/dist/*
 # environment variables
 env.rb
 
