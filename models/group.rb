@@ -4,4 +4,9 @@ class Group < Sequel::Model(:groups)
     one_to_many :transactions
     one_to_many :receipts
     one_to_many :tags
+
+    def before_save
+      self._id = SecureRandom.uuid
+      super
+    end
 end

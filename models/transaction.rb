@@ -4,7 +4,9 @@ class Transaction < Sequel::Model(:transactions)
   many_to_one :account
   many_to_many :tags
 
+
   def before_save
+    self._id = SecureRandom.uuid
     cancel_action if amount.nil?
     cancel_action if type.nil?
     super
@@ -166,10 +168,11 @@ class Transaction < Sequel::Model(:transactions)
 
   end
 
-  def tag_data
+  def tags_data
     tags = []
     self.tags.each do |t|
-      tags.push({:id => t.id, :name => t.name})
+      tags.push({:_id => t._id, :name => t.name})
     end
+    tags
   end
 end

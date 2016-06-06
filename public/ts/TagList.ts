@@ -33,10 +33,15 @@ export default class TagList {
   }
 
   public updateTags() {
-    let tagList: HTMLElement = document.getElementById("tagList");
+    const tagList: HTMLElement = document.getElementById("tagList");
   }
 
-  private generateTags() {
-    let tagsList: HTMLElement = document.getElementById("tagsList");
+  private generateTags(tags: any) {
+    const tagsList: HTMLElement = document.getElementById("tagsList");
+    for (let i = 0; i < tags.length; i++) {
+      let tagItem = document.createElement("li");
+      tagItem.setAttribute("item-id", tags[i]["_id"]);
+      tagItem.innerHTML = tags[i]["name"];
+    }
   }
 }

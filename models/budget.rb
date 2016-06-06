@@ -4,6 +4,10 @@ class Budget < Sequel::Model(:budgets)
   many_to_one :group
   many_to_many :tags
 
+  def before_save
+    self._id = SecureRandom.uuid
+    super
+  end
   # Calculating budget balances
   # Retrive all expense transactions with the same tag as the budget with
   # the budget table working as a psuedo category table.
@@ -69,10 +73,11 @@ class Budget < Sequel::Model(:budgets)
   end
 
   # retrive the tag names and map them to a tag_names array
-  def tag_data
+  def tags_data
     tags = []
     self.tags.each do |t|
-      tags.push({:id => t.id, :name => t.name})
+      tags.push({:_id => t._id, :name => t.name})
     end
+    tags
   end
 end

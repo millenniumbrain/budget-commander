@@ -1,5 +1,9 @@
 export default class Message {
-  constructor(private msg : string, private dashboard : HTMLElement = document.getElementById("dashboardContainer")) {
+  private msg: string;
+  private dashboard: HTMLElement = document.getElementById("dashboardContainer");
+  
+  constructor(msg: string) {
+    this.msg = msg;
   }
 
   public showSuccess() : void {
@@ -14,9 +18,9 @@ export default class Message {
     this.generateMessage("warning");
   }
 
-  public close = (delay: number) => {
-    let closeMessage : Element = document.querySelector("#messageBox span");
-    let messageBox : HTMLElement = document.getElementById("messageBox");
+  public close = (delay: number) : void => {
+    let closeMessage: Element = document.querySelector("#messageBox span");
+    let messageBox: HTMLElement = document.getElementById("messageBox");
     closeMessage.addEventListener("click", () => {
       this.dashboard.removeChild(messageBox);
     }, false);
@@ -26,11 +30,11 @@ export default class Message {
     setTimeout(remove, delay);
   }
 
-  private generateMessage = (className : string) => {
-    let messageClose : HTMLElement = document.createElement("span");
+  private generateMessage = (className: string) : void => {
+    let messageClose: HTMLElement = document.createElement("span");
     messageClose.setAttribute("id", "closeMessage")
     messageClose.setAttribute("class", "fa fa-close");
-    let messageBox : HTMLElement = document.createElement("div");
+    let messageBox: HTMLElement = document.createElement("div");
     messageBox.setAttribute("id", "messageBox");
     messageBox.setAttribute("class", className);
     messageBox.innerHTML = this.msg;

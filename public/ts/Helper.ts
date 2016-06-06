@@ -1,24 +1,23 @@
 export module Helper {
-    export function floatToDecimal(float: string) : string {
-        const decimalNumber:string = parseFloat(float).toFixed(2);
-        return decimalNumber;
-    }
-
     export function parseAmount(el: HTMLElement, type: string, amount: string) : void {
         switch(type) {
             case "income":
                 el.setAttribute("class", "green-amount amount-cell");
-                el.innerHTML = "+" + " " + this.floatToDecimal(amount).toString();
+                el.innerHTML = "+" + " " + amount
                 break;
             case "expense":
                 el.setAttribute("class", "red-amount amount-cell");
-                el.innerHTML = "-" + " " + this.floatToDecimal(amount).toString();
+                el.innerHTML = "-" + " " + amount
                 break;
             default:
                 el.setAttribute("class", "amount-cell");
-                el.innerHTML = this.floatToDecimal(amount).toString();
+                el.innerHTML = amount
                 break;
         }
+    }
+
+    export function insertAfter(newNode, referenceNode) {
+      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
 
 }

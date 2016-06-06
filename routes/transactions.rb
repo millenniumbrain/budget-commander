@@ -12,19 +12,21 @@ BudgetCommander.route('transactions') do |r|
         transactions = user.transactions_dataset
         .order(Sequel.desc(:transactions__id))
         .limit(10)
-        .to_json(:include => :tag_data,:only => [:date,
-          :amount, :type, :description, :account_id, :updated_at])
+        .to_json(:include => :tags_data, :only => [:date,
+          :amount, :type, :description, :account_id, :_id])
           transactions = JSON.parse(transactions)
           transactions.each do |t|
             t["date"] = Date.parse(t["date"]).strftime('%b %d %Y')
             t["account_id"] = account_name(t["account_id"])
+            t["amount"] = format("%.2f", t["amount"])
           end
-          r.etag(transactions.length)
+          #r.etag(transactions.length)
           transactions.to_json
         end
       end
 
       r.post do
+        response['Accept'] = 'application/json'
         response['Content-Type'] = 'application/json'
         transaction = parse_json_inputs.inject({}) do |hash, item|
           hash[item["name"]] = item["value"]

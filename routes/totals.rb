@@ -6,10 +6,10 @@ BudgetCommander.route('totals') do |r|
   r.is do
     r.get do
       response['Content-Type'] = 'application/json'
-      { :networth => @networth,
-        :budget_balance => Budget.balance(@user.id)[:budget_balance],
-        :income => @income[:income][:amount],
-        :expense => @expense[:expense][:amount]
+      { :networth => format("%.2f", @networth),
+        :budget_balance => format("%.2f", Budget.balance(@user.id)[:budget_balance]),
+        :income => format("%.2f", @income[:income][:amount]),
+        :expense => format("%.2f", @expense[:expense][:amount])
       }.to_json
     end
   end
@@ -48,8 +48,11 @@ BudgetCommander.route('totals') do |r|
   r.is 'budgets' do
     r.get do
       response['Content-Type'] = 'application/json'
-      puts Budget.to_json(:include => :tag_data)
-      Budget.where('user_id = ?',@user.id).to_json
+      budgets = @user.budgets_dataset.where('user_id = ?',@user.id)
+      .to_json(:include => :tags_data, :only => [:_id, :name, :spending_limit])
+      budgets = JSON.parse(budgets)
+      budgets.each { |b| b["spending_limit"] = format("%.2f", b["spending_limit"])}
+      budgets.to_json
     end
   end
 end

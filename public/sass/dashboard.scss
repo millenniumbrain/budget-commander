@@ -7,6 +7,9 @@
 @import 'groups';
 
 .overlay {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   background: rgba(0, 0, 0, 0.6);
   visibility: hidden;
   position: fixed;
@@ -17,10 +20,13 @@
   text-align: center;
   @include z-index-7;
   .overlay-box {
-    position: relative;
     width: 820px;
-    margin: 10% auto;
     border: 1px solid #000;
+    max-height: calc(100% - 100px);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background: $gray;
     text-align: center;
   }
@@ -456,6 +462,20 @@
 }
 .account-cell {
   text-align: left;
+}
+
+.table-arrow {
+  cursor: pointer;
+}
+
+.controls-row {
+  border: none;
+
+  td {
+    button {
+      width: 100%;
+    }
+  }
 }
 
 .spinner {

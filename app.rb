@@ -42,9 +42,9 @@ class BudgetCommander < Roda
   plugin :not_found do
     render('404')
   end
-  
+
   include Rack::Utils
-  
+
   # custom plugins
   Roda.plugin JSONParserHelper
 
@@ -75,7 +75,7 @@ class BudgetCommander < Roda
         @title = "Log In"
         view 'users/login', layout: 'users/layout'
       end
-      
+
       r.post do
         user = r["user"]
         if User.login(user["email"], user["password"])
@@ -86,13 +86,13 @@ class BudgetCommander < Roda
         end
       end
     end
-    
+
     r.is 'signup' do
       r.get do
         @title = "Sign Up"
         view 'users/signup', layout: 'users/layout'
       end
-      
+
       r.post do
         user = r["user"]
         if User.where(:email => user["email"]).nil?
@@ -105,12 +105,12 @@ class BudgetCommander < Roda
         end
       end
     end
-    
+
     r.is 'logout' do
       session[:user_id] = nil
       session[:logged_in] = nil
     end
-    
+
     r.root do
       view 'index'
     end

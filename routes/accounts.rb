@@ -3,17 +3,18 @@ BudgetCommander.route('accounts') do |r|
   r.is ':id' do |id|
     r.get do
       response['Content-Type'] = 'application/json'
-      Account[id].to_json(:only => :name)
+      Account[:_id => id].to_json(:only => [:_id, :name])
     end
   end
 
   r.is do
     r.get do
       response['Content-Type'] = 'application/json'
-      @current_user.accounts_dataset.select(:name).all.to_json
+      @current_user.accounts_dataset.all.to_json(:only => [:_id, :name])
     end
 
     r.post do
+      response['Accept'] = 'application/json'
       account = parse_json_inputs.inject({}) do |hash, item|
         hash[item["name"]] = item["value"]
         hash

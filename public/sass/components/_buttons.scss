@@ -1,10 +1,19 @@
 .button {
+  background: #cacaca;
   color: $dark-gray;
   padding: 8px 15px;
   border: none;
   border-radius: 2px;
   text-transform: uppercase;
   outline: none;
+
+  &:hover {
+    background: #dbdbdb;
+  }
+
+  &:active {
+    background: #c1c1c1;
+  }
 }
 
 .primary {
@@ -17,5 +26,18 @@
 
   &:active {
     background: #181818;
+  }
+}
+
+.important {
+  @extend .button;
+  color: $white;
+  background: #d62c1a;
+  &:hover {
+    background: $red;
+  }
+
+  &:active {
+    background: #b82617;
   }
 }

@@ -1,0 +1,16 @@
+<div class="user-forms">
+  <form class="user-form login-form" action="/users/login" method="post">
+    <fieldset>
+      <legend>Log In</legend>
+      <div class="form-control-group">
+        <input name="email" type="email" placeholder="Email">
+      </div>
+      <div class="form-control-group">
+        <input name="password" type="password" placeholder="Password">
+      </div>
+      <div class="form-control-group">
+        <button class="primary" type="submit">Log In</button>
+      </div>
+    </fieldset>
+  </form>
+</div>

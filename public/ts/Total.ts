@@ -29,7 +29,7 @@ export default class Total {
     private parseTotal(el: HTMLElement, amount: any) {
         if (amount >= "0") {
             el.setAttribute("class", "green-amount total-amount");
-            el.innerHTML = "+" + " " + Helper.floatToDecimal(amount).toString();
+            el.innerHTML = "+" + " " + amount
         } else {
             let absAmount: string = Math.abs(amount).toString();
             el.setAttribute("class", "red-amount total-amount");

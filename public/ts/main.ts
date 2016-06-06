@@ -3,10 +3,10 @@ import $ = require("jquery");
 import TagList from "./TagList";
 import TransactionTable from "./TransactionTable";
 import Total from "./Total";
-import Overlay from "./Overlay";
 import Dropdown from "./Dropdown";
 import TransactionForm from "./TransactionForm";
 import AccountForm from "./AccountForm";
+import BudgetsForm from "./BudgetsForm";
 
 $(document).ready(() => {
   const tagListWidget = new TagList();
@@ -19,32 +19,17 @@ $(document).ready(() => {
   totalsWidget.getAllTotals();
 
   const transactionWidget = new TransactionTable();
-  transactionWidget.getTransactions();
-
-  const accountOverlay = new Overlay("newAccountOverlay");
-  accountOverlay.openToggle("addAccountButton", () => {
-
-  });
-  accountOverlay.closeToggle("closeNewAccount");
+  transactionWidget.init();
 
   const transactionForm = new TransactionForm("#newTransaction");
+  transactionForm.init("addTransactionButton", "closeNewTransaction");
+  transactionForm.submitTransaction();
 
-  const transactionOverlay = new Overlay("newTransactionOverlay");
-  transactionOverlay.openToggle("addTransactionButton", () => {
-    transactionForm.init("addLoader");
-  });
-  transactionForm.submitTransaction("/transactions",
-  transactionOverlay.overlay,
-  "transactionLoader");
-
-  transactionOverlay.closeToggle("closeNewTransaction");
 
   const accountForm = new AccountForm("#newAccount");
-  accountForm.submitAccount("/accounts", accountOverlay.overlay, "accountLoader");
+  accountForm.init("addAccountButton", "closeNewAccount");
+  accountForm.submitAccount();
 
-  const budgetOverlay = new Overlay("newBudgetOverlay");
-  budgetOverlay.openToggle("addBudgetButton", () => {
-
-  });
-  budgetOverlay.closeToggle("closeNewBudget");
+  const budgetsForm = new BudgetsForm("#newBudget");
+  budgetsForm.init("addBudgetButton", "closeNewBudget");
 });

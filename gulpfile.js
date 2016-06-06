@@ -30,5 +30,27 @@ gulp.task("watch", function() {
   }
 });
 
+gulp.task("login", function() {
+  var b = browserify({ debug: true, cache: {}, packageCache: {} });
+
+  b.add('public/ts/Login.ts');
+  b.plugin(tsify, { noImplicitAny: true })
+  b.plugin(watchify);
+
+  b.on('update', bundle);
+  bundle();
+
+  function bundle() {
+    b.bundle()
+      .on('error', function (error) { console.error(error.toString()); })
+      .pipe(source('login.js'))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({loadMaps: true,debug: true}))
+      //.pipe(uglify())
+      .pipe(sourcemaps.write("./"))
+      .pipe(gulp.dest('public/js/dist'));
+  }
+});
+
 gulp.task("default", function() {
 });

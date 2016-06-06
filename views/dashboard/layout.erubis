@@ -19,7 +19,7 @@
       <nav class="nav">
         <ul id="nav-menu">
           <li>
-            <a class="dash-link" href="#">
+            <a class="dash-link" href="/dashboard">
               <span class="icon fa fa-dashboard"></span>
               <span class="icon-text">Dashboard</span>
             </a>
@@ -63,7 +63,7 @@
             </a>
           </li>
           <li>
-            <a class="dash-link" href="#">
+            <a class="dash-link" href="/dashboard/groups">
               <span class="icon fa fa-group"></span>
               <span class="icon-text">Groups</span>
             </a>

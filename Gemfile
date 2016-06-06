@@ -14,7 +14,7 @@ gem 'sequel'
 
 # => security
 gem 'bcrypt'
-
+gem 'rack_csrf'
 # => templates
 gem 'slim'
 gem 'erubis'

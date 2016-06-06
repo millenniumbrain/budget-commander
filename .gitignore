@@ -20,15 +20,10 @@ bin
 .lock
 Gemfile.lock
 
+# remove log files
 logs/*
 
-# remove test images
-public/uploads/*.jpg
-public/uploads/*.jpeg
-public/uploads/*.png
-public/uploads/*.gif
-
-#js modules
+# js modules
 node_modules
 .yardoc/*
 docs

@@ -35,7 +35,7 @@
             </div>
             <div class="form-control-group flex-grid flex-1-2">
               <div class="flex-cell">
-                <label>Type</type>
+                <label>Type</label>
                 <label>
                 <input type="radio" name="transaction_type" value="expense">Expense
                 </label>
@@ -90,25 +90,6 @@
                 <label>Overall Spending Limit</label>
                 <input type="text" name="budget_name">
               </div>
-          </div>
-            <div class="form-control-group flex-grid flex-1-3">
-              <div class="flex-cell">
-                <label>Budget Name</label>
-                <input type="text" name="budget_name">
-              </div>
-              <div class="flex-cell">
-                <label>Spending Limit</label>
-                <input type="text" name="spending_limit">
-              </div>
-              <div class="flex-cell">
-                <label>Type</label>
-                <label class="select">
-                  <select name="budget_calc">
-                      <option>Percentage</option>
-                      <option>Cash Amount</option>
-                  </select>
-                </label>
-             </div>
           </div>
           <div class="form-control-group flex-grid flex-1-3">
             <div class="flex-cell">
@@ -214,6 +195,7 @@
           <th class="description-cell">Description</th>
           <th class="tags-cell">Tags</th>
           <th class="account-cell">Account Name</th>
+          <th></th>
         </thead>
         <tbody>
         </tbody>

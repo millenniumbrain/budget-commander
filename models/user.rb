@@ -8,6 +8,11 @@ class User < Sequel::Model(:users)
   one_to_many :receipts
   many_to_many :groups
 
+  def before_save
+    self._id = SecureRandom.uuid
+    super
+  end
+  
   def self.login(email, password)
     return unless email && password
     return unless user = filter(email: email).first
