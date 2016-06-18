@@ -1,5 +1,5 @@
 <div class="user-forms">
-  <form class="user-form login-form" action="/users/login" method="post">
+  <form id="login" class="user-form login-form" action="/login" method="post">
     <fieldset>
       <legend>Log In</legend>
       <div class="form-control-group">
@@ -8,9 +8,10 @@
       <div class="form-control-group">
         <input name="password" type="password" placeholder="Password">
       </div>
-      <div class="form-control-group">
+      <div class="form-controls-group">
         <button class="primary" type="submit">Log In</button>
       </div>
     </fieldset>
   </form>
 </div>
+<script src="/js/dist/login.js"></script>

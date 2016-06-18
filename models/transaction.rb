@@ -1,12 +1,15 @@
 class Transaction < Sequel::Model(:transactions)
   plugin :json_serializer
+
   many_to_one :user
   many_to_one :account
   many_to_many :tags
 
 
   def before_save
+    # generate a uuid when saving the row
     self._id = SecureRandom.uuid
+    # prevent the user from creating transactions without amount and types
     cancel_action if amount.nil?
     cancel_action if type.nil?
     super
@@ -21,20 +24,9 @@ class Transaction < Sequel::Model(:transactions)
     if income.nil?
       income = 0.00
       now = Date.today
-      first_of_the_month = Date.new(now.year, now.month, 1)
-      {
-        :income => {
-          :amount => income,
-          :updated_at => first_of_the_month
-        }
-      }
+      format("%.2f", income)
     else
-      {
-        :income => {
-          :amount => income.round(2),
-          :updated_at => first_of_the_month
-        }
-      }
+      format("%.2f", income)
     end
   end
 
@@ -47,20 +39,9 @@ class Transaction < Sequel::Model(:transactions)
     if expense.nil?
       expense = 0.00
       now = Date.today
-      first_of_the_month = Date.new(now.year, now.month, 1)
-      {
-        :expense => {
-          :amount => expense,
-          :updated_at => first_of_the_month
-        }
-      }
+      format("%.2f", expense)
     else
-      {
-        :expense => {
-          :amount => expense.round(2),
-          :updated_at => first_of_the_month
-        }
-      }
+      format("%.2f", expense)
     end
   end
 
@@ -102,6 +83,7 @@ class Transaction < Sequel::Model(:transactions)
       end
   end
 
+  # TODO: Clean this functions by dividing it one level deep
   def self.add_using_sms(u_id, date, type, amount, desc, tags, account_name)
     if type.nil? && amount.nil?
       return "Transaction was not added. You did not specify a type or amount"

@@ -2,30 +2,40 @@
 
 ## [Unreleased]
 
-## [0.0.1] 2016-02-08
+## [0.1.0] - 2016-06-06
 
 ### Added
-User bar menu
-D3.js
-jQuery
-- (Search bar) to transaction widget
+- JSON Web Tokens for login
+- User signup and login
 
 ### Changed
-- Templates(ERB changed to Slim)
-- Changed Tests to RSpec
-- Navigation Menu
+- Changlog
 
 ### Removed
-- Chartist.js
-- Original Templates
-- Original Sass
+- Slim templates
 
 
-## [0.0.2] 2016-02-16
+## [0.2.0] - 2016-06-18
 
 ### Added
 
 ### Changed
+- JWT implemented as Roda response plugin
 
 ### Removed
-- (Add Transaction) button from transaction widget
+- Views
+  - Groups
+- Dashboard
+  - Navigation
+    - Removed budgets from menu
+    - Removed groups from menu
+    - Removed receipts from menu
+  - Forms
+    - Removed add new budget form
+- Budgets
+  - Migration files
+  - Budget and tag join table
+  - budget model
+- Groups
+  - Migration files
+  - Group and user join table

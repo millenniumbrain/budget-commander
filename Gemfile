@@ -14,11 +14,11 @@ gem 'sequel'
 
 # => security
 gem 'bcrypt'
-gem 'rack_csrf'
-# => templates
-gem 'slim'
-gem 'erubis'
+gem 'jwt'
 
+# => templates
+gem 'erubis'
+gem 'tilt'
 # => other
 gem "rack_csrf"
 gem 'mail'

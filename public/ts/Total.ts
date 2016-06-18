@@ -16,12 +16,10 @@ export default class Total {
 
     private parseAllTotals = (data: any) : void => {
         const networth: HTMLElement = document.getElementById("networthTotal");
-        const budgetBalance: HTMLElement = document.getElementById("budgetBalance");
         const incomeTotal: HTMLElement = document.getElementById("incomeTotal");
         const expenseTotal: HTMLElement = document.getElementById("expenseTotal");
 
         this.parseTotal(networth, data.networth);
-        this.parseTotal(budgetBalance, data.budget_balance);
         this.parseTotal(incomeTotal, data.income);
         this.parseTotal(expenseTotal, data.expense);
     }

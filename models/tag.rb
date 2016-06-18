@@ -5,6 +5,7 @@ class Tag < Sequel::Model(:tags)
   many_to_many :transactions
 
   def before_save
+    # generate a uuid when saving the row
     self._id = SecureRandom.uuid
     super
   end

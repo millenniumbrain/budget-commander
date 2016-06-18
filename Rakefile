@@ -19,3 +19,14 @@ namespace :sqlite do
   task :delete do
   end
 end
+
+
+namespace :test do
+  task :models do
+
+  end
+
+  task :integraiton do
+
+  end
+end

@@ -6,11 +6,12 @@ Tally, ho!
 require 'puma'
 require 'roda'
 require 'json'
-require 'slim'
 require 'tilt/erubis'
 require 'date'
 require 'twilio-ruby'
 require 'axlsx'
+require 'openssl'
+require 'jwt'
 require 'better_errors'
 require './models'
 require './env'
@@ -45,9 +46,6 @@ class BudgetCommander < Roda
 
   include Rack::Utils
 
-  # custom plugins
-  Roda.plugin JSONParserHelper
-
   self.environment = :development
 
   configure do
@@ -65,46 +63,12 @@ class BudgetCommander < Roda
   configure :production do
   end
 
+  Roda.plugin JsonWebToken
+  
   Dir['./routes/**/*.rb'].each{ |f| require f }
 
   route do |r|
     r.multi_route
-
-    r.is 'login' do
-      r.get do
-        @title = "Log In"
-        view 'users/login', layout: 'users/layout'
-      end
-
-      r.post do
-        user = r["user"]
-        if User.login(user["email"], user["password"])
-          current_user = User.where(:email => user[:email])
-          session[:user_id] = current_user.id
-          session[:logged_in] = true
-        else
-        end
-      end
-    end
-
-    r.is 'signup' do
-      r.get do
-        @title = "Sign Up"
-        view 'users/signup', layout: 'users/layout'
-      end
-
-      r.post do
-        user = r["user"]
-        if User.where(:email => user["email"]).nil?
-        else
-          new_user = User.new do |u|
-            u.email = user["email"]
-            u.password = user["password"]
-          end
-          new_user.save
-        end
-      end
-    end
 
     r.is 'logout' do
       session[:user_id] = nil

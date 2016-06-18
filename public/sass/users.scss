@@ -7,26 +7,27 @@
   width: 30%;
   padding: 10% 0 0;
   margin: 0 auto 0;
-  
+
   legend {
     width: 100%;
     text-align: center;
     font-size: 4em;
     padding: 0 0 25px;
   }
-  
+
   .form-control-group {
     width: 90.5%;
-    font-size: 1.6em;
     padding: 10px 25px;
+    input[type=email], [type=password] {
+      font-size: 2rem;
+    }
   }
-  
+
   .form-controls-group {
-    font-size: 1.4em;
+    font-size: 1.4rem;
     button {
       padding: 10px;
       width: 100%;
     }
   }
 }
-

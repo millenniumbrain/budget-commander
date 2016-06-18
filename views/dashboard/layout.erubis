@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title></title>
+    <title>Dashboard - Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/normalize.css" type="text/css">
@@ -32,12 +32,6 @@
           </li>
           <li>
             <a class="dash-link" href="#">
-              <span class="icon fa fa-book"></span>
-              <span class="icon-text">Budgets</span>
-            </a>
-          </li>
-          <li>
-            <a class="dash-link" href="#">
               <span class="icon fa fa-pie-chart"></span>
               <span class="icon-text">Reports</span>
             </a>
@@ -54,18 +48,6 @@
               <span class="icon-text">Tags</span>
               <div id="tagListSpinner" class="loader">
               </div>
-            </a>
-          </li>
-          <li>
-            <a class="dash-link" href="#">
-              <span class="icon fa fa-dashboard"></span>
-              <span class="icon-text">Receipts</span>
-            </a>
-          </li>
-          <li>
-            <a class="dash-link" href="/dashboard/groups">
-              <span class="icon fa fa-group"></span>
-              <span class="icon-text">Groups</span>
             </a>
           </li>
         </ul>

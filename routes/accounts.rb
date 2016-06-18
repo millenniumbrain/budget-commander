@@ -15,7 +15,8 @@ BudgetCommander.route('accounts') do |r|
 
     r.post do
       response['Accept'] = 'application/json'
-      account = parse_json_inputs.inject({}) do |hash, item|
+      account = JSON.parse(env['rack.input'].gets)
+      account = account.inject({}) do |hash, item|
         hash[item["name"]] = item["value"]
         hash
       end

@@ -7,8 +7,8 @@ Sequel.migration do
       String :password_hash, :null => false
       String :avatar, :default => ''
       String :phone_number
-      String :access_token, :unique => true
-      String :twilio_client_token, :unique => true
+      String :lob_token, :unique => true
+      String :twilio_token, :unique => true
       DateTime :created_at
       DateTime :updated_at
     end
