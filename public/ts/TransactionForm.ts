@@ -1,7 +1,7 @@
 /// <reference path="./jquery.d.ts" />
 import $ = require("jquery");
 import Overlay from "./Overlay";
-import Message from "./Message";
+import Message from "./MessageBox";
 
 export default class TransactionForm {
 
@@ -15,8 +15,9 @@ export default class TransactionForm {
   public init(openTrigger: string, closeTrigger: string) : void {
     this.overlay.openToggle(openTrigger, () =>{
       $.get('/accounts', (data: any) => {
-        const selectAccount: HTMLElement = document.getElementById("addTransactionAccounts");
-        if (data.length > selectAccount.childNodes.length) {
+        const selectAccount = document.getElementById("addTransactionAccounts");
+        const accounts = selectAccount.getElementsByTagName('option');
+        if (data.length > accounts.length) {
           data.forEach( (account: any) => {
             let accountName: HTMLElement = document.createElement("option");
             accountName.innerHTML = account.name;
@@ -47,14 +48,14 @@ export default class TransactionForm {
       .fail( (req) => {
         loader.style.visibility = "hidden";
         this.overlay.toggle();
-        let error = new Message(req.responseJSON["msg"]);
+        let error = new Message("dashboardContainer", req.responseJSON["msg"]);
         error.showError();
         error.close(5000);
       })
       .done( (response) => {
         loader.style.visibility = "hidden";
         this.overlay.toggle();
-        let success = new Message(response["msg"]);
+        let success = new Message("dashboardContainer", response["msg"]);
         success.showSuccess();
         success.close(5000);
       })

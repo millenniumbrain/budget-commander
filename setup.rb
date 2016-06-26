@@ -11,20 +11,6 @@ clothes = Tag.create(:name => 'Clothes', :user_id => user.id)
 hardware = Tag.create(:name => 'Hardware', :user_id => user.id)
 gardening = Tag.create(:name => 'Gardening', :user_id => user.id)
 
-shopping = Budget.create do |b|
-  b.name = "Shopping"
-  b.spending_limit = 200
-  b.user_id = user.id
-end
-shopping.add_tag(gardening)
-shopping.add_tag(clothes)
-work = Budget.create do |b|
-  b.name = "Work"
-  b.spending_limit = 500
-  b.user_id = user.id
-end
-work.add_tag(hardware)
-
 one = Transaction.create do |t|
   t.date = 'Oct 16 2015'
   t.amount = 57.45
@@ -60,4 +46,5 @@ four = Transaction.create do |t|
   t.account_id = account.id
   t.user_id =  user.id
 end
+four.add_tag(hardware)
 four.add_tag(gardening)

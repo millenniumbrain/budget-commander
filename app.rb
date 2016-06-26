@@ -15,7 +15,6 @@ require 'jwt'
 require 'better_errors'
 require './models'
 require './env'
-require './lib/wit_ai.rb'
 require 'pp'
 
 Dir['./helpers/*.rb'].each{ |f| require f }
@@ -23,23 +22,24 @@ Dir['./helpers/*.rb'].each{ |f| require f }
 class BudgetCommander < Roda
 
   plugin :default_headers,
-    'Content-Type' => 'text/html',
-    #'Content-Security-Policy' => "default-src 'self'",
-    'charset' => 'utf-8',
-    'Strict-Transport-Security' => 'max-age=160704400',
-    'X-Frame-Options' => 'deny',
-    'X-Content-Type-Options' => 'nosniff'
+         'Content-Type' => 'text/html',
+         # 'Content-Security-Policy' => "default-src 'self'",
+         'charset' => 'utf-8',
+         'Strict-Transport-Security' => 'max-age=160704400',
+         'X-Frame-Options' => 'deny',
+         'X-Content-Type-Options' => 'nosniff'
   plugin :static, ['/css', '/fonts', '/img', '/js']
   plugin :json
-  plugin :render, :engine => 'slim', :views => 'views'
+  plugin :render, engine: 'erubis', views: 'views'
   plugin :cookies
   plugin :flash
   plugin :h
   plugin :environments
   plugin :flash
-  plugin :render, :engine => 'erubis'
+  plugin :render, engine: 'erubis'
   plugin :multi_route
   plugin :caching
+  plugin :all_verbs
   plugin :not_found do
     render('404')
   end
@@ -64,8 +64,8 @@ class BudgetCommander < Roda
   end
 
   Roda.plugin JsonWebToken
-  
-  Dir['./routes/**/*.rb'].each{ |f| require f }
+
+  Dir['./routes/**/*.rb'].each { |f| require f }
 
   route do |r|
     r.multi_route

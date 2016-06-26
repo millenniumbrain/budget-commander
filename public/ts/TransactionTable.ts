@@ -8,24 +8,28 @@ export default class TransactionTable {
     public init  = () : void => {
       this.getTransactions();
       this.tranTable.addEventListener("click", (event) => {
-        let $arrow: JQuery = $(event.target);// FIXME: find vanillaJS way
+        // HACK: event.target is an event in TypeScript but in JavaScript
+        // it is also a DOM Object
+        let $arrow: JQuery = $(event.target);
         if($arrow.prop("tagName") === "i" || $arrow.prop("tagName") === "I") {
           this.showControls($arrow)
         }
 
-      })
+      }, false)
     }
 
     public showControls($element: JQuery) {
       let $arrow: JQuery = $element;
       let row: HTMLElement = document.getElementById($arrow.data("id"));
-
+      let transactionId: string = "/transactions/" + $arrow.data("id");
       let controlsRow: HTMLTableRowElement = document.createElement("tr");
+
       controlsRow.setAttribute("class", "controls-row");
       controlsRow.setAttribute("data-id", $arrow.data("id"));
 
       let editCell: HTMLTableDataCellElement = document.createElement("td");
       let editButton: HTMLElement = document.createElement("button");
+      editButton.setAttribute("value", transactionId)
       editButton.setAttribute("class", "button");
       editButton.innerHTML = "Edit";
       editCell.appendChild(editButton);
@@ -33,6 +37,7 @@ export default class TransactionTable {
       let deleteCell: HTMLTableCellElement = document.createElement("td");
       let deleteButton: HTMLElement = document.createElement("button");
       deleteButton.setAttribute("class", "important");
+      deleteButton.setAttribute("value", transactionId)
       deleteButton.innerHTML = "Delete";
       deleteCell.appendChild(deleteButton);
 
@@ -84,14 +89,19 @@ export default class TransactionTable {
             descCell.setAttribute("class", "description-cell");
 
             tagsCell.setAttribute("class", "tags-cell");
-            // add all tags related to transaction
-            for (let i = 0; i < transaction.tags_data.length; i++) {
-                let currentTag: HTMLElement = document.createElement("span");
-                currentTag.setAttribute("data-tag", transaction.tags_data[i]["id"]);
-                currentTag.setAttribute("class", "table-tag");
-                currentTag.innerHTML = transaction.tags_data[i]["name"];
-                tagsCell.appendChild(currentTag);
+            if (transaction.tags_data === undefined) {
+              tagsCell.innerHTML = "";
+            } else {
+              // add all tags related to transaction
+              for (let i = 0; i < transaction.tags_data.length; i++) {
+                  let currentTag: HTMLElement = document.createElement("span");
+                  currentTag.setAttribute("data-tag", transaction.tags_data[i]["id"]);
+                  currentTag.setAttribute("class", "table-tag");
+                  currentTag.innerHTML = transaction.tags_data[i]["name"];
+                  tagsCell.appendChild(currentTag);
+              }
             }
+
             accountNameCell.setAttribute("class", "account-cell");
             accountNameCell.innerHTML = transaction.account_id;
 

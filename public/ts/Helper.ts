@@ -16,7 +16,7 @@ export module Helper {
         }
     }
 
-    export function insertAfter(newNode, referenceNode) {
+    export function insertAfter(newNode: any , referenceNode: any) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
 

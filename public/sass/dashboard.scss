@@ -4,7 +4,6 @@
 @import 'components/grids';
 @import 'components/table';
 @import 'components/spinner';
-@import 'groups';
 
 .overlay {
   -moz-box-sizing: border-box;
@@ -167,12 +166,14 @@
   text-align: left;
   padding: 15px 15px 15px 0;
   &:hover, &:focus {
+    width: 92%;
     background: $light-gray;
   }
 }
 
 .active {
   a {
+    width: 92%;
     background: $light-gray;
   }
 }
@@ -269,7 +270,7 @@
   padding: 2% 10px;
   margin-bottom: 5%;
   button {
-    margin: 5px 8%;
+    margin: 5px 5%;
     padding: 8px 20px;
     span {
       padding-right: 5px;

@@ -1,11 +1,17 @@
 BudgetCommander.route('dashboard') do |r|
   r.is do
     r.get do
-      @public_key = OpenSSL::PKey::RSA.new(session[:public_key]).public_key
-      decode_token = JWT.decode(session[:encoded_token], @public_key, true, { :algorithm => 'RS256' })
-      pp decode_token
-      @title = "Home"
-      view 'dashboard/dashboard', layout: 'dashboard/layout'
+      decoded_token = JWT.decode(session[:encoded_token], ENV['HMAC-SECRET'], true, { algorithm: 'HS256' })
+      @title = 'Home'
+      if session[:logged_in]
+        view 'dashboard/dashboard', layout: 'dashboard/layout'
+      else
+        r.redirect '/login'
+      end
+    end
+
+    r.post do
+
     end
   end
 

@@ -6,7 +6,6 @@ import Total from "./Total";
 import Dropdown from "./Dropdown";
 import TransactionForm from "./TransactionForm";
 import AccountForm from "./AccountForm";
-import BudgetsForm from "./BudgetsForm";
 
 $(document).ready(() => {
   const tagListWidget = new TagList();
@@ -29,7 +28,4 @@ $(document).ready(() => {
   const accountForm = new AccountForm("#newAccount");
   accountForm.init("addAccountButton", "closeNewAccount");
   accountForm.submitAccount();
-
-  const budgetsForm = new BudgetsForm("#newBudget");
-  budgetsForm.init("addBudgetButton", "closeNewBudget");
 });

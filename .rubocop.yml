@@ -1,0 +1,7 @@
+AllCops:
+  Exclude:
+    - 'vendor/**/**'
+    - 'tmp/**/**'
+  TargetRubyVersion: 2.0
+Style/Encoding:
+  EnforcedStyle: always

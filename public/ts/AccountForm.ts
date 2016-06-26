@@ -1,7 +1,7 @@
 /// <reference path="./jquery.d.ts" />
 import $ = require("jquery");
 import Overlay from "./Overlay";
-import Message from "./Message";
+import Message from "./MessageBox";
 
 export default class AccountForm {
   public $form: JQuery;
@@ -27,14 +27,14 @@ export default class AccountForm {
       .fail( (req) => {
         loader.style.visibility = "hidden";
         this.overlay.toggle();
-        let error = new Message(req.responseJSON["msg"]);
+        let error = new Message("dashboardContainer", req.responseJSON["msg"]);
         error.showError();
         error.close(5000);
       })
       .done( (response) => {
         loader.style.visibility = "hidden";
         this.overlay.toggle();
-        let success = new Message(response["msg"]);
+        let success = new Message("dashboardContainer", response["msg"]);
         success.showSuccess();
         success.close(5000);
       })

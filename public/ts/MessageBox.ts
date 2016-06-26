@@ -1,8 +1,9 @@
-export default class Message {
+export default class MessageBox {
   private msg: string;
-  private dashboard: HTMLElement = document.getElementById("dashboardContainer");
+  private parentElement: HTMLElement;
   
-  constructor(msg: string) {
+  constructor(parentId: string, msg: string) {
+    this.parentElement = document.getElementById(parentId);
     this.msg = msg;
   }
 
@@ -22,10 +23,10 @@ export default class Message {
     let closeMessage: Element = document.querySelector("#messageBox span");
     let messageBox: HTMLElement = document.getElementById("messageBox");
     closeMessage.addEventListener("click", () => {
-      this.dashboard.removeChild(messageBox);
+      this.parentElement.removeChild(messageBox);
     }, false);
     let remove = () => {
-      this.dashboard.removeChild(messageBox);
+      this.parentElement.removeChild(messageBox);
     }
     setTimeout(remove, delay);
   }
@@ -39,6 +40,6 @@ export default class Message {
     messageBox.setAttribute("class", className);
     messageBox.innerHTML = this.msg;
     messageBox.appendChild(messageClose);
-    this.dashboard.insertBefore(messageBox, this.dashboard.firstChild);
+    this.parentElement.insertBefore(messageBox, this.parentElement.firstChild);
   }
 }
