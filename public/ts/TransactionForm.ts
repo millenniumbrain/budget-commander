@@ -7,30 +7,19 @@ export default class TransactionForm {
 
   public $form: JQuery;
   public overlay: Overlay = new Overlay("newTransactionOverlay");
+  public openTrigger: string = "addTransactionButton";
+  public closeTrigger: string = "closeNewTransaction";
 
   constructor(form: string) {
     this.$form = $(form);
   }
 
-  public init(openTrigger: string, closeTrigger: string) : void {
-    this.overlay.openToggle(openTrigger, () =>{
-      $.get('/accounts', (data: any) => {
-        const selectAccount = document.getElementById("addTransactionAccounts");
-        const accounts = selectAccount.getElementsByTagName('option');
-        if (data.length > accounts.length) {
-          data.forEach( (account: any) => {
-            let accountName: HTMLElement = document.createElement("option");
-            accountName.innerHTML = account.name;
-            selectAccount.appendChild(accountName);
-          });
-        }
-      })
-      .fail( () => {
-      })
-      .done( () => {
-        this.overlay.closeToggle(closeTrigger);
-      });
-    });
+  public init(values: Object = null) : void {
+    if (values === null) {
+      this.overlay.openToggle(this.openTrigger, this.getTransaction);
+    } else {
+
+    }
   }
 
   /*
@@ -50,27 +39,34 @@ export default class TransactionForm {
         this.overlay.toggle();
         let error = new Message("dashboardContainer", req.responseJSON["msg"]);
         error.showError();
-        error.close(5000);
+        error.close(5);
       })
       .done( (response) => {
         loader.style.visibility = "hidden";
         this.overlay.toggle();
         let success = new Message("dashboardContainer", response["msg"]);
         success.showSuccess();
-        success.close(5000);
+        success.close(5);
       })
     });
   }
 
-  public appendTable() {
-
-  }
-
-  private validateNumber() {
-
-  }
-
-  private validateSelection() {
-
+  private getTransaction = () : void => {
+    $.get('/accounts', (data: any) => {
+      const selectAccount = document.getElementById("tranAccounts");
+      const accounts = selectAccount.getElementsByTagName('option');
+      if (data.length > accounts.length) {
+        data.forEach( (account: any) => {
+          let accountName: HTMLElement = document.createElement("option");
+          accountName.innerHTML = account.name;
+          selectAccount.appendChild(accountName);
+        });
+      }
+    })
+    .fail( () => {
+    })
+    .done( () => {
+      this.overlay.closeToggle(this.closeTrigger);
+    });
   }
 }

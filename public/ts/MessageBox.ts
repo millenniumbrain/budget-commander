@@ -28,7 +28,7 @@ export default class MessageBox {
     let remove = () => {
       this.parentElement.removeChild(messageBox);
     }
-    setTimeout(remove, delay);
+    setTimeout(remove, delay * 1000);
   }
 
   private generateMessage = (className: string) : void => {

@@ -29,14 +29,14 @@ export default class AccountForm {
         this.overlay.toggle();
         let error = new Message("dashboardContainer", req.responseJSON["msg"]);
         error.showError();
-        error.close(5000);
+        error.close(5);
       })
       .done( (response) => {
         loader.style.visibility = "hidden";
         this.overlay.toggle();
         let success = new Message("dashboardContainer", response["msg"]);
         success.showSuccess();
-        success.close(5000);
+        success.close(5);
       })
     });
   }

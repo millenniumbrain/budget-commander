@@ -37,39 +37,43 @@
               <div class="flex-cell">
                 <label>Type</label>
                 <label>
-                <input type="radio" name="transaction_type" value="expense">Expense
+                <input id="tranTypeExpense" type="radio" name="transaction_type" value="expense">Expense
                 </label>
                 <label>
-                <input type="radio" name="transaction_type" value="income">Income
+                <input id="tranTypeIncome" type="radio" name="transaction_type" value="income">Income
                 </label>
               </div>
               <div class="flex-cell">
                 <label>Account(s)</label>
                 <label class="select">
-                  <select id="addTransactionAccounts" name="transaction_account"></select>
+                  <select id="tranAccounts" name="transaction_account"></select>
                 </label>
               </div>
             </div>
             <div class="form-control-group flex-grid flex-1-4">
               <div class="flex-cell">
                 <label>Date</label>
-                <input id="addTransactionDate" type="text" name="transaction_date">
+                <input id="tranDate" type="text" name="transaction_date">
               </div>
               <div class="flex-cell">
                 <label>Amount</label>
-                <input id="addTransactionAmount" type="text" name="transaction_amount">
+                <input id="tranAmount" type="text" name="transaction_amount">
               </div>
               <div class="flex-cell">
                 <label>Description</label>
-                <input id="addTransactionDesc" type="text" name="transaction_description">
+                <input id="tranDesc" type="text" name="transaction_description">
               </div>
-              <div class="flex-cell">
-                <label>Tags</label>
-                <input type="text" name="transaction_tags">
+            </div>
+            <div class="form-control-group">
+              <div class="flex-grid flex-full">
+                <div class="flex-cell flex-fit">
+                  <label>Tags</label>
+                  <input id="tranTags" type="text" name="transaction_tags">
+                </div>
               </div>
             </div>
             <div class="form-controls-group">
-              <button class="primary" type="submit">Add Transaction</button>
+              <button id="tranButton" class="primary" type="submit">Add Transaction</button>
             </div>
           </fieldset>
         </form>

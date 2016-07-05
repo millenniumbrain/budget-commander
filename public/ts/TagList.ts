@@ -5,7 +5,7 @@ import { Helper } from "./Helper";
 export default class TagList {
   constructor() {}
 
-  public openTagList() {
+  public openTagList() : void {
     const tagList: HTMLElement = document.getElementById("tagList");
 
     tagList.addEventListener("click", () => {
@@ -32,16 +32,13 @@ export default class TagList {
 
   }
 
-  public updateTags() {
-    const tagList: HTMLElement = document.getElementById("tagList");
-  }
-
-  private generateTags(tags: any) {
-    const tagTitle: Element = document.querySelector(".tag-list-title");
+  private generateTags(tags: any) : void {
+    const tagTitle: Element = document.getElementById("tagListTitle");
     const tagItems = document.getElementById("tagsList").getElementsByTagName('li');
     if (tags.length > tagItems.length) {
       for (let i = 0; i < tags.length; i++) {
         let tagItem = document.createElement("li");
+        tagItem.setAttribute("class", "tag-item")
         tagItem.setAttribute("item-id", tags[i]["_id"]);
         tagItem.innerHTML = tags[i]["name"];
         Helper.insertAfter(tagItem, tagTitle);

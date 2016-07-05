@@ -19,6 +19,7 @@
   text-align: center;
   @include z-index-7;
   .overlay-box {
+    -webkit-font-smoothing: subpixel-antialiased; // fix blur bug after translate chrome
     width: 820px;
     border: 1px solid #000;
     max-height: calc(100% - 100px);
@@ -235,11 +236,16 @@
   height: 100%;
   width:100%;
   li {
-    padding: 11px 20px;
+    padding: 11.5px 20px;
   }
 }
 
-.tag-list-title {
+.tag-item  {
+  font-size: 1.3em;
+  border-bottom: 1px solid #eee;
+}
+
+#tagListTitle {
   font-size: $larger;
   border-bottom: 1px solid #ccc;
   text-transform: uppercase;
@@ -376,7 +382,7 @@
     color: $dark-gray;
     font-weight: normal;
     text-transform: uppercase;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 }
 
@@ -415,7 +421,7 @@
 }
 
 #numTransactions {
-  font-size: 1.2em;
+  font-size: 1.1em;
   text-align: center;
   padding: 10px;
   margin-top: 10px;
@@ -451,6 +457,7 @@
 .tags-cell {
   text-align: left;
   span {
+    border: 1px solid #ddd;
     background: $gray;
     margin: 0 5px;
     padding: 8px 10px;

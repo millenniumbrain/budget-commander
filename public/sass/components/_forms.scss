@@ -6,7 +6,7 @@ form {
   }
 
   input[type=text], input[type=email], input[type=password] {
-    font-size: 1rem;
+    font-size: 1em;
     width: 90%;
     padding: 8px 15px;
     border: 1px solid $darker-gray;
@@ -46,8 +46,12 @@ form {
     cursor:pointer;
     width: 250px;
     -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
     border-radius: 2px;
+    // remove firefox dotted lines
+    &:-moz-focusring {
+      color: transparent;
+      text-shadow: 0 0 0 #000;
+    }
   }
 
   &:before {
@@ -67,7 +71,7 @@ form {
 
   @media screen and (-webkit-min-device-pixel-ratio:0) {
     select {padding-right:18px}
-}
+  }
 
   &:after {
     content:"\f078";
@@ -84,14 +88,18 @@ form {
 
 .form-aligned {
   text-align: left;
+  
   label {
     display: block;
   }
-  input[type=text] {
-    width: 80% !important;
-  }
+  
   select {
     padding: 6px;
+  }
+
+  .flex-grid .flex-cell {
+   // margin: 20px;
+    padding: 0 20px;
   }
 }
 

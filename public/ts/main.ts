@@ -21,7 +21,7 @@ $(document).ready(() => {
   transactionWidget.init();
 
   const transactionForm = new TransactionForm("#newTransaction");
-  transactionForm.init("addTransactionButton", "closeNewTransaction");
+  transactionForm.init();
   transactionForm.submitTransaction();
 
 

@@ -1,8 +1,8 @@
 .button {
-  background: #cacaca;
+  border: 1px solid #ddd;
+  background: $gray;
   color: $dark-gray;
   padding: 8px 15px;
-  border: none;
   border-radius: 2px;
   text-transform: uppercase;
   outline: none;
@@ -18,6 +18,7 @@
 
 .primary {
   @extend .button;
+  border: none;
   color: $white;
   background: $dark-gray;
   &:hover {
@@ -33,6 +34,7 @@
   @extend .button;
   color: $white;
   background: #d62c1a;
+  border: none;
   &:hover {
     background: $red;
   }
