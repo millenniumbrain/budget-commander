@@ -12,7 +12,7 @@ gulp.task("watch", function() {
   var b = browserify({ debug: true, cache: {}, packageCache: {} });
 
   b.add('public/ts/main.ts');
-  b.plugin(tsify, { noImplicitAny: true })
+  b.plugin(tsify)
   b.plugin(watchify);
 
   b.on('update', bundle);

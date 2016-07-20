@@ -18,6 +18,14 @@ form {
     }
   }
 
+  .flex-1-2 {
+    .flex-cell {
+      input[type=text] {
+        width: 69% ;
+      }
+    }
+  }
+
   label {
     input[type=radio] {
       margin: 10px 0;
@@ -88,11 +96,11 @@ form {
 
 .form-aligned {
   text-align: left;
-  
+
   label {
     display: block;
   }
-  
+
   select {
     padding: 6px;
   }

@@ -1,6 +1,7 @@
-/// <reference path="./jquery.d.ts" />
+/// <reference path="../jquery.d.ts" />
 import $ = require("jquery");
-import Message from "./MessageBox";
+import Message from "../components/messagebox";
+
 class Login {
   public $form: JQuery = $("#login");
   private url: string;

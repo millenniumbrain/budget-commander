@@ -50,7 +50,7 @@
                 </label>
               </div>
             </div>
-            <div class="form-control-group flex-grid flex-1-4">
+            <div class="form-control-group flex-grid flex-1-2">
               <div class="flex-cell">
                 <label>Date</label>
                 <input id="tranDate" type="text" name="transaction_date">
@@ -59,9 +59,13 @@
                 <label>Amount</label>
                 <input id="tranAmount" type="text" name="transaction_amount">
               </div>
-              <div class="flex-cell">
-                <label>Description</label>
-                <input id="tranDesc" type="text" name="transaction_description">
+            </div>
+            <div class="form-control-group">
+              <div class="flex-grid flex-full">
+                <div class="flex-cell flex-fit">
+                  <label>Description</label>
+                  <input id="tranDesc" type="text" name="transaction_description">
+                </div>
               </div>
             </div>
             <div class="form-control-group">

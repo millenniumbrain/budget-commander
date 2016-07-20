@@ -7,7 +7,7 @@ class User < Sequel::Model(:users)
 
   def before_save
     # generate a uuid when saving the row
-    self._id = SecureRandom.uuid
+    self.uid = Druuid.gen
     super
   end
 

@@ -1,11 +1,11 @@
 /// <reference path="./jquery.d.ts" />
 import $ = require("jquery");
-import TagList from "./TagList";
-import TransactionTable from "./TransactionTable";
-import Total from "./Total";
-import Dropdown from "./Dropdown";
-import TransactionForm from "./TransactionForm";
-import AccountForm from "./AccountForm";
+import TagList from "./components/taglist";
+import TransactionTable from "./widgets/transactiontable";
+import Total from "./widgets/total";
+import Dropdown from "./components/dropdown";
+import TransactionForm from "./forms/transactionform";
+import AccountForm from "./forms/accountform";
 
 $(document).ready(() => {
   const tagListWidget = new TagList();

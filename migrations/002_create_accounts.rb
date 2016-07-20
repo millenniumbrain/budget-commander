@@ -2,7 +2,7 @@ Sequel.migration do
   up do
     create_table :accounts do
       primary_key :id
-      String :_id, :null => false
+      Bignum :uid
       String :name, :null => false
       DateTime :created_at
       DateTime :updated_at

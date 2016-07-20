@@ -4,8 +4,7 @@ using this method we can generate nice encoded urls, track the audience(clients/
 and verify client access with the server
 =end
 
-# TODO: switch to HMAC for web client
-# TODO: remove sessions store tokens in local storage
+# TODO: remove sessions and store tokens in local storage
 module JsonWebToken
   module ResponseMethods
 

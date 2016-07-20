@@ -21,7 +21,6 @@ BudgetCommander.route('login') do |r|
         session[:logged_in] = true
         response.status = 200
         { status: 'ok', msg: "#{user["email"]} has logged in."}
-        r.redirect '/dashboard'
       else
         response.status = 404
         { status: '404', msg: "#{user} not Found" }.to_json

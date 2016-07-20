@@ -2,7 +2,7 @@ Sequel.migration do
   up do
     create_table :transactions do
       primary_key :id
-      String :_id, :null => false
+      Bignum :uid
       BigDecimal :amount, :size => [19, 4], :null => false
       String :description
       String :type

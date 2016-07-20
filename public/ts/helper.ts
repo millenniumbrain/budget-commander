@@ -3,11 +3,11 @@ export module Helper {
         switch(type) {
             case "income":
                 el.setAttribute("class", "green-amount amount-cell");
-                el.innerHTML = "+" + " " + amount
+                el.innerHTML = `+ ${amount}`;
                 break;
             case "expense":
                 el.setAttribute("class", "red-amount amount-cell");
-                el.innerHTML = "-" + " " + amount
+                el.innerHTML = `- ${amount}`;
                 break;
             default:
                 el.setAttribute("class", "amount-cell");

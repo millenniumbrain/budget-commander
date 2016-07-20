@@ -2,7 +2,7 @@ Sequel.migration do
   up do
     create_table :users do
       primary_key :id
-      String :_id, :null => false
+      Bignum :uid
       String :email, :null => false, :unique => true
       String :password_hash, :null => false
       String :avatar, :default => ''

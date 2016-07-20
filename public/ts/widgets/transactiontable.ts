@@ -1,6 +1,7 @@
-/// <reference path="./jquery.d.ts" />
+/// <reference path="../jquery.d.ts" />
 import $ = require("jquery");
-import {Helper} from "./Helper";
+import {Helper} from "../helper";
+import TransactionForm from "../forms/transactionform";
 
 export default class TransactionTable {
     public tranTable: Element = document.querySelector("#transactionActivity tbody");
@@ -15,7 +16,7 @@ export default class TransactionTable {
           this.showControls($arrow)
         }
 
-      }, false)
+      }, false);
     }
 
     public showControls($element: JQuery) {
@@ -56,34 +57,10 @@ export default class TransactionTable {
     }
 
     public editTransaction(button: HTMLElement, elementId: string) {
-      let transactionRow = document.getElementById(elementId);
       button.addEventListener("click", () => {
-        let columns = transactionRow.getElementsByTagName("td");
-        let values: any = {
-          date: "",
-          type: "",
-          amount: "",
-          desc: "",
-          tags: [],
-          account_name: ""
-        }
-        values.date = columns[0].innerHTML;
-        let amountClass: string = columns[1].getAttribute("class")
-          .slice(0, columns[1].getAttribute("class").indexOf(" "));
-        switch (amountClass) {
-          case "red-amount":
-            values.type = "expense";
-            break;
-          case "green-amount":
-            values.type = "income";
-            break;
-          default:
-            break;
-        }
-        values.amount = columns[1].innerHTML
-          .slice(columns[1].innerHTML.indexOf(" ") + 1, columns[1].innerHTML.length);
-        values.desc = columns[2].innerHTML;
-        console.log(values);
+        const transaction = this.transactionRow(elementId);
+        const editTransactionForm = new TransactionForm("#newTransaction");
+        editTransactionForm.init(transaction);
       }, false);
     }
 
@@ -103,13 +80,39 @@ export default class TransactionTable {
         });
     }
 
+    private transactionRow(elementId: string) : Object {
+      const transactionRow: HTMLElement = document.getElementById(elementId);
+      const columns = <NodeListOf<HTMLElement>>transactionRow.getElementsByTagName("td");
+      let transaction = {
+        id: "",
+        date: "",
+        type: "",
+        amount: "",
+        desc: "",
+        tags: <any>[],
+        accountName: ""
+      }
+      transaction.id = elementId;
+      transaction.date = columns[0].innerHTML;
+      transaction.type = columns[1].getAttribute("data-type");
+      transaction.amount = columns[1].getAttribute("data-amount");
+      transaction.desc = columns[2].innerHTML;
+      const tags = <NodeListOf<HTMLTableDataCellElement>>document.querySelectorAll(`tr[id='${elementId}'] span.table-tag`);
+      for (let i = 0; i < tags.length; i++) {
+        transaction.tags.push(tags[i].innerHTML);
+      }
+      transaction.accountName = columns[4].innerHTML;
+      return transaction;
+    }
+
+
     private parseData = (data: any) : void => {
 
         const showTransactionsNum : HTMLElement = document.getElementById("shownSize");
         const transacitonNum : HTMLElement = document.getElementById("totalSize");
         data.forEach( (transaction: any) => {
             let transactionRow: HTMLTableRowElement = document.createElement("tr");
-            transactionRow.setAttribute("id", transaction._id);
+            transactionRow.setAttribute("id", transaction.uid);
             let dateCell: HTMLTableDataCellElement = document.createElement("td");
             let amountCell: HTMLTableDataCellElement = document.createElement("td");
             let descCell: HTMLTableDataCellElement = document.createElement("td");
@@ -117,11 +120,12 @@ export default class TransactionTable {
             let accountNameCell: HTMLTableDataCellElement = document.createElement("td");
             let arrowCell: HTMLTableDataCellElement = document.createElement("td");
 
-
             dateCell.innerHTML = transaction.date;
             dateCell.setAttribute("class", "date-cell");
 
             Helper.parseAmount(amountCell, transaction.type, transaction.amount);
+            amountCell.setAttribute("data-type", transaction.type);
+            amountCell.setAttribute("data-amount", transaction.amount);
 
             descCell.innerHTML = transaction.description;
             descCell.setAttribute("class", "description-cell");
@@ -145,7 +149,7 @@ export default class TransactionTable {
             arrowCell.setAttribute("class", "arrow-cell");
             let downArrow: HTMLElement = document.createElement("i");
             downArrow.setAttribute("class", "button fa fa-chevron-down table-arrow");
-            downArrow.setAttribute("data-id", transaction._id);
+            downArrow.setAttribute("data-id", transaction.uid);
             arrowCell.appendChild(downArrow);
 
             transactionRow.appendChild(dateCell);

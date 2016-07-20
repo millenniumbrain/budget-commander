@@ -13,7 +13,7 @@ BudgetCommander.route('transactions') do |r|
         transactions = Transaction.filter(user_id: @current_user.id)
                            .order(Sequel.desc(:transactions__id))
                            .limit(25)
-                           .to_json(:include => :tags_data, only: [:_id,
+                           .to_json(:include => :tags_data, only: [:uid,
                                                                    :date,
                                                                    :amount,
                                                                    :type,
@@ -70,11 +70,11 @@ BudgetCommander.route('transactions') do |r|
   r.is ':id' do |id|
     r.get do
       response['Content-Type'] = 'application/json'
-      transaction = Transaction.where.(:_id => id).first
-        .to_json(:include => :tags_data, only: [:_id, :date, :amount, :type, :description, :account_id])
+      transaction = Transaction.where.(:uid => id).first
+        .to_json(:include => :tags_data, only: [:uid, :date, :amount, :type, :description, :account_id])
       pp transaction = JSON.parse(transaction)
       transaction['date'] = Date.parse(transaction['date']).strftime('%b %d %Y')
-      transaction['account_id'] = Account.where(id: transaction['account_id']).first.name
+      transaction['account_id'] = Account.where(uid: transaction['account_uid']).first.name
       transaction.to_json
     end
   end

@@ -9,7 +9,7 @@ class Transaction < Sequel::Model(:transactions)
 
   def before_save
     # generate a uuid when saving the row
-    self._id = SecureRandom.uuid
+    self.uid = Druuid.gen
     # prevent the user from creating transactions without amount and types
     cancel_action if amount.nil?
     cancel_action if type.nil?
@@ -24,7 +24,6 @@ class Transaction < Sequel::Model(:transactions)
       .sum(:amount)
     if income.nil?
       income = 0.00
-      now = Date.today
       format("%.2f", income)
     else
       format("%.2f", income)
@@ -39,7 +38,6 @@ class Transaction < Sequel::Model(:transactions)
       .sum(:amount)
     if expense.nil?
       expense = 0.00
-      now = Date.today
       format("%.2f", expense)
     else
       format("%.2f", expense)
@@ -85,7 +83,7 @@ class Transaction < Sequel::Model(:transactions)
   def tags_data
     tags = []
     self.tags.each do |t|
-      tags.push({:_id => t._id, :name => t.name})
+      tags.push({:uid => t.uid, :name => t.name})
     end
     tags
   end

@@ -2,11 +2,12 @@ source 'https://rubygems.org'
 
 # => core
 gem 'roda'
-gem 'twilio-ruby'
+#gem 'twilio-ruby'
 #gem 'rtesseract'
 #gem "mini_magick"
 #gem 'ruby-opencv'
 #gem 'concurrent-ruby', require: 'concurrent'
+gem 'druuid'
 gem 'axlsx'
 gem 'curb'
 # => database
@@ -33,7 +34,6 @@ group :development do
   gem 'sqlite3', :platform => :mri
   gem 'sass'
   gem "binding_of_caller", :platform => :mri
-  gem 'shotgun', :platform => :mri
 end
 
 group :test, :development do

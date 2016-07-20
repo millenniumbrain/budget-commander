@@ -3,7 +3,7 @@ BudgetCommander.route('tags') do |r|
   r.is do
     r.get do
       response['Content-Type'] = 'application/json'
-      Tag.where(:user_id => @user.id).to_json(only: [:_id, :name])
+      Tag.where(:user_id => @user.id).to_json(only: [:uid, :name])
     end
 
     r.post do

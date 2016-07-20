@@ -1,7 +1,7 @@
-/// <reference path="./jquery.d.ts" />
+/// <reference path="../jquery.d.ts" />
 
 import $ = require("jquery");
-import {Helper} from "./Helper";
+import {Helper} from "../helper";
 
 export default class Total {
     public getAllTotals() : void {

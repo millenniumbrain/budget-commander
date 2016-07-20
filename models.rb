@@ -1,7 +1,7 @@
 require 'logger'
 require 'sequel'
 require 'bcrypt'
-require 'securerandom'
+require 'druuid'
 
 DB = Sequel.sqlite('db/test.sqlite')
 DB.loggers << Logger.new($stdout)

@@ -1,6 +1,6 @@
-/// <reference path="./jquery.d.ts" />
+/// <reference path="../jquery.d.ts" />
 import $ = require("jquery");
-import { Helper } from "./Helper";
+import { Helper } from "../helper";
 
 export default class TagList {
   constructor() {}
@@ -34,7 +34,7 @@ export default class TagList {
 
   private generateTags(tags: any) : void {
     const tagTitle: Element = document.getElementById("tagListTitle");
-    const tagItems = document.getElementById("tagsList").getElementsByTagName('li');
+    const tagItems = <NodeListOf<HTMLElement>>document.getElementById("tagsList").getElementsByTagName('li');
     if (tags.length > tagItems.length) {
       for (let i = 0; i < tags.length; i++) {
         let tagItem = document.createElement("li");

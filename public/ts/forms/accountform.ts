@@ -1,7 +1,7 @@
-/// <reference path="./jquery.d.ts" />
+/// <reference path="../jquery.d.ts" />
 import $ = require("jquery");
-import Overlay from "./Overlay";
-import Message from "./MessageBox";
+import Overlay from "../components/overlay";
+import Message from "../components/messagebox";
 
 export default class AccountForm {
   public $form: JQuery;
