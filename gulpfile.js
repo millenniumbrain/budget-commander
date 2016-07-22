@@ -24,7 +24,7 @@ gulp.task("watch", function() {
       .pipe(source('app.js'))
       .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true,debug: true}))
-      .pipe(uglify())
+     // .pipe(uglify())
       .pipe(sourcemaps.write("./"))
       .pipe(gulp.dest('public/js/dist'));
   }
@@ -33,7 +33,7 @@ gulp.task("watch", function() {
 gulp.task("login", function() {
   var b = browserify({ debug: true, cache: {}, packageCache: {} });
 
-  b.add('public/ts/Login.ts');
+  b.add('public/ts/users/login.ts');
   b.plugin(tsify, { noImplicitAny: true })
   b.plugin(watchify);
 

@@ -1,6 +1,6 @@
 /// <reference path="../jquery.d.ts" />
 import $ = require("jquery");
-import Message from "../components/messagebox";
+import MessageBox from "../components/messagebox";
 
 class Login {
   public $form: JQuery = $("#login");
@@ -17,14 +17,18 @@ class Login {
       event.preventDefault();
       //loader.style.visibility = "visible";
       let formData: string = JSON.stringify($(this.$form).serializeArray());
-      console.log(formData);
       $.post(this.url, formData)
       .fail( (req) => {
-      //  loader.style.visibility = "hidden";
+        const error = new MessageBox("login", req.responseJSON["msg"]);
+        error.showError();
+        error.close(5);
       })
       .done( (response) => {
       //  loader.style.visibility = "hidden";
-        console.log(response);
+        const success = new MessageBox("login", response["msg"]);
+        success.showSuccess();
+        success.close(5);
+        window.location.href = "/dashboard";
       })
     });
   }

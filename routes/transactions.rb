@@ -21,7 +21,7 @@ BudgetCommander.route('transactions') do |r|
                                                                    :account_id])
         transactions = JSON.parse(transactions)
         transactions.each do |t|
-          # TODO: Add option for DD/MM/YYYY
+          # TODO: Add option for DD MM YYYY
           t['date'] = Date.parse(t['date']).strftime('%b %d %Y')
           t['account_id'] = Account.where(id: t['account_id']).first.name
           t['amount'] = format('%.2f', t['amount'])
@@ -42,6 +42,14 @@ BudgetCommander.route('transactions') do |r|
         account = Account.where(:name => transaction["transaction_account"]).to_json
         account = JSON.parse(account)
       end
+      unless transaction["transaction_tags"].empty?
+        tags = transactions["transaction_tags"].split(',')
+        tags.each do |t|
+          unless Tag.where(:name => t).count == 1
+            @tag = Tag.new(:name => t)
+          end
+        end
+      end
       begin
         new_transaction = Transaction.new do |t|
           t.amount = transaction["transaction_amount"].to_f
@@ -61,10 +69,6 @@ BudgetCommander.route('transactions') do |r|
         { status: "500", msg: "Transaction failed #{e}"}.to_json
       end
     end
-
-    r.put do
-
-    end
   end
 
   r.is ':id' do |id|
@@ -74,8 +78,11 @@ BudgetCommander.route('transactions') do |r|
         .to_json(:include => :tags_data, only: [:uid, :date, :amount, :type, :description, :account_id])
       pp transaction = JSON.parse(transaction)
       transaction['date'] = Date.parse(transaction['date']).strftime('%b %d %Y')
-      transaction['account_id'] = Account.where(uid: transaction['account_uid']).first.name
+      transaction['account_id'] = Account.where(id: transaction['account_id']).first.name
       transaction.to_json
+    end
+
+    r.put do
     end
   end
 end

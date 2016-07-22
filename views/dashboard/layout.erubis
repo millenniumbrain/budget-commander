@@ -30,18 +30,6 @@
               <span class="icon-text">Accounts</span>
             </a>
           </li>
-          <li>
-            <a class="dash-link" href="#">
-              <span class="icon fa fa-pie-chart"></span>
-              <span class="icon-text">Reports</span>
-            </a>
-          </li>
-          <li>
-            <a class="dash-link" href="#">
-              <span class="icon fa fa-line-chart"></span>
-              <span class="icon-text">Forecasts</span>
-            </a>
-          </li>
           <li id="tagList">
             <a class="dash-link">
               <span class="icon fa fa-tags"></span>

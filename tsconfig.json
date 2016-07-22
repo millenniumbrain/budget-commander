@@ -6,5 +6,8 @@
         "preserveConstEnums": true,
         "outFile": "./public/js/dist/app.js",
         "sourceMap": true
-    }
+    },
+    "files": [
+      "public/ts/main.ts"
+    ]
 }

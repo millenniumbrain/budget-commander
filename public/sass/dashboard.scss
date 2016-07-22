@@ -4,6 +4,7 @@
 @import 'components/grids';
 @import 'components/table';
 @import 'components/spinner';
+@import 'components/messagebox';
 
 .overlay {
   -moz-box-sizing: border-box;
@@ -509,38 +510,6 @@
   @extend .form-spinner;
 }
 
-.message {
-  margin-bottom: 2%;
-  display: block;
-  position: relative;
-  padding: 10px;
-  text-align: center;
-  color: $white;
-  font-size: 1.4rem;
-}
-
-.success {
-  @extend .message;
-  background: $green;
-}
-
-.warning {
-  @extend .message;
-  background: $yellow;
-}
-
-.error {
-  @extend .message;
-  background: $red;
-}
-
-#closeMessage {
-  color: $white;
-  cursor: pointer;
-  position: absolute;
-  top: 14px;
-  right: 18px;
-}
 
 .slider {
   overflow-y: hidden;

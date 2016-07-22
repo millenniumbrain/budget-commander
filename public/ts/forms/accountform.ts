@@ -26,6 +26,7 @@ export default class AccountForm {
       $.post("/transactions", formData)
       .fail( (req) => {
         loader.style.visibility = "hidden";
+        // close and show message
         this.overlay.toggle();
         let error = new Message("dashboardContainer", req.responseJSON["msg"]);
         error.showError();
@@ -34,6 +35,7 @@ export default class AccountForm {
       .done( (response) => {
         loader.style.visibility = "hidden";
         this.overlay.toggle();
+        // close and show message
         let success = new Message("dashboardContainer", response["msg"]);
         success.showSuccess();
         success.close(5);

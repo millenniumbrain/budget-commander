@@ -8,10 +8,13 @@ export default class Form {
 
   }
 
-  public function init() : void {
+  public init() : void {
   }
 
-  public function submit() : void {
+  public submit() : void {
+  }
+
+  public clear() : void {
   }
 
 }

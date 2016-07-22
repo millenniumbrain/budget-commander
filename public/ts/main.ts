@@ -22,7 +22,6 @@ $(document).ready(() => {
 
   const transactionForm = new TransactionForm("#newTransaction");
   transactionForm.init();
-  transactionForm.submitTransaction();
 
 
   const accountForm = new AccountForm("#newAccount");
