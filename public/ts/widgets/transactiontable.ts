@@ -11,6 +11,7 @@ export default class TransactionTable {
       this.tranTable.addEventListener("click", (event) => {
         // HACK: event.target is an event in TypeScript but in JavaScript
         // it can also be a DOM Object
+        const arrow = event.target
         let $arrow: JQuery = $(event.target);
         if($arrow.prop("tagName") === "i" || $arrow.prop("tagName") === "I") {
           this.showControls($arrow)
@@ -21,7 +22,7 @@ export default class TransactionTable {
 
     public showControls($element: JQuery) {
       let $arrow: JQuery = $element;
-      let row: HTMLElement = document.getElementById($arrow.data("id"));
+      let row: HTMLElement = <HTMLElement>document.getElementById($arrow.data("id"));
       let controlsRow: HTMLTableRowElement = document.createElement("tr");
 
       controlsRow.setAttribute("class", "controls-row");
@@ -81,7 +82,7 @@ export default class TransactionTable {
     }
 
     private transactionRow(elementId: string) : Object {
-      const transactionRow: HTMLElement = document.getElementById(elementId);
+      const transactionRow: HTMLElement = <HTMLElement>document.getElementById(elementId);
       const columns = <NodeListOf<HTMLElement>>transactionRow.getElementsByTagName("td");
       let transaction = {
         id: "",
@@ -89,13 +90,13 @@ export default class TransactionTable {
         type: "",
         amount: "",
         desc: "",
-        tags: <any>[],
+        tags: Array<String>(),
         accountName: ""
       }
       transaction.id = elementId;
       transaction.date = columns[0].innerHTML;
-      transaction.type = columns[1].getAttribute("data-type");
-      transaction.amount = columns[1].getAttribute("data-amount");
+      transaction.type = <string>columns[1].getAttribute("data-type");
+      transaction.amount = <string>columns[1].getAttribute("data-amount");
       transaction.desc = columns[2].innerHTML;
       const tags = <NodeListOf<HTMLTableDataCellElement>>document.querySelectorAll(`tr[id='${elementId}'] span.table-tag`);
       for (let i = 0; i < tags.length; i++) {
@@ -105,11 +106,10 @@ export default class TransactionTable {
       return transaction;
     }
 
-
     private parseData = (data: any) : void => {
 
-        const showTransactionsNum : HTMLElement = document.getElementById("shownSize");
-        const transacitonNum : HTMLElement = document.getElementById("totalSize");
+        const showTransactionsNum: HTMLElement = <HTMLElement>document.getElementById("shownSize");
+        const transacitonNum: HTMLElement = <HTMLElement>document.getElementById("totalSize");
         data.forEach( (transaction: any) => {
             let transactionRow: HTMLTableRowElement = document.createElement("tr");
             transactionRow.setAttribute("id", transaction.uid);

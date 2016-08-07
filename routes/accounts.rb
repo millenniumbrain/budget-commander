@@ -10,7 +10,7 @@ BudgetCommander.route('accounts') do |r|
   r.is do
     r.get do
       response['Content-Type'] = 'application/json'
-      @current_user.accounts_dataset.all.to_json(:only => [:uid, :name])
+      Account.filter(user_id: @current_user.id).to_json(:only => [:uid, :name])
     end
 
     r.post do

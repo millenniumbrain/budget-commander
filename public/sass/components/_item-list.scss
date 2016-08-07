@@ -1,0 +1,84 @@
+#tagListButton {
+  cursor: pointer;
+  position: relative;
+}
+
+#tagListSpinner {
+  display: none;
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  top: -48px;
+  left: 60%;
+}
+
+.item-list {
+  @include z-index-2;
+  position: fixed;
+  margin-left: 15%;
+  height: 100%;
+  width: 20%;
+  left: -20.5%;
+}
+
+.slide-left {
+    transform: translateX(-100%);
+}
+
+.slide-right {
+    transform: translateX(100%);
+}
+
+.slide {
+    transition: transform 1s;
+}
+
+#tagList, #accountList {
+  @extend .slide;
+  @include z-index-3;
+  position: relative;
+  background: #fcfcfc;
+  list-style: none;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  height: 100%;
+  width:100%;
+  li {
+    padding: 12px 20px;
+  }
+}
+
+.list-item  {
+  font-size: 1.3em;
+  border-bottom: 1px solid #eee;
+  &:hover {
+    background: #f4f4f4;
+    cursor: pointer;
+  }
+}
+
+#tagListTitle, #accountListTitle {
+  font-size: $larger;
+  border-bottom: 1px solid #ccc;
+  text-transform: uppercase;
+}
+
+.item-add-button {
+  margin-top: 20px;
+  button {
+    width: 100%;
+    font-size: $medium;
+  }
+}
+
+#addTag {
+
+}
+
+#accountList {
+
+}
+
+#accountListTitle {
+
+}

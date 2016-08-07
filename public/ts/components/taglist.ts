@@ -1,48 +1,22 @@
 /// <reference path="../jquery.d.ts" />
 import $ = require("jquery");
 import { Helper } from "../helper";
+import ItemList from "./itemlist";
 
-export default class TagList {
-  constructor() {}
+export default class TagList extends ItemList {
+  public button: HTMLElement;
+  public list: HTMLElement;
+  public listTitle: HTMLElement;
 
-  public openTagList() : void {
-    const tagList: HTMLElement = document.getElementById("tagList");
-
-    tagList.addEventListener("click", () => {
-
-      const tagsList: HTMLElement = document.getElementById("tagsList");
-      if (tagsList.getAttribute("class") === "slide-right") {
-        tagList.setAttribute("class", "");
-        tagsList.setAttribute("class", "slide-left");
-      } else {
-        $("#tagListSpinner").css( "display", "block !important");
-        $.get('/tags', this.generateTags)
-        .fail( () => {
-
-        })
-        .done( () => {
-
-          $("#tagListSpinner").hide();
-        })
-        tagList.setAttribute("class", "active");
-        tagsList.setAttribute("class", "slide-right");
-      }
-
-    }, false);
-
+  constructor(buttonId: string, listId: string, titleId: string) {
+    super(buttonId, listId, titleId);
   }
 
-  private generateTags(tags: any) : void {
-    const tagTitle: Element = document.getElementById("tagListTitle");
-    const tagItems = <NodeListOf<HTMLElement>>document.getElementById("tagsList").getElementsByTagName('li');
-    if (tags.length > tagItems.length) {
-      for (let i = 0; i < tags.length; i++) {
-        let tagItem = document.createElement("li");
-        tagItem.setAttribute("class", "tag-item")
-        tagItem.setAttribute("item-id", tags[i]["_id"]);
-        tagItem.innerHTML = tags[i]["name"];
-        Helper.insertAfter(tagItem, tagTitle);
-      }
-    }
+  public openList(url: string) : void {
+    super.openList(url);
+  }
+
+  public generateItems(items: any) : void  {
+    super.generateItems(items);
   }
 }

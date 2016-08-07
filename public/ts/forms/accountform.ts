@@ -13,7 +13,6 @@ export default class AccountForm {
 
   init(openTrigger: string, closeTrigger: string) : void {
     this.overlay.openToggle(openTrigger, () => {});
-    this.overlay.closeToggle(closeTrigger);
   }
 
   public submitAccount() : void {

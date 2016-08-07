@@ -5,11 +5,14 @@ import TransactionTable from "./widgets/transactiontable";
 import Total from "./widgets/total";
 import Dropdown from "./components/dropdown";
 import TransactionForm from "./forms/transactionform";
-import AccountForm from "./forms/accountform";
+import AccountList from "./components/accountlist";
 
 $(document).ready(() => {
-  const tagListWidget = new TagList();
-  tagListWidget.openTagList();
+  const tagList = new TagList("tagListButton", "tagList", "tagListTitle");
+  tagList.openList("/tags");
+
+  const accountList = new AccountList("accountListButton", "accountList", "accountListTitle");
+  accountList.openList("/accounts")
 
   const addButton = new Dropdown("addButton", "addOptions");
   addButton.init();
@@ -23,8 +26,4 @@ $(document).ready(() => {
   const transactionForm = new TransactionForm("#newTransaction");
   transactionForm.init();
 
-
-  const accountForm = new AccountForm("#newAccount");
-  accountForm.init("addAccountButton", "closeNewAccount");
-  accountForm.submitAccount();
 });

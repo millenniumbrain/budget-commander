@@ -1,28 +1,5 @@
 <div id="dashboardContainer">
   <div class="dashboard">
-    <div id="newAccountOverlay">
-      <div class="overlay-box">
-        <div id="closeNewAccount" class="fa fa-close overlay-close"></div>
-        <form id="newAccount" class="overlay-form form form-aligned" method="post" action="/accounts">
-          <fieldset>
-            <legend>Create Account</legend>
-            <div class="overlay-form-seperator"></div>
-            <div id="accountLoader" class="form-spinner">
-              <div class="loader"></div>
-            </div>
-            <div class="form-control-group">
-              <div class="flex-cell">
-                <label>Name</label>
-                <input type="text" name="account_name">
-              </div>
-            </div>
-            <div class="form-controls-group">
-              <button class="primary">Add Account</button>
-            </div>
-          </fieldset>
-        </form>
-      </div>
-    </div>
     <div id="newTransactionOverlay">
       <div class="overlay-box">
         <div id="closeNewTransaction" class="fa fa-close overlay-close"></div>
@@ -31,7 +8,6 @@
             <legend>Add Transaction</legend>
             <div class="overlay-form-seperator"></div>
             <div id="transactionLoader" class="form-spinner">
-              <div class="loader"></div>
             </div>
             <div class="form-control-group flex-grid flex-1-2">
               <div class="flex-cell">
@@ -88,15 +64,9 @@
         <button id="addButton" class="primary">
           <span class="fa fa-dollar"></span>
           Add
-          <div id="addLoader" class="loader"></div>
         </button>
 
         <ul id="addOptions">
-          <li id="addAccountButton">
-            <span class="fa fa-plus"></span>
-            &nbsp;
-            <span>Account</span>
-          </li>
           <li id="addTransactionButton">
             <span class="fa fa-plus"></span>
             &nbsp;
@@ -139,7 +109,6 @@
           <div id="expenseTotal"></div>
         </div>
       </div>
-      <div class="loader" id="totalsSpinner">
       </div>
     </div>
     <div class="seperator"></div>
@@ -174,7 +143,7 @@
         <span id="shownSize"></span>&nbsp;of&nbsp;<span id="totalSize"></span>&nbsp;transactions
       </div>
       </div>
-      <div class="loader" id="transactionSpinner">
+      <div class="loader" id="tranActSpinner">
       </div>
     </div>
   </div>

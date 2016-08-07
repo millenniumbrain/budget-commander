@@ -10,24 +10,24 @@ export default class Overlay {
       this.overlay = document.getElementById(overlay);
     }
 
-    public openToggle(openEl: string, loadForm: JSONCallback, closeEl: string = "") : void {
+    public openToggle(openEl: string, callback: () => any ) : void {
       if (openEl !== "" || false) {
         const openElement: HTMLElement = document.getElementById(openEl);
         openElement.addEventListener("click", () => {
           this.overlay.style.visibility = "visible";
-          loadForm();
+          callback();
         }, false);
       } else {
         this.overlay.style.visibility = "visible";
-        loadForm();
+        callback();
       }
     }
 
-    public closeToggle(el: string, clearForm: JSONCallback = null) : void {
+    public closeToggle(el: string, callback: () => any) : void {
         const closeElement: HTMLElement = document.getElementById(el);
         closeElement.addEventListener("click", () => {
-          if (clearForm !== null) {
-            clearForm();
+          if (callback() !== null) {
+            callback();
           }
           this.overlay.style.visibility = "hidden";
         }, false);

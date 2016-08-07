@@ -3,8 +3,8 @@
 @import 'components/forms';
 @import 'components/grids';
 @import 'components/table';
-@import 'components/spinner';
-@import 'components/messagebox';
+@import 'components/message-box';
+@import 'components/item-list';
 
 .overlay {
   -moz-box-sizing: border-box;
@@ -168,14 +168,14 @@
   text-align: left;
   padding: 15px 15px 15px 0;
   &:hover, &:focus {
-    width: 92%;
+    width: 94%;
     background: $light-gray;
   }
 }
 
 .active {
   a {
-    width: 92%;
+    width: 94%;
     background: $light-gray;
   }
 }
@@ -189,76 +189,6 @@
   padding-left: 5px;
   font-size: $medium;
   text-transform: uppercase;
-}
-
-#tagList {
-  cursor: pointer;
-  position: relative;
-}
-
-#tagListSpinner {
-  display: none;
-  position: absolute;
-  height: 20px;
-  width: 20px;
-  top: -48px;
-  left: 60%;
-}
-
-.tags-list {
-  @include z-index-2;
-  position: fixed;
-  margin-left: 15%;
-  height: 100%;
-  width: 20%;
-  left: -20.5%;
-}
-
-.slide-left {
-    transform: translateX(-100%);
-}
-
-.slide-right {
-    transform: translateX(100%);
-}
-
-.slide {
-    transition: transform 1s;
-}
-
-#tagsList {
-  @extend .slide;
-  @include z-index-3;
-  position: relative;
-  background: #fcfcfc;
-  list-style: none;
-  border-right: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  height: 100%;
-  width:100%;
-  li {
-    padding: 11.5px 20px;
-  }
-}
-
-.tag-item  {
-  font-size: 1.3em;
-  border-bottom: 1px solid #eee;
-}
-
-#tagListTitle {
-  font-size: $larger;
-  border-bottom: 1px solid #ccc;
-  text-transform: uppercase;
-}
-
-.add-tag-button {
-  margin-top: 20px;
-}
-
-#addTag {
-  width: 100%;
-  font-size: $medium;
 }
 
 #dashboardContainer {
@@ -329,7 +259,7 @@
   /* Desktops and laptops ----------- */
   @media only screen  and (min-width : 1224px) {
   /* Styles */
-    left: 65px;
+    left: 85px;
   }
 
   /* Large screens ----------- */

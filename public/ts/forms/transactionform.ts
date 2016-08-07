@@ -2,107 +2,90 @@
 import $ = require("jquery");
 import Overlay from "../components/overlay";
 import MessageBox from "../components/messagebox";
+import Form from "./form";
 
-export default class TransactionForm {
-
-  public $form: JQuery;
+export default class TransactionForm extends Form {
   public overlay: Overlay = new Overlay("newTransactionOverlay");
   public openTrigger: string = "addTransactionButton";
   public closeTrigger: string = "closeNewTransaction";
-  private closed: boolean = false;
-  public form: string;
+  private tranAccounts = <NodeListOf<HTMLOptionElement>>document.getElementById("tranAccounts").getElementsByTagName("option");
+  private tranTypeExpense = <HTMLInputElement>document.getElementById("tranTypeExpense");
+  private tranTypeIncome  = <HTMLInputElement>document.getElementById("tranTypeIncome");
+  private tranButton = <HTMLButtonElement>document.getElementById("tranButton");
 
   constructor(form: string) {
-    this.$form = $(form);
-    this.form = form.slice(1, form.length);
+    super(form);
   }
 
   public init(values: any = null) : void {
     if (values === null) {
+      this.clear();
+      this.tranButton.innerHTML = "Add Transaction";
       this.overlay.openToggle(this.openTrigger, this.getAccounts);
-      this.submitTransaction();
+      this.submit();
     } else {
-      this.overlay.openToggle("", this.getAccounts);
-      const tranTypeExpense = <HTMLInputElement>document.getElementById("tranTypeExpense");
-      const tranTypeIncome  = <HTMLInputElement>document.getElementById("tranTypeIncome");
-      tranTypeExpense.checked = false;
-      tranTypeIncome.checked = false;
-      switch (values.type) {
-        case "income":
-          tranTypeIncome.checked = true;
-          break;
-        case "expense":
-          tranTypeExpense.checked = true;
-          break;
-        default:
-          break;
-      }
-      // add accounts and select account associated with transaction
-      const tranAccounts = <NodeListOf<HTMLOptionElement>>document.getElementById("tranAccounts").getElementsByTagName("option");
-      for (let i = 0; i < tranAccounts.length; i++) {
-        if (tranAccounts[i].innerHTML === values.accountName) {
-          tranAccounts[i].setAttribute("selected", "true");
-        }
-      }
-      const tranDate = <HTMLInputElement>document.getElementById("tranDate");
-      tranDate.value = values.date;
-      const tranAmount = <HTMLInputElement>document.getElementById("tranAmount");
-      tranAmount.value = values.amount;
-      const tranDesc = <HTMLInputElement>document.getElementById("tranDesc");
-      tranDesc.value = values.desc
-      // append tags to transaction form
-      const tranTags = <HTMLInputElement>document.getElementById("tranTags");
-      for (let i = 0; i < values.tags.length; i++) {
-        if (values.tags.length - 1 !== i) {
-          tranTags.value = tranTags.value + `${values.tags[i]},`;
-        } else {
-          tranTags.value = tranTags.value + `${values.tags[i]}`;
-        }
-      }
-      const tranButton = <HTMLButtonElement>document.getElementById("tranButton");
-      tranButton.innerHTML = "Edit Transaction"
+      this.clear();
       this.$form.attr("data-id", values.id);
+      this.overlay.openToggle("", this.getAccounts);
+      this.setAccount(values);
+      this.setType(values);
+      this.setInputs(values);
+      this.tranButton.innerHTML = "Edit Transaction"
+      this.editTransaction();
     }
   }
 
-  /*
-  * submits transaction and displays if action successful or not
-  *
-  */
-  public submitTransaction() : void {
-    let loader: HTMLElement = document.getElementById("transactionLoader");
-
-    this.$form.on("submit", (event) => {
-      event.preventDefault();
-      loader.style.visibility = "visible";
-      let formData : string = JSON.stringify($(this.$form).serializeArray());
-      $.post("/transactions", formData)
-      .fail( (req) => {
-        loader.style.visibility = "hidden";
-        // close overlay display and show message
-        this.overlay.toggle();
-        const error = new MessageBox("dashboardContainer", req.responseJSON["msg"]);
-        error.showError();
-        error.close(5);
-      })
-      .done( (response) => {
-        loader.style.visibility = "hidden";
-        // close display and show message
-        this.overlay.toggle();
-        const success = new MessageBox("dashboardContainer", response["msg"]);
-        success.showSuccess();
-        success.close(5);
-      })
-    });
+  public setAccount = (values: any) : void => {
+    // add accounts and select account associated with transaction
+    for (let i = 0; i < this.tranAccounts.length; i++) {
+      if (this.tranAccounts[i].innerHTML === values.accountName) {
+        this.tranAccounts[i].setAttribute("selected", "true");
+      }
+    }
+  }
+  public setType = (values: any) : void => {
+    switch (values.type) {
+      case "income":
+        this.tranTypeIncome.checked = true;
+        break;
+      case "expense":
+        this.tranTypeExpense.checked = true;
+        break;
+      default:
+        break;
+    }
   }
 
+  public setInputs(values: any) : void {
+    const tranDate = <HTMLInputElement>document.getElementById("tranDate");
+    tranDate.value = values.date;
+    const tranAmount = <HTMLInputElement>document.getElementById("tranAmount");
+    tranAmount.value = values.amount;
+    const tranDesc = <HTMLInputElement>document.getElementById("tranDesc");
+    tranDesc.value = values.desc
+    // add comma seperated tags to input field
+    const tranTags = <HTMLInputElement>document.getElementById("tranTags");
+    for (let i = 0; i < values.tags.length; i++) {
+      if (values.tags.length - 1 !== i) {
+        tranTags.value = tranTags.value + `${values.tags[i]},`;
+      } else {
+        tranTags.value = tranTags.value + `${values.tags[i]}`;
+      }
+    }
+  }
+
+  public submit() : void {
+    super.submit("/transactions", this.overlay);
+  }
+
+
   private editTransaction = () : any => {
-    let loader: HTMLElement = document.getElementById("transactionLoader");
+    const tranId = this.$form.attr("data-id");
     this.$form.on("submit", (event) => {
-      loader.style.visibility = "visible";
       $.ajax({
-        url: "/transactions",
+        url: `/transactions/${tranId}`,
         type: "PUT",
+        data: JSON.stringify($(this.$form).serializeArray())
       })
       .fail( (req) => {
       })
@@ -115,7 +98,7 @@ export default class TransactionForm {
   private getAccounts = () : void => {
     $.get('/accounts', (data: any) => {
       const selectAccount = document.getElementById("tranAccounts");
-      const accounts = selectAccount.getElementsByTagName('option');
+      const accounts = <NodeListOf<HTMLOptionElement>>selectAccount.getElementsByTagName('option');
       // prevent additional option nodes when accounts are not updated/added/removed
       if (data.length > accounts.length) {
         data.forEach( (account: any) => {
@@ -132,20 +115,18 @@ export default class TransactionForm {
     });
   }
 
-  // TODO: Move to Form base class
-  private clear = () : void =>  {
-    const inputs = <NodeListOf<HTMLInputElement>>document.getElementById(this.form)
-      .getElementsByTagName("input");
-    const accounts = document.getElementById("tranAccounts").getElementsByTagName("option");
-    for (let i = 0; i < accounts.length; i++) {
-      // remove selection for form
-      accounts[i].setAttribute("selected", "false");
-    }
-
+  public clear = () : void => {
+    const inputs = <NodeListOf<HTMLInputElement>>this.form.getElementsByTagName("input");
     for (let i = 0; i < inputs.length; i++) {
-      inputs[i].value = "";
+      if (inputs[i].getAttribute("type") != "radio") {
+        inputs[i].value = "";
+      }
     }
-    const tranButton = <HTMLButtonElement>document.getElementById("tranButton");
-    tranButton.innerHTML = "Add Transaction";
+    this.tranTypeExpense.checked = false;
+    this.tranTypeIncome.checked = false;
+    for (let i = 0; i < this.tranAccounts.length; i++) {
+      // remove selection for form
+      this.tranAccounts[i].setAttribute("selected", "false");
+    }
   }
 }

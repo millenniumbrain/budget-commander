@@ -24,27 +24,33 @@
               <span class="icon-text">Dashboard</span>
             </a>
           </li>
-          <li>
-            <a class="dash-link" href="#">
+          <li id="accountListButton">
+            <a  class="dash-link" href="#">
               <span class="icon fa fa-bank"></span>
               <span class="icon-text">Accounts</span>
             </a>
           </li>
-          <li id="tagList">
+          <li id="tagListButton">
             <a class="dash-link">
               <span class="icon fa fa-tags"></span>
               <span class="icon-text">Tags</span>
-              <div id="tagListSpinner" class="loader">
-              </div>
             </a>
           </li>
         </ul>
       </nav>
-      <div class="tags-list">
-        <ul id="tagsList">
+      <div class="item-list">
+        <ul id="tagList">
           <li id="tagListTitle">Tags</li>
-          <li class="add-tag-button">
+          <li class="item-add-button">
             <button id="addTag" class="primary">Add Tag</button>
+          </li>
+        </ul>
+      </div>
+      <div class="item-list">
+        <ul id="accountList">
+          <li id="accountListTitle">Accounts</li>
+          <li class="item-add-button">
+            <button id="addAccount" class="primary">Add Account</button>
           </li>
         </ul>
       </div>
