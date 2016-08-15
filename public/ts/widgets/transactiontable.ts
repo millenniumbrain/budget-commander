@@ -2,6 +2,7 @@
 import $ = require("jquery");
 import {Helper} from "../helper";
 import TransactionForm from "../forms/transactionform";
+import Transaction from "../models/transaction";
 
 export default class TransactionTable {
     public tranTable: Element = document.querySelector("#transactionActivity tbody");
@@ -9,28 +10,25 @@ export default class TransactionTable {
     public init  = () : void => {
       this.getTransactions();
       this.tranTable.addEventListener("click", (event) => {
-        // HACK: event.target is an event in TypeScript but in JavaScript
-        // it can also be a DOM Object
-        const arrow = event.target
-        let $arrow: JQuery = $(event.target);
-        if($arrow.prop("tagName") === "i" || $arrow.prop("tagName") === "I") {
-          this.showControls($arrow)
+        // cast to HTMLElement to allow for HTMLElement methods
+        const arrow = <HTMLElement>event.target
+        if (arrow.tagName === "i" || arrow.tagName === "I") {
+          this.showControls(arrow);
         }
 
       }, false);
     }
 
-    public showControls($element: JQuery) {
-      let $arrow: JQuery = $element;
-      let row: HTMLElement = <HTMLElement>document.getElementById($arrow.data("id"));
+    public showControls(arrow: HTMLElement) {
+      let row: HTMLElement = <HTMLElement>document.getElementById(arrow.getAttribute("data-id"));
       let controlsRow: HTMLTableRowElement = document.createElement("tr");
 
       controlsRow.setAttribute("class", "controls-row");
-      controlsRow.setAttribute("data-id", $arrow.data("id"));
+      controlsRow.setAttribute("data-id", arrow.getAttribute("data-id"));
 
       let editCell: HTMLTableDataCellElement = document.createElement("td");
       let editButton: HTMLElement = document.createElement("button");
-      editButton.setAttribute("value", $arrow.data("id"));
+      editButton.setAttribute("value", arrow.getAttribute("data-id"));
       editButton.setAttribute("class", "button");
       editButton.innerHTML = "Edit";
       editCell.appendChild(editButton);
@@ -38,22 +36,22 @@ export default class TransactionTable {
       let deleteCell: HTMLTableCellElement = document.createElement("td");
       let deleteButton: HTMLElement = document.createElement("button");
       deleteButton.setAttribute("class", "important");
-      deleteButton.setAttribute("value", $arrow.data("id"));
+      deleteButton.setAttribute("value", arrow.getAttribute("data-id"));
       deleteButton.innerHTML = "Delete";
       deleteCell.appendChild(deleteButton);
 
       controlsRow.appendChild(editCell);
       controlsRow.appendChild(deleteCell);
       // HACK: allow for multiple transction controls
-      if(!document.querySelector("tr.controls-row[data-id='" +$arrow.data("id") +"']")) {
-        $arrow.attr("class", "button fa fa-chevron-up table-arrow");
-        Helper.insertAfter(controlsRow, row);
-        this.editTransaction(editButton, $arrow.data("id"));
+      if(!document.querySelector(`tr.controls-row[data-id="${arrow.getAttribute("data-id")}"]`)) {
+        arrow.setAttribute("class", "button fa fa-chevron-up table-arrow");
+        row.insertAdjacentElement('afterend', controlsRow);
+        this.editTransaction(editButton, arrow.getAttribute("data-id"));
       } else {
         // get first instance of controls row and then remove it
         // set $arrow back to a down arrow
         document.getElementsByClassName("controls-row")[0].remove();
-        $arrow.attr("class", "button fa fa-chevron-down table-arrow");
+        arrow.setAttribute("class", "button fa fa-chevron-down table-arrow");
       }
     }
 
@@ -84,22 +82,16 @@ export default class TransactionTable {
     private transactionRow(elementId: string) : Object {
       const transactionRow: HTMLElement = <HTMLElement>document.getElementById(elementId);
       const columns = <NodeListOf<HTMLElement>>transactionRow.getElementsByTagName("td");
-      let transaction = {
-        id: "",
-        date: "",
-        type: "",
-        amount: "",
-        desc: "",
-        tags: Array<String>(),
-        accountName: ""
-      }
+      let transaction = new Transaction();
       transaction.id = elementId;
       transaction.date = columns[0].innerHTML;
       transaction.type = <string>columns[1].getAttribute("data-type");
       transaction.amount = <string>columns[1].getAttribute("data-amount");
       transaction.desc = columns[2].innerHTML;
+      console.log(transaction);
       const tags = <NodeListOf<HTMLTableDataCellElement>>document.querySelectorAll(`tr[id='${elementId}'] span.table-tag`);
       for (let i = 0; i < tags.length; i++) {
+        console.log(transaction);
         transaction.tags.push(tags[i].innerHTML);
       }
       transaction.accountName = columns[4].innerHTML;

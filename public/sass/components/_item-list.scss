@@ -49,12 +49,20 @@
 }
 
 .list-item  {
-  font-size: 1.3em;
+  position: relative;
+  font-size: 1.4em;
   border-bottom: 1px solid #eee;
   &:hover {
     background: #f4f4f4;
     cursor: pointer;
   }
+}
+
+.item-total {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  width: 22%;
 }
 
 #tagListTitle, #accountListTitle {

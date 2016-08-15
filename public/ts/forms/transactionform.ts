@@ -17,34 +17,34 @@ export default class TransactionForm extends Form {
     super(form);
   }
 
-  public init(values: any = null) : void {
-    if (values === null) {
+  public init(transaction: any = null) : void {
+    if (transaction === null) {
       this.clear();
       this.tranButton.innerHTML = "Add Transaction";
       this.overlay.openToggle(this.openTrigger, this.getAccounts);
       this.submit();
     } else {
       this.clear();
-      this.$form.attr("data-id", values.id);
+      this.$form.attr("data-id", transaction.id);
       this.overlay.openToggle("", this.getAccounts);
-      this.setAccount(values);
-      this.setType(values);
-      this.setInputs(values);
+      this.setAccount(transaction);
+      this.setType(transaction);
+      this.setInputs(transaction);
       this.tranButton.innerHTML = "Edit Transaction"
       this.editTransaction();
     }
   }
 
-  public setAccount = (values: any) : void => {
+  public setAccount = (transaction: any) : void => {
     // add accounts and select account associated with transaction
     for (let i = 0; i < this.tranAccounts.length; i++) {
-      if (this.tranAccounts[i].innerHTML === values.accountName) {
+      if (this.tranAccounts[i].innerHTML === transaction.accountName) {
         this.tranAccounts[i].setAttribute("selected", "true");
       }
     }
   }
-  public setType = (values: any) : void => {
-    switch (values.type) {
+  public setType = (transaction: any) : void => {
+    switch (transaction.type) {
       case "income":
         this.tranTypeIncome.checked = true;
         break;
@@ -56,20 +56,20 @@ export default class TransactionForm extends Form {
     }
   }
 
-  public setInputs(values: any) : void {
+  public setInputs(transaction: any) : void {
     const tranDate = <HTMLInputElement>document.getElementById("tranDate");
-    tranDate.value = values.date;
+    tranDate.value = transaction.date;
     const tranAmount = <HTMLInputElement>document.getElementById("tranAmount");
-    tranAmount.value = values.amount;
+    tranAmount.value = transaction.amount;
     const tranDesc = <HTMLInputElement>document.getElementById("tranDesc");
-    tranDesc.value = values.desc
+    tranDesc.value = transaction.desc
     // add comma seperated tags to input field
     const tranTags = <HTMLInputElement>document.getElementById("tranTags");
-    for (let i = 0; i < values.tags.length; i++) {
-      if (values.tags.length - 1 !== i) {
-        tranTags.value = tranTags.value + `${values.tags[i]},`;
+    for (let i = 0; i < transaction.tags.length; i++) {
+      if (transaction.tags.length - 1 !== i) {
+        tranTags.value = tranTags.value + `${transaction.tags[i]},`;
       } else {
-        tranTags.value = tranTags.value + `${values.tags[i]}`;
+        tranTags.value = tranTags.value + `${transaction.tags[i]}`;
       }
     }
   }
@@ -117,6 +117,7 @@ export default class TransactionForm extends Form {
 
   public clear = () : void => {
     const inputs = <NodeListOf<HTMLInputElement>>this.form.getElementsByTagName("input");
+    // reset all input values except for radio buttons
     for (let i = 0; i < inputs.length; i++) {
       if (inputs[i].getAttribute("type") != "radio") {
         inputs[i].value = "";

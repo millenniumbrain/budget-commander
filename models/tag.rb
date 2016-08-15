@@ -9,4 +9,17 @@ class Tag < Sequel::Model(:tags)
     self.uid = Druuid.gen
     super
   end
+
+  def transaction_total
+    total = 0
+    self.transactions.each do |t|
+      case t.type
+      when "expense"
+        total += -t.amount
+      when "income"
+        total += t.amount
+      end
+    end
+    format('%.2f', total)
+  end
 end

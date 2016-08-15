@@ -1,18 +1,15 @@
-interface JSONCallback {
-  () : void
-}
-
 export default class Overlay {
 
     public overlay: HTMLElement;
 
     constructor(overlay: string) {
-      this.overlay = document.getElementById(overlay);
+      this.overlay = <HTMLElement>document.getElementById(overlay);
     }
 
     public openToggle(openEl: string, callback: () => any ) : void {
+      // don't remember why I did this lol!
       if (openEl !== "" || false) {
-        const openElement: HTMLElement = document.getElementById(openEl);
+        const openElement: HTMLElement = <HTMLElement>document.getElementById(openEl);
         openElement.addEventListener("click", () => {
           this.overlay.style.visibility = "visible";
           callback();
@@ -24,7 +21,7 @@ export default class Overlay {
     }
 
     public closeToggle(el: string, callback: () => any) : void {
-        const closeElement: HTMLElement = document.getElementById(el);
+        const closeElement: HTMLElement = <HTMLElement>document.getElementById(el);
         closeElement.addEventListener("click", () => {
           if (callback() !== null) {
             callback();

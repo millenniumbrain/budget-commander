@@ -8,14 +8,15 @@ export default class Form {
   public form: HTMLFormElement;
 
   constructor(form: string) {
-    this.$form = $(form);
+    this.$form = $(form); // eventual just use new FormData instead...
     this.form = <HTMLFormElement>document.getElementById(form.slice(1, form.length));
   }
 
-  submit(url: string, overlay: Overlay) : void {
+  submit(url: string, overlay: any) : void {
     this.$form.on("submit", (event: Event) => {
       event.preventDefault();
       //loader.style.visibility = "visible";
+      // get the form data right when it is sent
       let formData: string = JSON.stringify($(this.$form).serializeArray());
       $.post(url, formData)
       .fail( (req) => {
@@ -32,7 +33,5 @@ export default class Form {
         overlay.close();
       })
     });
-  }
-
   }
 }

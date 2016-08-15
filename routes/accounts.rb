@@ -3,14 +3,14 @@ BudgetCommander.route('accounts') do |r|
   r.is ':id' do |id|
     r.get do
       response['Content-Type'] = 'application/json'
-      Account[:uid => id].to_json(:only => [:uid, :name])
+      Account[:uid => id].to_json(include: transaction_data, :only => [:uid, :name])
     end
   end
 
   r.is do
     r.get do
       response['Content-Type'] = 'application/json'
-      Account.filter(user_id: @current_user.id).to_json(:only => [:uid, :name])
+      Account.filter(user_id: @current_user.id).to_json(:include => :transaction_total, :only => [:uid, :name])
     end
 
     r.post do
