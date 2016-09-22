@@ -9,7 +9,6 @@ gem 'roda'
 #gem 'concurrent-ruby', require: 'concurrent'
 gem 'druuid'
 gem 'axlsx'
-gem 'curb'
 # => database
 gem 'sequel'
 

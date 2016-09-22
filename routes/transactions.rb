@@ -108,24 +108,55 @@ BudgetCommander.route('transactions') do |r|
         hash[item["name"]] = item["value"]
         hash
       end
-      transaction = Transaction.where(:uid => id).first
-      account = Account.filter(:name => updated_transaction["transaction_account"]).first
+      transaction = Transaction.select(:id, :amount, :description, :date, :amount, :type, :description, :account_id)
+      .where(:uid => id).first
+      account = Account.select(:name, :id).filter(:name => updated_transaction["transaction_account"]).first
       unless transaction.account_id == account.id
         transaction.account_id = account.id
       end
-      case updated_transaction["transaction_tags"].length
-      when 0
-      when 1
-        tags = []
-        updated_transaction["transaction_tags"].split(',').each do |t|
-          tags.push(Tag.where(:name => t).first)
+      # Create two array current tags and new tags if it exists in the database add to current tags using
+      # if it does not yet exist in the database add tags to new tags array
+      current_tags = []
+      new_tags = []
+      updated_transaction["transaction_tags"].split(',').each do |t|
+        if Tag.where(:name => t).count == 1
+          current_tags.push(Tag.select(:id, :uid, :name, :user_id).where(:name => t).first)
+        else
+          new_tags.push(Tag.new(:name => t, :user_id => @current_user.id))
+        end
+      end
+      # just add tags if no tags exist
+      if transaction.tags.empty?
+        i = 0
+        while i < current_tags.length
+          transaction.add_tag(current_tags[i])
+          i += 1
         end
       else
+        # compare the client array with the transaction array
+        # if tag doesn't exist in the transaction add to transaction
+        # else remove tag from transaction
+        current_tags.each do |tag|
+          pp tag
+          if !transaction.tags.include? tag
+            transaction.add_tag(tag)
+          end
+        end
+        transaction.tags.each do |tag|
+          if !current_tags.include? tag
+            transaction.remove_tag(tag)
+          end
+        end
+      end
+      i = 0
+      while i < new_tags.length
+        new_tags[i].save
+        transaction.add_tag(new_tags[i])
+        i += 1
       end
       transaction.amount = updated_transaction["transaction_amount"].to_f
       transaction.description = updated_transaction["transaction_description"]
       transaction.type = updated_transaction["transaction_type"]
-      updated_transaction["transaction_date"]
       transaction.date = DateTime.strptime(updated_transaction["transaction_date"], '%b %d %Y')
       transaction.account_id = account.id
       if transaction.modified?

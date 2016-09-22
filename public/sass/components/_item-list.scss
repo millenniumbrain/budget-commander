@@ -44,25 +44,32 @@
   height: 100%;
   width:100%;
   li {
-    padding: 12px 20px;
+    padding: 12px 5px 12px 20px;
   }
 }
 
 .list-item  {
   position: relative;
   font-size: 1.4em;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #ccc;
   &:hover {
     background: #f4f4f4;
     cursor: pointer;
   }
 }
 
+.item-name {
+  position: relative;
+  display: inline-block;
+  width: 50%;
+}
+
 .item-total {
   position: absolute;
   top: 12px;
-  right: 20px;
-  width: 22%;
+  right: 10px;
+  width: 45%;
+  text-align: right;
 }
 
 #tagListTitle, #accountListTitle {

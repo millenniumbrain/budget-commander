@@ -12,7 +12,9 @@ export default class Overlay {
         const openElement: HTMLElement = <HTMLElement>document.getElementById(openEl);
         openElement.addEventListener("click", () => {
           this.overlay.style.visibility = "visible";
-          callback();
+          if (callback != undefined) {
+            callback();
+          }
         }, false);
       } else {
         this.overlay.style.visibility = "visible";

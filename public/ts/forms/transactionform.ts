@@ -17,11 +17,13 @@ export default class TransactionForm extends Form {
     super(form);
   }
 
-  public init(transaction: any = null) : void {
-    if (transaction === null) {
+  public init(transaction?: any) : void {
+    //  remove input values if a transaction is undefined
+    if (transaction === undefined) {
       this.clear();
       this.tranButton.innerHTML = "Add Transaction";
-      this.overlay.openToggle(this.openTrigger, this.getAccounts);
+      this.getAccounts();
+      this.overlay.openToggle(this.openTrigger, null);
       this.submit();
     } else {
       this.clear();
@@ -82,6 +84,7 @@ export default class TransactionForm extends Form {
   private editTransaction = () : any => {
     const tranId = this.$form.attr("data-id");
     this.$form.on("submit", (event) => {
+      event.preventDefault();
       $.ajax({
         url: `/transactions/${tranId}`,
         type: "PUT",
@@ -101,11 +104,11 @@ export default class TransactionForm extends Form {
       const accounts = <NodeListOf<HTMLOptionElement>>selectAccount.getElementsByTagName('option');
       // prevent additional option nodes when accounts are not updated/added/removed
       if (data.length > accounts.length) {
-        data.forEach( (account: any) => {
+        for (let account of data) {
           let accountName: HTMLElement = document.createElement("option");
           accountName.innerHTML = account.name;
           selectAccount.appendChild(accountName);
-        });
+        };
       }
     })
     .fail( () => {
@@ -129,5 +132,6 @@ export default class TransactionForm extends Form {
       // remove selection for form
       this.tranAccounts[i].setAttribute("selected", "false");
     }
+    this.$form.off("submit")
   }
 }

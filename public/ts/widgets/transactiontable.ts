@@ -1,4 +1,5 @@
 /// <reference path="../jquery.d.ts" />
+/// <refrence path="superagent.d.ts" />
 import $ = require("jquery");
 import {Helper} from "../helper";
 import TransactionForm from "../forms/transactionform";
@@ -11,7 +12,7 @@ export default class TransactionTable {
       this.getTransactions();
       this.tranTable.addEventListener("click", (event) => {
         // cast to HTMLElement to allow for HTMLElement methods
-        const arrow = <HTMLElement>event.target
+        const arrow = <HTMLTableRowElement>event.target
         if (arrow.tagName === "i" || arrow.tagName === "I") {
           this.showControls(arrow);
         }
@@ -20,15 +21,16 @@ export default class TransactionTable {
     }
 
     public showControls(arrow: HTMLElement) {
+      let dataId = arrow.getAttribute("data-id");
       let row: HTMLElement = <HTMLElement>document.getElementById(arrow.getAttribute("data-id"));
       let controlsRow: HTMLTableRowElement = document.createElement("tr");
 
       controlsRow.setAttribute("class", "controls-row");
-      controlsRow.setAttribute("data-id", arrow.getAttribute("data-id"));
+      controlsRow.setAttribute("data-id", dataId);
 
       let editCell: HTMLTableDataCellElement = document.createElement("td");
       let editButton: HTMLElement = document.createElement("button");
-      editButton.setAttribute("value", arrow.getAttribute("data-id"));
+      editButton.setAttribute("value", dataId);
       editButton.setAttribute("class", "button");
       editButton.innerHTML = "Edit";
       editCell.appendChild(editButton);
@@ -36,17 +38,19 @@ export default class TransactionTable {
       let deleteCell: HTMLTableCellElement = document.createElement("td");
       let deleteButton: HTMLElement = document.createElement("button");
       deleteButton.setAttribute("class", "important");
-      deleteButton.setAttribute("value", arrow.getAttribute("data-id"));
+      deleteButton.setAttribute("value", dataId);
       deleteButton.innerHTML = "Delete";
       deleteCell.appendChild(deleteButton);
 
       controlsRow.appendChild(editCell);
       controlsRow.appendChild(deleteCell);
       // HACK: allow for multiple transction controls
-      if(!document.querySelector(`tr.controls-row[data-id="${arrow.getAttribute("data-id")}"]`)) {
+      if(!document.querySelector(`tr.controls-row[data-id="${dataId}"]`)) {
         arrow.setAttribute("class", "button fa fa-chevron-up table-arrow");
         row.insertAdjacentElement('afterend', controlsRow);
-        this.editTransaction(editButton, arrow.getAttribute("data-id"));
+        // add eventListener to edit button to that transaction row
+        this.editTransaction(editButton, dataId);
+        this.deleteTransaction(deleteButton, dataId)
       } else {
         // get first instance of controls row and then remove it
         // set $arrow back to a down arrow
@@ -55,7 +59,7 @@ export default class TransactionTable {
       }
     }
 
-    public editTransaction(button: HTMLElement, elementId: string) {
+    public editTransaction(button: HTMLElement, elementId: string) :void {
       button.addEventListener("click", () => {
         const transaction = this.transactionRow(elementId);
         const editTransactionForm = new TransactionForm("#newTransaction");
@@ -66,6 +70,16 @@ export default class TransactionTable {
     public deleteTransaction(button: HTMLElement, elementId: string) : void{
       let transactionRow = document.getElementById(elementId);
       button.addEventListener("click", () => {
+        $.ajax({
+          url: `/transactions/${elementId}`,
+          method: "DELETE"
+        })
+        .fail( () => {
+          
+        })
+        .done( () => {
+          
+        });
       }, false);
     }
 
@@ -88,11 +102,9 @@ export default class TransactionTable {
       transaction.type = <string>columns[1].getAttribute("data-type");
       transaction.amount = <string>columns[1].getAttribute("data-amount");
       transaction.desc = columns[2].innerHTML;
-      console.log(transaction);
       const tags = <NodeListOf<HTMLTableDataCellElement>>document.querySelectorAll(`tr[id='${elementId}'] span.table-tag`);
-      for (let i = 0; i < tags.length; i++) {
-        console.log(transaction);
-        transaction.tags.push(tags[i].innerHTML);
+      for (let tag of tags) {
+        transaction.tags.push(tag.innerHTML);
       }
       transaction.accountName = columns[4].innerHTML;
       return transaction;
@@ -102,7 +114,7 @@ export default class TransactionTable {
 
         const showTransactionsNum: HTMLElement = <HTMLElement>document.getElementById("shownSize");
         const transacitonNum: HTMLElement = <HTMLElement>document.getElementById("totalSize");
-        data.forEach( (transaction: any) => {
+        for (let transaction of data) {
             let transactionRow: HTMLTableRowElement = document.createElement("tr");
             transactionRow.setAttribute("id", transaction.uid);
             let dateCell: HTMLTableDataCellElement = document.createElement("td");
@@ -127,10 +139,10 @@ export default class TransactionTable {
               tagsCell.innerHTML = "";
             } else {
               // add all tags related to transaction
-              for (let i = 0; i < transaction.tags_data.length; i++) {
+              for (let tag of transaction.tags_data) {
                   let currentTag: HTMLElement = document.createElement("span");
                   currentTag.setAttribute("class", "table-tag");
-                  currentTag.innerHTML = transaction.tags_data[i]["name"];
+                  currentTag.innerHTML = tag["name"];
                   tagsCell.appendChild(currentTag);
               }
             }
@@ -151,7 +163,7 @@ export default class TransactionTable {
             transactionRow.appendChild(accountNameCell);
             transactionRow.appendChild(arrowCell);
             this.tranTable.appendChild(transactionRow);
-        });
+        }
         $.get('/transactions?count=true', (data) => {
             transacitonNum.innerHTML = data
         });

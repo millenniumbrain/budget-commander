@@ -10,9 +10,11 @@ import AccountList from "./components/accountlist";
 $(document).ready(() => {
   const tagList = new TagList("tagListButton", "tagList", "tagListTitle");
   tagList.openList("/tags");
+  tagList.createItem();
 
   const accountList = new AccountList("accountListButton", "accountList", "accountListTitle");
   accountList.openList("/accounts")
+  accountList.createItem();
 
   const addButton = new Dropdown("addButton", "addOptions");
   addButton.init();

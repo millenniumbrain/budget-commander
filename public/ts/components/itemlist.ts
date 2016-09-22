@@ -6,16 +6,12 @@ export default class ItemList {
   public button: HTMLElement;
   public list: HTMLElement;
   public listTitle: HTMLElement;
-  public addButton: HTMLElement;
+  public addButtonId: string;
 
   constructor(buttonId: string, listId: string, titleId: string) {
     this.button = <HTMLElement>document.getElementById(buttonId);
     this.list = <HTMLElement>document.getElementById(listId);
     this.listTitle = <HTMLElement>document.getElementById(titleId);
-  }
-
-  public init() {
-
   }
 
   public openList(url: string) : void {
@@ -42,8 +38,23 @@ export default class ItemList {
     }, false);
   }
 
-  public createItems(addButtonId: string) : void {
-    this.addButton = <HTMLElement>document.getElementById(addButtonId);
+  public createItem() : void {
+    let addItem = <HTMLElement>document.getElementById(this.addButtonId);
+    let addItemContainer = <HTMLElement>document.getElementById(this.addButtonId).parentElement;
+    // when clicked set content to editable
+    addItem.addEventListener("click", () => {
+      let newItem = document.createElement("li");
+      newItem.setAttribute("contenteditable", "true");
+      newItem.setAttribute("class", "list-item");
+      // when the "Enter/Return" is pressed (keyCode 8) set content editable to false
+      newItem.addEventListener("keydown", (event: KeyboardEvent) => {
+        if (event.keyCode == 13) {
+          newItem.setAttribute("contenteditable", "false");
+          // TODO: add ajax post event here
+        }
+      });
+      addItemContainer.insertAdjacentElement('beforebegin', newItem);
+    });
   }
 
   public generateItems(items: any) : void {
@@ -54,6 +65,7 @@ export default class ItemList {
       for (let i = 0; i < items.length; i++) {
         let item = document.createElement("li");
         let itemName = document.createElement("span");
+        itemName.setAttribute("class", "item-name");
         let total = document.createElement("span");
         total.setAttribute("class", "item-total");
         itemName.innerHTML = items[i]["name"];
