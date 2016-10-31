@@ -11,14 +11,10 @@ BudgetCommander.route('transactions') do |r|
         transactions_length.to_json
       else
         transactions = Transaction.filter(user_id: @current_user.id)
-                           .order(Sequel.desc(:transactions__id))
-                           .limit(25)
-                           .to_json(:include => :tags_data, only: [:uid,
-                                                                   :date,
-                                                                   :amount,
-                                                                   :type,
-                                                                   :description,
-                                                                   :account_id])
+                        .order(Sequel.desc(:transactions__id))
+                        .limit(25)
+                        .to_json(:include => :tags_data, 
+                                 only: [:uid, :date, :amount, :type, :description, :account_id])
         transactions = JSON.parse(transactions)
         transactions.each do |t|
           # TODO: Add option for DD MM YYYY
@@ -119,7 +115,7 @@ BudgetCommander.route('transactions') do |r|
       current_tags = []
       new_tags = []
       updated_transaction["transaction_tags"].split(',').each do |t|
-        if Tag.where(:name => t).count == 1
+        if !Tag.where(:name => t).first.nil?
           current_tags.push(Tag.select(:id, :uid, :name, :user_id).where(:name => t).first)
         else
           new_tags.push(Tag.new(:name => t, :user_id => @current_user.id))
@@ -137,7 +133,6 @@ BudgetCommander.route('transactions') do |r|
         # if tag doesn't exist in the transaction add to transaction
         # else remove tag from transaction
         current_tags.each do |tag|
-          pp tag
           if !transaction.tags.include? tag
             transaction.add_tag(tag)
           end

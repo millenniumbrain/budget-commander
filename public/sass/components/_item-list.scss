@@ -13,12 +13,13 @@
 }
 
 .item-list {
-  @include z-index-2;
+  @include z-index-6;
   position: fixed;
   margin-left: 15%;
   height: 100%;
   width: 20%;
   left: -20.5%;
+  top: 0;
 }
 
 .slide-left {
@@ -37,24 +38,25 @@
   @extend .slide;
   @include z-index-3;
   position: relative;
-  background: #fcfcfc;
+  background: #fff;
   list-style: none;
-  border-right: 1px solid #ccc;
-  border-left: 1px solid #ccc;
   height: 100%;
   width:100%;
   li {
     padding: 12px 5px 12px 20px;
+    
   }
 }
 
 .list-item  {
   position: relative;
   font-size: 1.4em;
-  border-bottom: 1px solid #ccc;
+  color: #3c5060;
+  border-bottom: 1px dashed #bdc7d7;
   &:hover {
-    background: #f4f4f4;
+    background: #172030;
     cursor: pointer;
+    color: #9EDBF5;
   }
 }
 
@@ -62,6 +64,7 @@
   position: relative;
   display: inline-block;
   width: 50%;
+  
 }
 
 .item-total {
@@ -74,19 +77,30 @@
 
 #tagListTitle, #accountListTitle {
   font-size: $larger;
-  border-bottom: 1px solid #ccc;
+  color: #3c5060;
   text-transform: uppercase;
 }
 
 .item-add-button {
   margin-top: 20px;
+  text-align: center;
   button {
-    width: 100%;
+    color: #3c5060;
+    background: #f9fafb;
+    width: 90%;
     font-size: $medium;
+    &:hover {
+      background: #273140 ;
+      color: #CEEDF9;
+    }
   }
+
 }
 
 #addTag {
+}
+
+#addAccount {
 
 }
 

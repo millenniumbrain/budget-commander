@@ -1,4 +1,3 @@
-import { Helper } from "../helper";
 import ItemList from "./itemlist";
 
 export default class TagList extends ItemList {

@@ -1,7 +1,6 @@
 /// <reference path="../jquery.d.ts" />
 /// <refrence path="superagent.d.ts" />
 import $ = require("jquery");
-import {Helper} from "../helper";
 import TransactionForm from "../forms/transactionform";
 import Transaction from "../models/transaction";
 
@@ -46,7 +45,7 @@ export default class TransactionTable {
       controlsRow.appendChild(deleteCell);
       // HACK: allow for multiple transction controls
       if(!document.querySelector(`tr.controls-row[data-id="${dataId}"]`)) {
-        arrow.setAttribute("class", "button fa fa-chevron-up table-arrow");
+        arrow.setAttribute("class", "fa fa-chevron-up table-arrow");
         row.insertAdjacentElement('afterend', controlsRow);
         // add eventListener to edit button to that transaction row
         this.editTransaction(editButton, dataId);
@@ -55,7 +54,7 @@ export default class TransactionTable {
         // get first instance of controls row and then remove it
         // set $arrow back to a down arrow
         document.getElementsByClassName("controls-row")[0].remove();
-        arrow.setAttribute("class", "button fa fa-chevron-down table-arrow");
+        arrow.setAttribute("class", "fa fa-chevron-down table-arrow");
       }
     }
 
@@ -127,7 +126,7 @@ export default class TransactionTable {
             dateCell.innerHTML = transaction.date;
             dateCell.setAttribute("class", "date-cell");
 
-            Helper.parseAmount(amountCell, transaction.type, transaction.amount);
+            this.parseAmount(amountCell, transaction.type, transaction.amount);
             amountCell.setAttribute("data-type", transaction.type);
             amountCell.setAttribute("data-amount", transaction.amount);
 
@@ -152,7 +151,7 @@ export default class TransactionTable {
 
             arrowCell.setAttribute("class", "arrow-cell");
             let downArrow: HTMLElement = document.createElement("i");
-            downArrow.setAttribute("class", "button fa fa-chevron-down table-arrow");
+            downArrow.setAttribute("class", "fa fa-chevron-down table-arrow");
             downArrow.setAttribute("data-id", transaction.uid);
             arrowCell.appendChild(downArrow);
 
@@ -168,5 +167,22 @@ export default class TransactionTable {
             transacitonNum.innerHTML = data
         });
         showTransactionsNum.innerHTML = data.length;
+    }
+    
+    public parseAmount = (el: HTMLElement, type: string, amount: string) : void  => {
+        switch(type) {
+            case "income":
+                el.setAttribute("class", "green-amount amount-cell");
+                el.innerHTML = `+ ${amount}`;
+                break;
+            case "expense":
+                el.setAttribute("class", "red-amount amount-cell");
+                el.innerHTML = `- ${amount}`;
+                break;
+            default:
+                el.setAttribute("class", "amount-cell");
+                el.innerHTML = amount
+                break;
+        }
     }
 }

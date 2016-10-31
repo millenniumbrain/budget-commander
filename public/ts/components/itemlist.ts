@@ -1,11 +1,11 @@
 /// <reference path="../jquery.d.ts" />
 import $ = require("jquery");
-import { Helper } from "../helper";
 
 export default class ItemList {
   public button: HTMLElement;
   public list: HTMLElement;
   public listTitle: HTMLElement;
+  public editMode: boolean;
   public addButtonId: string;
 
   constructor(buttonId: string, listId: string, titleId: string) {
@@ -29,32 +29,87 @@ export default class ItemList {
 
         })
         .done( () => {
+          this.button.setAttribute("class", "active");
+          this.list.setAttribute("class", "slide-right");
         })
-
-        this.button.setAttribute("class", "active");
-        this.list.setAttribute("class", "slide-right");
       }
 
     }, false);
   }
 
-  public createItem() : void {
+  public createItem(callback?: () => any) : void {
     let addItem = <HTMLElement>document.getElementById(this.addButtonId);
     let addItemContainer = <HTMLElement>document.getElementById(this.addButtonId).parentElement;
     // when clicked set content to editable
     addItem.addEventListener("click", () => {
       let newItem = document.createElement("li");
-      newItem.setAttribute("contenteditable", "true");
       newItem.setAttribute("class", "list-item");
+      let itemName = document.createElement("span");
+       itemName.setAttribute("class", "item-name");
+      let itemTotal = document.createElement("span")
+      itemTotal.setAttribute("class", "item-total");
+      newItem.appendChild(itemName);
+      newItem.appendChild(itemTotal);
+      
+      itemName.setAttribute("contenteditable", "true");
+      itemName.focus();
       // when the "Enter/Return" is pressed (keyCode 8) set content editable to false
-      newItem.addEventListener("keydown", (event: KeyboardEvent) => {
-        if (event.keyCode == 13) {
-          newItem.setAttribute("contenteditable", "false");
-          // TODO: add ajax post event here
+      itemName.addEventListener("keydown", (event: KeyboardEvent) => {
+        if (itemName.innerHTML.length > 0 && event.keyCode == 9) {
+          itemName.setAttribute("contenteditable", "false");
+          itemTotal.setAttribute("contenteditable", "true");
+          itemTotal.focus();
+          event.preventDefault();
+        } else if (event.keyCode == 13) {
+          itemName.setAttribute("contenteditable", "false");
+          itemTotal.setAttribute("contenteditable", "true");
+          itemTotal.focus();
+          event.preventDefault();         
         }
-      });
+      }, false);
+      
+      itemTotal.addEventListener("keydown", (event: KeyboardEvent) => {
+        itemTotal.setAttribute("contenteditable", "true");
+        if (itemTotal.innerHTML.length > 0 && event.keyCode == 9) {
+            if (/([+-]?([0-9]*[.])?[0-9])/.test(itemTotal.innerHTML)) {
+              itemTotal.setAttribute("contenteditable", "false");
+              this.parseAmount(itemTotal, itemTotal.innerHTML);
+              itemTotal.blur();
+            } else {
+              itemTotal.setAttribute("style", "border: 1px solid red; outline: 0px solid transparent;");
+              itemTotal.innerHTML = "";
+            }
+        } else if (event.keyCode == 13) {
+            if (/([+-]?([0-9]*[.])?[0-9])/.test(itemTotal.innerHTML)) {
+              itemTotal.setAttribute("contenteditable", "false");
+              this.parseAmount(itemTotal, itemTotal.innerHTML);
+              itemTotal.blur();
+            } else {
+              itemTotal.setAttribute("style", "border: 1px solid red; outline: 0px solid transparent;");
+              itemTotal.innerHTML.replace(/\\u000D/g,'');
+              itemTotal.innerHTML = "";
+            }
+        }
+      }, false);
       addItemContainer.insertAdjacentElement('beforebegin', newItem);
-    });
+    }, false);
+  }
+  
+  public parseAmount(el: HTMLSpanElement, amount: any) : void  {
+      if (amount >= "0") {
+          el.setAttribute("class", "green-amount item-total");
+          // will return a number like + 23.45
+          el.innerHTML = `+ ${amount}`
+      } else {
+          let absAmount: string = Math.abs(amount).toString();
+          el.setAttribute("class", "red-amount item-total");
+          // will return a number like - 30.30
+          el.innerHTML = `- ${absAmount}`;
+      }
+  }
+  
+  public editItems() : void {
+    
   }
 
   public generateItems(items: any) : void {

@@ -29,18 +29,18 @@
             <div class="form-control-group flex-grid flex-1-2">
               <div class="flex-cell">
                 <label>Date</label>
-                <input id="tranDate" type="text" name="transaction_date">
+                <input id="tranDate" type="text" name="transaction_date" pattern="[A-Za-z]{3}\s([0-9]{2})+\s[0-9]{4}">
               </div>
               <div class="flex-cell">
                 <label>Amount</label>
-                <input id="tranAmount" type="text" name="transaction_amount">
+                <input id="tranAmount" type="text" name="transaction_amount" pattern="[+-]([0-9]*[.])?[0-9]+">
               </div>
             </div>
             <div class="form-control-group">
               <div class="flex-grid flex-full">
                 <div class="flex-cell flex-fit">
                   <label>Description</label>
-                  <input id="tranDesc" type="text" name="transaction_description">
+                  <input id="tranDesc" type="text" name="transaction_description" pattern="\w+|[^\d\s:]">
                 </div>
               </div>
             </div>
@@ -48,7 +48,7 @@
               <div class="flex-grid flex-full">
                 <div class="flex-cell flex-fit">
                   <label>Tags</label>
-                  <input id="tranTags" type="text" name="transaction_tags">
+                  <input id="tranTags" type="text" name="transaction_tags" pattern="(\w+\,)|[^a-zA-Z\d\s:]|\w+">
                 </div>
               </div>
             </div>
@@ -95,18 +95,22 @@
       </div>
     </div>
     <div id="totals">
-      <div class="flex-grid flex-fit flex-1-3">
+      <div class="flex-grid flex-fit">
         <div class="flex-cell">
-          <h2>Networth</h2>
           <div id="networthTotal"></div>
+          <h2>Networth</h2>
         </div>
         <div class="flex-cell">
-          <h2>Income this Month</h2>
+          <div id="budgetTotal" class="total-amount green-amount">+ 0.00</div>
+          <h2>Budget Balance</h2>
+        </div>
+        <div class="flex-cell">
           <div id="incomeTotal"></div>
+          <h2>Income this Month</h2>
         </div>
         <div class="flex-cell">
-          <h2>Expense this Month</h2>
           <div id="expenseTotal"></div>
+          <h2>Expense this Month</h2>
         </div>
       </div>
       </div>
@@ -133,7 +137,7 @@
           <th class="amount-cell">Amount</th>
           <th class="description-cell">Description</th>
           <th class="tags-cell">Tags</th>
-          <th class="account-cell">Account Name</th>
+          <th class="account-cell">Account</th>
           <th></th>
         </thead>
         <tbody>

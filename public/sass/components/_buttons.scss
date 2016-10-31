@@ -19,14 +19,23 @@
 .primary {
   @extend .button;
   border: none;
-  color: $white;
-  background: $dark-gray;
+  color:  #9EDBF5;
+  background: #273140;
   &:hover {
     background: #4a4a4a;
   }
 
   &:active {
     background: #181818;
+  }
+}
+
+.secondary {
+  @extend .button;
+  background: #19B5FE;
+  color: #fff;
+  &:hover {
+    background: #4183D7;
   }
 }
 

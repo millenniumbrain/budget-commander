@@ -17,7 +17,14 @@ class Login {
       event.preventDefault();
       //loader.style.visibility = "visible";
       let formData: string = JSON.stringify($(this.$form).serializeArray());
-      $.post(this.url, formData)
+      $.ajax({
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        }
+        url: this.url, 
+        type: "POST", 
+        data: formData
+      })
       .fail( (req) => {
         const error = new MessageBox("login", req.responseJSON["msg"]);
         error.showError();

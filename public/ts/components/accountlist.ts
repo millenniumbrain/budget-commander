@@ -1,6 +1,5 @@
-/// <reference path="../jquery.d.ts" />
+
 import $ = require("jquery");
-import { Helper } from "../helper";
 import ItemList from "./itemlist";
 
 export default class AccountList extends ItemList {

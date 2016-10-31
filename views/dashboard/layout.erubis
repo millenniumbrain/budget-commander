@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/normalize.css" type="text/css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700" type="text/css">
+   <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates" rel="stylesheet">  
     <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="/css/dashboard.css" type="text/css">
   </head>
@@ -14,7 +14,13 @@
       <div class="user-bar flex-grid flex-fit flex-1-3">
         <div class="flex-cell"></div>
         <div class="flex-cell"></div>
-        <div class="flex-cell"></div>
+        <div id="userProfile" class="flex-cell">
+          <span id="userOptions">
+            <img id="userIcon" src="/img/user-icon.png">
+            <span id="username">William Wilson</span>
+          </span>
+          <button id="logoutButton" class="secondary">Logout</button>
+        </div>
       </div>
       <nav class="nav">
         <ul id="nav-menu">

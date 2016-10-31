@@ -3,7 +3,9 @@
   "version": "0.0.3",
   "description": "Group budget and feedback application",
   "main": "gulpfile.js",
-  "dependencies": {},
+  "dependencies": {
+    "@types/jquery": "^2.0.32"
+  },
   "devDependencies": {
     "browserify": "^12.0.1",
     "gulp": "^3.9.0",
@@ -12,6 +14,7 @@
     "jquery": "^2.2.3",
     "superagent": "^2.2.0",
     "tsify": "^0.14.2",
+    "typescript": "^2.0.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"

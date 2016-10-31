@@ -6,7 +6,8 @@ BudgetCommander.route('login') do |r|
     end
 
     r.post do
-      response['Content-Type'] = 'application/json'
+      response['Accept'] = 'application/json;charset=utf-8'
+      response['Content-Type'] = 'application/json;charset=utf-8'
       user = JSON.parse(env['rack.input'].gets)
       user = user.each_with_object({}) do |item, hash|
         hash[item["name"]] = item["value"]

@@ -65,6 +65,7 @@ class BudgetCommander < Roda
   Roda.plugin JsonWebToken
 
   Dir['./routes/**/*.rb'].each { |f| require f }
+  Dir['./lib/**/*.rb'].each { |f| require f }
 
   route do |r|
     r.multi_route

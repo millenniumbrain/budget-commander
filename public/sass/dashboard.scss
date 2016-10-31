@@ -86,14 +86,20 @@
 }
 
 .user-bar {
-    background: $dark-gray;
-    height: 72px;
-    position: fixed;
+    position: relative;
+    padding: 20px;
+    background: #f0f6fd;
+    width: 80;
+    margin-left: 15%;
+    height: 84px;
+    padding: 20px;
     left: 0;
     right: 0;
     top: 0;
     list-style: none;
     @include z-index-4;
+    align-items: center;
+    justify-content: center;
 }
 
 #user-menu {
@@ -125,7 +131,7 @@
 }
 
 .user-bar-component {
-  position: relative;
+
   top: 24px;
   img {
     position: relative;
@@ -142,25 +148,92 @@
   margin-top: 2px;
 }
 
+#userProfile {
+  text-align: center;
+  position: relative;
+}
+
+#userOptions {
+  @include no-select;
+  @include vertical-align($position: relative);
+  display: inline-block;
+  top: 24px;
+  width: 240px;
+  height: 48px;
+  right: 10%;
+  border-radius: 24px;
+  background: #fff;
+  cursor: pointer;
+  &:hover {
+    color: #fff;
+    background: #19B5FE;
+  }
+  
+  &:hover:after {
+    color: #fff;
+  }
+  
+  &:after {
+    font-family: "FontAwesome";
+    content: "\f078";
+    @include vertical-align($position: absolute);
+    right: 20px;
+    font-size: 1.25em;
+  }
+  
+  @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 2) {
+    
+  }
+  /* Desktops and laptops ----------- */
+  @media only screen  and (min-width : 1224px) {
+    right: 15%;
+  }
+
+  /* Large screens ----------- */
+  @media only screen  and (min-width : 1824px) {
+  }
+}
+
+#userIcon {
+  @include vertical-align($position: absolute);
+  width: 48px;
+  height: 48px;
+  border-radius: 48px;
+  left: 0px;
+}
+
+#username {
+  @include vertical-align($position: absolute);
+  font-size: 1.35em;
+  left: 70px;
+}
+
+#logoutButton {
+  @include vertical-align($position: absolute);
+  right: 10px;
+  font-size: 1.1em;
+  border-radius: 100px;
+}
+
+
 .nav {
-  background: $gray;
+  background: #273140;
   width: 15%;
   height: 100%;
-  border-right: 1px solid #ccc;
   position: fixed;
-  top: 72px;
-  @include z-index-3;
+  top: 0;
+  @include z-index-7;
 }
 
 #nav-menu {
   li {
+    font-size: 1.2em;
     width: 100%;
-    border-bottom: 1px solid #ccc;
   }
 }
 
 .dash-link {
-  color: $dark-gray;
+  color: #CEEDF9;
   display: block;
   width: 100%;
   height: 100%;
@@ -168,15 +241,16 @@
   text-align: left;
   padding: 15px 15px 15px 0;
   &:hover, &:focus {
-    width: 94%;
-    background: $light-gray;
+    color: #43B8E9;
+    width: 93%;
+    background: #172030;
   }
 }
 
 .active {
   a {
     width: 94%;
-    background: $light-gray;
+    background: #172030;
   }
 }
 
@@ -187,13 +261,11 @@
 
 .icon-text {
   padding-left: 5px;
-  font-size: $medium;
-  text-transform: uppercase;
+  font-size: 1.3em;
 }
 
 #dashboardContainer {
   margin-left: 15%;
-  margin-top: 72px;
   height: 100%;
   width: calc(100% - 15%);
 }
@@ -239,6 +311,9 @@
   width: 100%;
   position: relative;
   bottom: 2px;
+  fieldset {
+    display: inline-block;
+  }
   input[type=text] {
     padding: 10px 15px;
   }
@@ -266,6 +341,7 @@
   @media only screen  and (min-width : 1824px) {
   /* Styles */
   }
+  
   li {
     text-transform: uppercase;
     cursor: pointer;
@@ -307,13 +383,23 @@
 
 #totals {
   width: 90%;
-  text-align: center;
-  margin: 20px auto 40px;
+  text-align: left;
+  margin: 0 auto;
   h2 {
+    //text-transform: uppercase;
     color: $dark-gray;
     font-weight: normal;
-    text-transform: uppercase;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+  }
+  .flex-cell {
+    border: 1px solid #CED3D9;
+    background: #fff;
+    padding: 10px;
+    margin: 0 10px;
+  }
+  
+  .flex-grid {
+    width: 100%;
   }
 }
 
@@ -323,21 +409,40 @@
 
 .seperator {
   width: 90%;
-  border: 1px solid $gray;
   margin: 40px auto;
 }
 
 .transactions {
-  width: 100%;
+  width: 95%;
+  margin: 0 auto;
 }
 
 .widget-controls {
-  font-size: $base-font-size;
-  width: 90%;
+  background: #f9fafb;
+  font-size: 1.4em;
+  width: 90.24%;
   text-transform: uppercase;
-  margin: 20px auto;
+  margin: 0 auto;
+  padding: 15px;
+  border: 1px solid #CED3D9;
+  border-bottom: none;
+  height: 36px;
+  line-height: 36px;
   h3 {
+    color: #4d5664;
     font-weight: normal;
+  }
+  
+  @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 2) {
+  }
+  /* Desktops and laptops ----------- */
+  @media only screen  and (min-width : 1224px) {
+    width: 89.80%;
+  }
+
+  /* Large screens ----------- */
+  @media only screen  and (min-width : 1824px) {
+    width: 90.24%;
   }
 }
 
@@ -346,9 +451,10 @@
 }
 
 #transactionActivity {
-  width: 90%;
+  background: #fff;
+  width: 92.3%;
   margin: 0 auto;
-
+  border: 1px solid #CED3D9;
 }
 
 #numTransactions {
@@ -363,6 +469,7 @@
 
 .date-cell {
   text-align: center;
+  text-transform: uppercase;
 }
 
 .amount-cell {
@@ -389,7 +496,7 @@
   text-align: left;
   span {
     border: 1px solid #ddd;
-    background: $gray;
+    background: #f9fafb;
     margin: 0 5px;
     padding: 8px 10px;
     border-radius: 2px;
@@ -403,13 +510,18 @@
   text-align: left;
 }
 
-.table-arrow {
-  cursor: pointer;
+.arrow-cell {
+  text-align: right;
+  i {
+   // border: 1px solid;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
 }
 
 .controls-row {
-  border: none;
-
+  //border-bottom: 1px dashed #bdc7d7;
+  width: 100%;
   td {
     button {
       width: 100%;

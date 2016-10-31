@@ -2,7 +2,7 @@ table {
   thead {
     color: $dark-gray;
     tr {
-      border-bottom: 1px solid $dark-gray;
+      border-bottom: 1px solid #bdc7d7;
     }
   }
 
@@ -11,12 +11,13 @@ table {
     font-size: 1.5em;
     text-transform: uppercase;
     font-weight: normal;
+    color: #4d5664;
   }
 
   tbody {
-    color: $dark-gray;
+    color: #3c5060;
     tr {
-        border-bottom: 1px solid #c2c2c2;
+        border-bottom: 1px dashed #bdc7d7;
     }
   }
 

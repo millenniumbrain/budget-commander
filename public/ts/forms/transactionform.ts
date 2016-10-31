@@ -93,6 +93,7 @@ export default class TransactionForm extends Form {
       .fail( (req) => {
       })
       .done( () => {
+        this.overlay.toggle();
       });
     });
 
