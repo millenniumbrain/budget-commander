@@ -1,6 +1,3 @@
-/// <reference path="../jquery.d.ts" />
-
-import $ = require("jquery");
 
 export default class Total {
     public getAllTotals() : void {

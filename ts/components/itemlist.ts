@@ -1,6 +1,3 @@
-/// <reference path="../jquery.d.ts" />
-import $ = require("jquery");
-
 export default class ItemList {
   public button: HTMLElement;
   public list: HTMLElement;

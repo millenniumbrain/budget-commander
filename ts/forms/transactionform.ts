@@ -1,5 +1,3 @@
-/// <reference path="../jquery.d.ts" />
-import $ = require("jquery");
 import Overlay from "../components/overlay";
 import MessageBox from "../components/messagebox";
 import Form from "./form";

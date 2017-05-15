@@ -1,6 +1,4 @@
-/// <reference path="../jquery.d.ts" />
-/// <refrence path="superagent.d.ts" />
-import $ = require("jquery");
+
 import TransactionForm from "../forms/transactionform";
 import Transaction from "../models/transaction";
 
@@ -101,7 +99,7 @@ export default class TransactionTable {
       transaction.type = <string>columns[1].getAttribute("data-type");
       transaction.amount = <string>columns[1].getAttribute("data-amount");
       transaction.desc = columns[2].innerHTML;
-      const tags = <NodeListOf<HTMLTableDataCellElement>>document.querySelectorAll(`tr[id='${elementId}'] span.table-tag`);
+      const tags: any = document.querySelectorAll(`tr[id='${elementId}'] span.table-tag`);
       for (let tag of tags) {
         transaction.tags.push(tag.innerHTML);
       }

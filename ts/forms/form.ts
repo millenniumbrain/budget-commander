@@ -1,6 +1,3 @@
-/// <reference path="../jquery.d.ts" />
-import $ = require("jquery");
-
 import MessageBox from "../components/messagebox";
 
 export default class Form {

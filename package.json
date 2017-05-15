@@ -1,39 +1,28 @@
 {
   "name": "budget-commander",
-  "version": "0.0.3",
-  "description": "Group budget and feedback application",
+  "version": "1.0.0",
+  "description": "",
   "main": "gulpfile.js",
-  "dependencies": {
-    "@types/jquery": "^2.0.32"
-  },
-  "devDependencies": {
-    "browserify": "^12.0.1",
-    "gulp": "^3.9.0",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.1",
-    "jquery": "^2.2.3",
-    "superagent": "^2.2.0",
-    "tsify": "^0.14.2",
-    "typescript": "^2.0.3",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.7.0"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/millenniumbrain/crash-nebula-boilerplate.git"
+    "url": "git+https://github.com/millenniumbrain/budget-commander.git"
   },
-  "keywords": [
-    "ruby",
-    "coffee-script"
-  ],
-  "author": "Millennium Brain",
-  "license": "MIT",
+  "author": "",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/millenniumbrain/crash-nebula-boilerplate/issues"
+    "url": "https://github.com/millenniumbrain/budget-commander/issues"
   },
-  "homepage": "https://github.com/millenniumbrain/crash-nebula-boilerplate#readme"
+  "homepage": "https://github.com/millenniumbrain/budget-commander#readme",
+  "devDependencies": {
+    "@types/jquery": "^2.0.41",
+    "jquery": "^3.2.1",
+    "source-map-loader": "^0.2.1",
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.2.2",
+    "webpack": "^2.3.3",
+    "webpack-dev-server": "2"
+  }
 }

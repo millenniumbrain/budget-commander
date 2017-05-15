@@ -1,5 +1,4 @@
 
-import $ = require("jquery");
 import ItemList from "./itemlist";
 
 export default class AccountList extends ItemList {

@@ -1,4 +1,4 @@
-/// <reference path="./jquery.d.ts" />
+
 import $ = require("jquery");
 import TagList from "./components/taglist";
 import TransactionTable from "./widgets/transactiontable";

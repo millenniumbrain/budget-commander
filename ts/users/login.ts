@@ -1,5 +1,3 @@
-/// <reference path="../jquery.d.ts" />
-import $ = require("jquery");
 import MessageBox from "../components/messagebox";
 
 class Login {
@@ -20,7 +18,7 @@ class Login {
       $.ajax({
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
-        }
+        },
         url: this.url, 
         type: "POST", 
         data: formData
